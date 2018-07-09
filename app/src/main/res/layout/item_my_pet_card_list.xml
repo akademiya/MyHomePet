@@ -2,14 +2,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="60dp">
+    android:layout_height="75dp"
+    android:background="@drawable/background_selectable_item"
+    android:foreground="?android:selectableItemBackground">
 
     <ImageView
         android:id="@+id/img_pet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_height="60dp"
         android:layout_centerVertical="true"
-        android:src="@drawable/ic_pets" />
+        android:background="@drawable/circle_decorator"
+        android:scaleType="center"
+        android:src="@drawable/ic_pets"
+        android:tint="@color/ic_normal_dark" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,22 +27,38 @@
 
         <TextView
             android:id="@+id/category_pet"
+            style="@style/TextStyle_SubHeader_Accent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Category" />
 
         <TextView
             android:id="@+id/main_action"
+            style="@style/TextStyle_Body2_Primary_Dark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Give pet" />
+
+        <TextView
+            android:id="@+id/country"
+            style="@style/TextStyle_Caption_Dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Kyiv" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/period"
+        style="@style/TextStyle_Body2_Primary_Dark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
         android:layout_centerVertical="true"
         tools:text="5 days" />
+
+    <View
+        style="@style/AppTheme.HorizontalViewDivider"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="92dp" />
 </RelativeLayout>

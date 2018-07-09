@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/accent_selected" android:state_selected="true" />
+    <item android:drawable="@color/accent_backgr_color" android:state_pressed="true"/> <!--для версии 4.4.2-->
+    <item android:drawable="@color/white"/>
+</selector>

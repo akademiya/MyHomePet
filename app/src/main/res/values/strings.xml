@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MyHomePet</string>
+
+    <string name="my_pets">My pets</string>
 </resources>

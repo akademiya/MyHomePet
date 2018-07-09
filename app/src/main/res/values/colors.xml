@@ -3,4 +3,17 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="white">#FFF</color>
+    <color name="accent_selected">#D7EDC1</color>
+
+    <color name="accent_backgr_color">#0F000000</color> <!--6% of black-->
+    <color name="ic_normal_dark">#8B8B8B</color> <!--54% of black-->
+    <color name="divider_color">#1E000000</color> <!--12% of black-->
+
+    <color name="accent_darker">#689F38</color> <!--Light Green 700-->
+    <color name="text_primary_dark">#DF000000</color> <!--87% of black-->
+    <color name="text_secondary_dark">#8B000000</color> <!--54% of black-->
+    <color name="text_disabled_dark">#61000000</color> <!--38% of black-->
+
+    <color name="black_effective">#2a2a2a</color>
 </resources>
