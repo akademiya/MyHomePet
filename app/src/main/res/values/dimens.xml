@@ -15,9 +15,15 @@
     <dimen name="receipt_portrait_size">96dp</dimen>
     <dimen name="receipt_item_height">48dp</dimen>
     <dimen name="base_item_height">56dp</dimen>
+    <dimen name="margin_16_24">16dp</dimen>
 
     // Toolbar
     <dimen name="toolbar_title_margin">72dp</dimen>
     <dimen name="toolbar_height">56dp</dimen>
     <dimen name="menu_icon_margin">8dp</dimen>
+
+    // Buttons
+    <dimen name="icon_button_size">48dp</dimen>
+    <dimen name="icon_button_padding">12dp</dimen>
+    <dimen name="button_height">56dp</dimen>
 </resources>
