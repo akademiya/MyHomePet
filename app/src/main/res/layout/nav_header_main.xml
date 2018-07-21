@@ -1,6 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@color/text_disabled_dark">
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/iv_lock"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/circle_decorator"
+        android:backgroundTint="@color/white"
+        android:padding="8dp"
+        android:src="@drawable/ic_lock_drawer"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <LinearLayout
+        android:id="@+id/owner_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        android:layout_toStartOf="@+id/iv_lock"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/owner_name"
+            style="@style/TextStyle_Body2_Primary_Dark"
+            android:layout_marginBottom="4dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            tools:text="Owner" />
+
+        <TextView
+            android:id="@+id/owner_country"
+            style="@style/TextStyle_Body2_Primary_Dark"
+            android:layout_marginBottom="4dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            tools:text="Kiev" />
+    </LinearLayout>
+</RelativeLayout>

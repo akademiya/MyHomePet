@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -15,16 +15,30 @@
         app:contentInsetEnd="0dp"
         app:contentInsetStart="0dp">
 
-        <TextView
-            style="@style/Toolbar.TitleText"
-            android:text="@string/my_pets" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/title_list_pets"
+                style="@style/Toolbar.TitleText"
+                android:text="@string/my_pets" />
+
+            <android.support.v7.widget.SearchView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                app:queryHint="Search"
+                app:searchIcon="@drawable/ic_search_white" />
+        </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
         android:id="@+id/list_my_pets"
-        tools:listitem="@layout/item_my_pet_card_list"
-        android:layout_height="wrap_content"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/item_my_pet_card_list" />
 
 </LinearLayout>
