@@ -2,12 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
+        <item android:id="@+id/nav_main"
+            android:title="@string/main"
+            android:icon="@drawable/ic_main"/>
+
         <item
             android:id="@+id/nav_my_pet"
+            android:icon="@drawable/ic_pets"
             android:title="@string/my_pets" />
 
         <item
             android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings"
             android:title="@string/settings" />
     </group>
 

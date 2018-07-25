@@ -1,4 +1,4 @@
-package com.vadym.adv.myhomepet
+package com.vadym.adv.myhomepet.ui.login
 
 import android.app.ProgressDialog
 import android.content.Intent
@@ -6,13 +6,15 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
+import com.vadym.adv.myhomepet.MainActivity
+import com.vadym.adv.myhomepet.R
 import kotlinx.android.synthetic.main.view_signup.*
 
 class SignupActivity : AppCompatActivity() {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.vadym.adv.myhomepet.R.layout.view_signup)
+        setContentView(R.layout.view_signup)
 
         btn_signup.setOnClickListener { signup() }
 
@@ -20,7 +22,7 @@ class SignupActivity : AppCompatActivity() {
             val intent = Intent(applicationContext, LoginActivity::class.java)
             startActivity(intent)
             finish()
-            overridePendingTransition(com.vadym.adv.myhomepet.R.anim.push_left_in, com.vadym.adv.myhomepet.R.anim.push_left_out)
+            overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)
         }
     }
 

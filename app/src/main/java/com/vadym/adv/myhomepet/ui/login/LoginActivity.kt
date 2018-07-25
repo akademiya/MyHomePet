@@ -1,4 +1,4 @@
-package com.vadym.adv.myhomepet
+package com.vadym.adv.myhomepet.ui.login
 
 import android.app.Activity
 import android.app.ProgressDialog
@@ -7,13 +7,15 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
+import com.vadym.adv.myhomepet.MainActivity
+import com.vadym.adv.myhomepet.R
 import kotlinx.android.synthetic.main.view_login.*
 
 class LoginActivity : AppCompatActivity() {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.vadym.adv.myhomepet.R.layout.view_login)
+        setContentView(R.layout.view_login)
 
         btn_login.setOnClickListener { login() }
 

@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity
 class TestForVisual : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setContentView(R.layout.view_my_pet_card_edit)
+        setContentView(R.layout.view_login)
         super.onCreate(savedInstanceState)
     }
 }
