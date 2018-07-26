@@ -45,8 +45,8 @@ abstract class BaseActivity : AppCompatActivity(), IView {
     @LayoutRes
     abstract fun setLayout(): Int
     abstract fun init(savedInstanceState: Bundle?)
-    abstract fun onStartScreen()
-    abstract fun stopScreen()
+//    abstract fun onStartScreen()
+//    abstract fun stopScreen()
 
 
     fun showProgress(msgResId: Int,
@@ -106,8 +106,8 @@ abstract class BaseActivity : AppCompatActivity(), IView {
         loadError(e.localizedMessage)
     }
 
-    override fun onStop() {
-        super.onStop()
-        stopScreen()
-    }
+//    override fun onStop() {
+//        super.onStop()
+//        stopScreen()
+//    }
 }

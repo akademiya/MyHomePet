@@ -19,8 +19,9 @@
         </activity>
 
         <activity android:name=".ui.login.SignupActivity"/>
-        <activity android:name=".BaseActivity"/>
+        <!--<activity android:name=".BaseActivity"/>-->
         <activity android:name=".MainActivity"/>
+        <activity android:name=".ui.info.InfoView"/>
 
         <activity
             android:name=".TestForVisual"

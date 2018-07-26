@@ -14,6 +14,16 @@
     <string name="share_body">Share</string>
     <string name="share_by">Share content</string>
 
+
+    // INFO
+    <string name="info_view"><b>What is MVP Design Pattern?</b>\nModel View Presenter is an architectural pattern used to encourage/facilitate separation of concern in software projects.
+\n\nMVP improves application architecture and facilitate unit testing.
+\n\nMVP Architecture in Android separates business logic from view (activities/ fragments/custom views) through the presenter.
+\n\n<b>The Model:</b>
+\nModel layer is used to provide data to populate user interface.
+\n\nBased on the business logic Model layer can provide required data from Network (through API call), from Application Shared Preferences or from SQLite Database.
+\n\nModel layer cannot directly communicate with View. Although it has to provide data to the View (UI) but it will do so through presenter layer.</string>
+
     <string name="drawer_open">drawer_open</string>
     <string name="drawer_close">drawer_close</string>
 

@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.Toast
+import com.vadym.adv.myhomepet.ui.info.InfoView
 
 class MainActivity : AppCompatActivity() {
 
