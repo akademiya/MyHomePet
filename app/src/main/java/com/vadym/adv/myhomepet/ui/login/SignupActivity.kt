@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Toast
 import com.vadym.adv.myhomepet.MainActivity
 import com.vadym.adv.myhomepet.R
+import com.vadym.adv.myhomepet.R.string.email
 import kotlinx.android.synthetic.main.view_signup.*
 
 class SignupActivity : AppCompatActivity() {
@@ -43,7 +44,7 @@ class SignupActivity : AppCompatActivity() {
 
         val name = input_name.text.toString()
         val address = input_address.text.toString()
-        val email = input_email.text.toString()
+//        val email = input_email.text.toString()
         val mobile = input_mobile.text.toString()
         val password = input_password.text.toString()
         val reEnterPassword = input_reEnterPassword.text.toString()
@@ -80,7 +81,7 @@ class SignupActivity : AppCompatActivity() {
 
         val name = input_name.text.toString()
         val address = input_address.text.toString()
-        val email = input_email.text.toString()
+//        val email = input_email.text.toString()
         val mobile = input_mobile.text.toString()
         val password = input_password.text.toString()
         val reEnterPassword = input_reEnterPassword.text.toString()
@@ -100,12 +101,12 @@ class SignupActivity : AppCompatActivity() {
         }
 
 
-        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            input_email.error = "enter a valid email address"
-            valid = false
-        } else {
-            input_email.error = null
-        }
+//        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+//            input_email.error = "enter a valid email address"
+//            valid = false
+//        } else {
+//            input_email.error = null
+//        }
 
         if (mobile.isEmpty() || mobile.length != 10) {
             input_mobile.error = "Enter Valid Mobile Number"

@@ -9,6 +9,7 @@ import android.util.Log
 import android.widget.Toast
 import com.vadym.adv.myhomepet.MainActivity
 import com.vadym.adv.myhomepet.R
+import com.vadym.adv.myhomepet.R.string.email
 import kotlinx.android.synthetic.main.view_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -41,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
         progressDialog.setMessage("Login...")
         progressDialog.show()
 
-        val email = input_email.text.toString()
+//        val email = input_email.text.toString()
         val password = input_password.text.toString()
 
         // TODO: Implement your own authentication logic here.
@@ -86,13 +87,13 @@ class LoginActivity : AppCompatActivity() {
     private fun validate(): Boolean {
         var valid = true
 
-        val email = input_email.text.toString()
+//        val email = input_email.text.toString()
         val password = input_password.text.toString()
 
-        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            input_email.error = "enter a valid email address"
-            valid = false
-        } else input_email.error = null
+//        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+//            input_email.error = "enter a valid email address"
+//            valid = false
+//        } else input_email.error = null
 
         if (password.isEmpty() || password.length < 4 || password.length > 10) {
             input_password.error = "between 4 and 10 alphanumeric characters"

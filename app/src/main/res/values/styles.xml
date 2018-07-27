@@ -4,7 +4,8 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
+        <item name="colorAccent">@color/accent</item>
     </style>
 
     <!--Toolbar-->
@@ -67,6 +68,19 @@
     <style name="TextStyle_SubHeader_Accent" parent="TextStyle_SubHeader_Primary_Dark">
         <item name="android:textColor">@color/accent_darker</item>
     </style>
+
+    <style name="TextStyle_Body2_Link_Color" parent="AppTheme">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif</item>
+        <item name="android:textSize">@dimen/body2_text_size</item>
+        <item name="android:textColor">@color/link_color</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="TextStyle_Caption_Accent" parent="TextStyle_Caption_Dark">
+        <item name="android:textColor">@color/accent_darker</item>
+    </style>
     <!--End Text-->
 
     <!--Buttons-->
@@ -92,6 +106,16 @@
         <item name="android:textSize">@dimen/button_text_size</item>
         <item name="android:layout_height">@dimen/button_height</item>
     </style>
+
+    <style name="ButtonFillGreen" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:background">@drawable/button_background_green</item>
+        <item name="android:minWidth">@dimen/button88_width</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:paddingStart">@dimen/padding_button_not_toolbar_8dp</item>
+        <item name="android:paddingEnd">@dimen/padding_button_not_toolbar_8dp</item>
+        <item name="android:textColor">@color/foreground_text_color_light</item>
+        <item name="android:layout_height">@dimen/button_height</item>
+    </style>
     <!--End Buttons-->
 
     <!--Divider-->
@@ -107,5 +131,11 @@
         <item name="android:background">@color/divider_spinner_color</item>
     </style>
     <!--End Divider-->
+
+    <!--CheckBox-->
+    <style name="CheckBox" parent="Base.Theme.AppCompat">
+        <item name="colorAccent">@color/primary</item>
+        <item name="android:textColorSecondary">@color/ic_normal_dark</item>
+    </style>
 
 </resources>

@@ -3,6 +3,20 @@
 
     <string name="my_pets">My pets</string>
 
+    // LOGIN vs REGISTRATION
+    <string name="login_slang">my home pets</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="go_create_account">No account yet? Create one</string>
+    <string name="login_member">Already a member? Login</string>
+    <string name="owner_name">Nik-Name</string>
+    <string name="country">Country</string>
+    <string name="mobile">Mobile number</string>
+    <string name="re_enter_password">Re-enter password</string>
+    <string name="create_account">Create account</string>
+    <string name="please_agree">Please agree to the Terms of Use and Privacy Policy</string>
+
     // MENU
     <string name="main">Main</string>
     <string name="settings">Settings</string>
