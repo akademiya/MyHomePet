@@ -42,6 +42,9 @@ dependencies {
     implementation 'com.android.support:support-annotations:27.1.1'
     implementation 'me.grantland:autofittextview:0.2.1'
 
+    // DEXTER
+    implementation 'com.karumi:dexter:5.0.0'
+
     //RETROFIT ...  NETWORK LIBRARY
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     // RETROFIT .. CONVERTER

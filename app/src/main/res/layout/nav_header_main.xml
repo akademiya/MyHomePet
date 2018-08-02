@@ -6,47 +6,58 @@
     android:background="@color/text_disabled_dark">
 
     <ImageView
-        android:id="@+id/iv_lock"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:id="@+id/logo"
+        android:layout_width="@dimen/drawer_logo"
+        android:layout_height="@dimen/drawer_logo"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginEnd="@dimen/parent_margin_edge"
+        android:layout_marginTop="@dimen/space_36"
         android:background="@drawable/circle_decorator"
         android:backgroundTint="@color/white"
-        android:padding="8dp"
-        android:src="@drawable/ic_lock_drawer"
-        android:visibility="gone"
-        tools:visibility="visible" />
+        android:src="@drawable/dog" />
+
+    <!--<ImageView-->
+    <!--android:id="@+id/iv_lock"-->
+    <!--android:layout_width="40dp"-->
+    <!--android:layout_height="40dp"-->
+    <!--android:layout_alignParentEnd="true"-->
+    <!--android:layout_marginEnd="16dp"-->
+    <!--android:layout_below="@+id/logo"-->
+    <!--android:background="@drawable/circle_decorator"-->
+    <!--android:backgroundTint="@color/white"-->
+    <!--android:padding="8dp"-->
+    <!--android:src="@drawable/ic_lock_drawer"-->
+    <!--android:visibility="gone"-->
+    <!--tools:visibility="visible" />-->
 
     <LinearLayout
         android:id="@+id/owner_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="36dp"
-        android:layout_toStartOf="@+id/iv_lock"
+        android:layout_marginBottom="@dimen/space_16"
+        android:layout_marginEnd="@dimen/space_4"
+        android:layout_marginStart="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_36"
+        android:layout_toStartOf="@+id/logo"
         android:gravity="center_vertical"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/owner_name"
             style="@style/TextStyle_Body2_Primary_Dark"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="@dimen/space_4"
             android:ellipsize="end"
             android:singleLine="true"
             android:textColor="@color/white"
-            tools:text="Owner" />
+            android:text="Owner" />
 
         <TextView
             android:id="@+id/owner_country"
             style="@style/TextStyle_Body2_Primary_Dark"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="@dimen/space_4"
             android:ellipsize="end"
             android:singleLine="true"
             android:textColor="@color/white"
-            tools:text="Kiev" />
+            android:text="Kiev" />
     </LinearLayout>
 </RelativeLayout>

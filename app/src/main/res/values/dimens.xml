@@ -13,6 +13,7 @@
     <dimen name="space_22">22dp</dimen>
     <dimen name="space_24">24dp</dimen>
     <dimen name="space_26">26dp</dimen>
+    <dimen name="space_36">36dp</dimen>
 
     // TEXT SIZE
     <dimen name="caption_text_size">12sp</dimen>
@@ -48,7 +49,15 @@
     <dimen name="button_height">56dp</dimen>
     <dimen name="button88_width">88dp</dimen>
     <dimen name="padding_button_not_toolbar_8dp">8dp</dimen>
+    <dimen name="button_drawable_padding">12dp</dimen>
 
     // IMG
     <dimen name="logo">200dp</dimen>
+
+    // Drawer header
+    <dimen name="drawer_logo">50dp</dimen>
+
+    // Card
+    <dimen name="card_width">684dp</dimen>
+
 </resources>

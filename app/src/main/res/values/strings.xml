@@ -28,6 +28,11 @@
     <string name="share_body">Share</string>
     <string name="share_by">Share content</string>
 
+    // EDIT ITEM
+    <string name="choose_photo">Choose photo</string>
+    <string name="take_photo">Take photo</string>
+    <string name="delete_item">Delete</string>
+
 
     // INFO
     <string name="info_view"><b>What is MVP Design Pattern?</b>\nModel View Presenter is an architectural pattern used to encourage/facilitate separation of concern in software projects.
