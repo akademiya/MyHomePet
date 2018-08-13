@@ -6,9 +6,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
-import com.vadym.adv.myhomepet.MainActivity
+import com.vadym.adv.myhomepet.ui.main.MainActivity
 import com.vadym.adv.myhomepet.R
-import com.vadym.adv.myhomepet.R.string.email
 import kotlinx.android.synthetic.main.view_signup.*
 
 class SignupActivity : AppCompatActivity() {

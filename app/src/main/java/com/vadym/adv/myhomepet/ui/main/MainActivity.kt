@@ -1,16 +1,16 @@
-package com.vadym.adv.myhomepet.ui.info
+package com.vadym.adv.myhomepet.ui.main
 
 import android.os.Bundle
 import com.vadym.adv.myhomepet.BaseActivity
 import com.vadym.adv.myhomepet.R
 
-class InfoView : BaseActivity(), IInfoView {
+class MainActivity : BaseActivity() {
 
-    private lateinit var presenter: InfoPresenter
+    private lateinit var presenter: MainPresenter
 
     override fun init(savedInstanceState: Bundle?) {
-        super.setContentView(R.layout.view_info)
-        presenter = InfoPresenter(this, application)
+        super.setContentView(R.layout.activity_main)
+        presenter = MainPresenter(this, application)
 
     }
 
@@ -23,9 +23,4 @@ class InfoView : BaseActivity(), IInfoView {
         super.onDetachedFromWindow()
         presenter.unbindView(this)
     }
-
-    override fun setButtonVisibility(isVisible: Boolean) {
-//        btn_info.visibility = isVisible.toAndroidVisibility()
-    }
-
 }

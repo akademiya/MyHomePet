@@ -1,44 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:orientation="vertical">
 
-    <include
-        android:id="@+id/toolbar_app"
-        layout="@layout/app_bar_nav_drawer"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/Toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="@dimen/toolbar_height"
+        android:padding="0dp"
+        app:contentInsetEnd="0dp"
+        app:contentInsetStart="0dp">
 
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
+        <TextView
+            android:id="@+id/title_list_pets"
+            style="@style/Toolbar.TitleText"
+            android:text="Main Screen" />
+
+    </android.support.v7.widget.Toolbar>
+
+
+    <TextView
+        android:id="@+id/text_on_screen"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar_app"
-        tools:openDrawer="start">
-
-        <FrameLayout
-            android:id="@+id/activity_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <!--<ImageView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:scaleType="centerCrop"-->
-                <!--android:src="@drawable/tp_photo" />-->
-        </FrameLayout>
-
-        <android.support.design.widget.NavigationView
-            android:id="@+id/nav_view"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:fitsSystemWindows="true"
-            app:headerLayout="@layout/nav_header_main"
-            app:menu="@menu/activity_main_drawer" />
-
-    </android.support.v4.widget.DrawerLayout>
-</RelativeLayout>
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Main Screen"
+        android:textSize="48sp" />
+</LinearLayout>

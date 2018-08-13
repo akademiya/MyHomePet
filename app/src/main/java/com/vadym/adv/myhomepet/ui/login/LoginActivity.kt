@@ -7,9 +7,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
-import com.vadym.adv.myhomepet.MainActivity
+import com.vadym.adv.myhomepet.ui.main.MainActivity
 import com.vadym.adv.myhomepet.R
-import com.vadym.adv.myhomepet.R.string.email
 import kotlinx.android.synthetic.main.view_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -95,10 +94,11 @@ class LoginActivity : AppCompatActivity() {
 //            valid = false
 //        } else input_email.error = null
 
-        if (password.isEmpty() || password.length < 4 || password.length > 10) {
-            input_password.error = "between 4 and 10 alphanumeric characters"
-            valid = false
-        } else input_password.error = null
+        // TODO validate password
+//        if (password.isEmpty() || password.length < 4 || password.length > 10) {
+//            input_password.error = "between 4 and 10 alphanumeric characters"
+//            valid = false
+//        } else input_password.error = null
 
         return valid
     }
