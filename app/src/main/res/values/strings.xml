@@ -29,9 +29,25 @@
     <string name="share_by">Share content</string>
 
     // EDIT ITEM
+    <string name="save">Save</string>
     <string name="choose_photo">Choose photo</string>
     <string name="take_photo">Take photo</string>
     <string name="delete_item">Delete</string>
+    <string name="empty_list">Empty list</string>
+    <string name="category">Category</string>
+    <string name="action">Action</string>
+    <string name="period">Period</string>
+    <string name="breed">Breed</string>
+    <string name="pet_name">Pet name</string>
+    <string name="pet_age">Pet age</string>
+    <string name="vaccine">Наличие прививок</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="description">Description</string>
+    <string name="furniture">Furniture</string>
+    <string name="furniture_description">Furniture description</string>
+    <string name="owner">Owner</string>
+    <string name="message">Write message</string>
 
 
     // INFO

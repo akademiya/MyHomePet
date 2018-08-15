@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="link_color">#1976D2</color>  <!--Blue 700-->
 
+    <color name="text_error">#DEFF1744</color> <!--Red A400 87%-->
     <color name="colorAccent">#FF4081</color>
     <color name="white">#FFF</color>
     <color name="accent_selected">#D7EDC1</color>

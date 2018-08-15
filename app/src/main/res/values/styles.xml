@@ -87,6 +87,12 @@
     </style>
     <!--End Text-->
 
+    <!-- ERROR STYLES-->
+    <style name="TextAppearance.AppCompat.Small.ErrorStyle">
+        <item name="android:textColor">@color/text_error</item>
+        <item name="android:textSize">@dimen/caption_text_size</item>
+    </style>
+
     <!--Buttons-->
     <style name="ButtonWithIcon" parent="Widget.AppCompat.Button.Borderless">
         <item name="android:layout_width">@dimen/icon_button_size</item>

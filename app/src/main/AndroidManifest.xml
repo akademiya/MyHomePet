@@ -20,6 +20,8 @@
 
         <activity android:name=".ui.login.SignupActivity" />
         <activity android:name=".ui.main.MainActivity" />
+        <activity android:name=".ui.pet.view.PetView"/>
+        <activity android:name=".ui.pet.view.EditPetView"/>
         <activity android:name=".ui.info.InfoView" />
         <activity
             android:name=".TestForVisual"

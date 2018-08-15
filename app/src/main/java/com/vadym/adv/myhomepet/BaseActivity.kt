@@ -17,6 +17,8 @@ import android.widget.FrameLayout
 import android.widget.Toast
 import com.vadym.adv.myhomepet.ui.info.InfoView
 import com.vadym.adv.myhomepet.ui.main.MainActivity
+import com.vadym.adv.myhomepet.ui.pet.view.EditPetView
+import com.vadym.adv.myhomepet.ui.pet.view.PetView
 
 abstract class BaseActivity : AppCompatActivity(), IView, NavigationView.OnNavigationItemSelectedListener {
 
@@ -71,10 +73,7 @@ abstract class BaseActivity : AppCompatActivity(), IView, NavigationView.OnNavig
         val id = menuItem.itemId
         when (id) {
             R.id.nav_main -> startActivity(Intent(this, MainActivity::class.java))
-            R.id.nav_my_pet -> {
-                Toast.makeText(applicationContext, "You Clicked Options A", Toast.LENGTH_SHORT).show()
-                drawer.closeDrawer(GravityCompat.START)
-            }
+            R.id.nav_my_pet -> startActivity(Intent(this, PetView::class.java))
             R.id.nav_settings -> {
                 Toast.makeText(applicationContext, "You Clicked Options B", Toast.LENGTH_SHORT).show()
                 drawer.closeDrawer(GravityCompat.START)
@@ -142,6 +141,27 @@ abstract class BaseActivity : AppCompatActivity(), IView, NavigationView.OnNavig
     }
 
     abstract fun init(savedInstanceState: Bundle?)
+
+    fun goToEditPet() {
+        startActivity(Intent(this, EditPetView::class.java))
+    }
+
+    fun goTo(flowActivity: FlowActivity) {
+        proceedToActivity(flowActivity)
+    }
+
+    private fun proceedToActivity(flowActivity: FlowActivity) {
+        val myActivity: FlowActivity? = null
+        if (flowActivity != myActivity) {
+            when(flowActivity) {
+                FlowActivity.HOME -> startActivity(Intent(this, MainActivity::class.java))
+                FlowActivity.MY_PET -> startActivity(Intent(this, PetView::class.java))
+                FlowActivity.SETTINGS -> TODO()
+                FlowActivity.INFO -> startActivity(Intent(this, InfoView::class.java))
+                else -> null
+            }
+        }
+    }
 
     fun showProgress(msgResId: Int, keyListener: DialogInterface.OnKeyListener?) {
         if (isFinishing) return

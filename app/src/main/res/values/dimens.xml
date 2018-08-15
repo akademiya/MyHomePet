@@ -33,6 +33,7 @@
     <dimen name="receipt_item_height">48dp</dimen>
     <dimen name="base_item_height">56dp</dimen>
     <dimen name="margin_16_24">16dp</dimen>
+    <dimen name="negative_margin_edit_text">-4dp</dimen>
 
     // GLOBAL
     <dimen name="parent_margin_edge">16dp</dimen>
@@ -50,6 +51,7 @@
     <dimen name="button88_width">88dp</dimen>
     <dimen name="padding_button_not_toolbar_8dp">8dp</dimen>
     <dimen name="button_drawable_padding">12dp</dimen>
+    <dimen name="height_radio_button">48dp</dimen>
 
     // IMG
     <dimen name="logo">200dp</dimen>
@@ -59,5 +61,8 @@
 
     // Card
     <dimen name="card_width">684dp</dimen>
+
+    // FAB
+    <dimen name="fab_margin">16dp</dimen>
 
 </resources>
