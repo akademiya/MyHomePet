@@ -52,6 +52,17 @@ class PetView : BaseActivity(), IPetView {
             list_my_pets.adapter = adapter
         }
         presenter.onEmptyListVisibility(allpets.isNotEmpty())
+
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        presenter.bindView(this)
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        presenter.unbindView(this)
     }
 
     override fun setTitleVisibility(isVisible: Boolean) {

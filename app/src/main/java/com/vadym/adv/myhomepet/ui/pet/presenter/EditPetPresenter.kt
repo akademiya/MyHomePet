@@ -10,13 +10,26 @@ class EditPetPresenter(editPetView: EditPetView, application: Application) : Bas
 
     init { (application as AndroidApplication).applicationComponent.inject(this) }
 
-    override fun onBindView() {
+    private var period = ""
+    private var country = ""
 
-    }
-
+    override fun onBindView() {}
     override fun onUnbindView() {}
 
     fun onBackToParent() {
         view?.goTo(FlowActivity.MY_PET)
+    }
+
+    fun updatePeriod(period: String) {
+        this.period = period
+    }
+
+    fun updateCountry(country: String) {
+        this.country = country
+
+    }
+
+    fun updateData() {
+        view?.updateAllData(period, country)
     }
 }

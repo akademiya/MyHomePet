@@ -12,6 +12,7 @@
     <color name="complementary_red">#FFCDD2</color>
 
     <color name="complementary_darker">#E0E0E0</color> <!--Gray 300-->
+    <color name="icon_pressed">#E0E0E0</color> <!--Gray 300-->
     <color name="accent_backgr_color">#0F000000</color> <!--6% of black-->
     <color name="ic_normal_dark">#8B8B8B</color> <!--54% of black-->
     <color name="divider_color">#1E000000</color> <!--12% of black-->
