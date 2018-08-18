@@ -11,7 +11,6 @@ class EditPetPresenter(editPetView: EditPetView, application: Application) : Bas
     init { (application as AndroidApplication).applicationComponent.inject(this) }
 
     private var period = ""
-    private var country = ""
 
     override fun onBindView() {}
     override fun onUnbindView() {}
@@ -24,12 +23,7 @@ class EditPetPresenter(editPetView: EditPetView, application: Application) : Bas
         this.period = period
     }
 
-    fun updateCountry(country: String) {
-        this.country = country
-
-    }
-
     fun updateData() {
-        view?.updateAllData(period, country)
+        view?.updateAllData(period)
     }
 }
