@@ -126,6 +126,11 @@ class EditPetView : BaseActivity(), IEditPetView {
         presenter.unbindView(this)
     }
 
+    override fun setCreateOrEditTitle(isEdit: Boolean) {
+        toolbar_title.setText(if (isEdit) R.string.edit_item else R.string.create_item)
+        button_delete_me.visibility = isEdit.toAndroidVisibility()
+    }
+
     override fun updateAllData(period: String) {
         this.period = period
     }
