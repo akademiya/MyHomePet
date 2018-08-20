@@ -1,25 +1,57 @@
 package com.vadym.adv.myhomepet.ui.pet.view
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Spinner
+import android.widget.TextView
 import com.vadym.adv.myhomepet.*
-import com.vadym.adv.myhomepet.R.string.action
+import com.vadym.adv.myhomepet.R.string.category
 import com.vadym.adv.myhomepet.data.SqliteDatabase
+import com.vadym.adv.myhomepet.ui.pet.PetActionSpinner
 import com.vadym.adv.myhomepet.ui.pet.PetModel
 import com.vadym.adv.myhomepet.ui.pet.presenter.EditPetPresenter
+import kotlinx.android.synthetic.main.spinner_drop_down.view.*
 import kotlinx.android.synthetic.main.view_my_pet_card_edit.*
+
 
 class EditPetView : BaseActivity(), IEditPetView {
 
     private lateinit var presenter: EditPetPresenter
     private lateinit var database: SqliteDatabase
+    private lateinit var petModel: PetModel
+//    private val idCard = intent.getIntExtra(ID_CARD, 0)
     private var category = ""
     private var action = ""
     private var period = ""
     private var country = ""
+
+//    lateinit var formatHelper: FormatHelper
+//
+//    private val spinnerMainActionAdapter = SpinnerAdapter<PetActionSpinner> { isDropDown, position, convertView, parent ->
+//        val convertView = convertView ?: if (isDropDown) {
+//            LayoutInflater.from(baseContext).inflate(R.layout.spinner_simple_item, parent, false)
+//        } else {
+//            LayoutInflater.from(baseContext).inflate(R.layout.spinner_drop_down, parent, false)
+//        }
+//
+//        convertView.value.apply {
+//            val mainAction = items[position]
+//            text = formatHelper.formatPetAction(mainAction)
+//
+////            if (isDropDown) {
+////                val backgroundColor = if (isItemSelected(diningOption)) filterSelectedBackground else filterNormalBackground
+////                convertView.setBackgroundColor(backgroundColor)
+////            }
+//        }
+//
+//        convertView
+//    }
 
     private val spinner_category = arrayOf(
             "категория питомца",
@@ -29,7 +61,7 @@ class EditPetView : BaseActivity(), IEditPetView {
             "паук", "декоративный таракан", "бабочка"
     )
 
-    private val spinner_acton = arrayOf("главное действие", "отдам в хорошие руки", "отдам на время")
+    private val spinner_acton = arrayOf("отдам в хорошие руки", "отдам на время")
 
     private val spinner_country = arrayOf(
             "Киев",
@@ -60,7 +92,9 @@ class EditPetView : BaseActivity(), IEditPetView {
 
 
 //    @SuppressLint("RestrictedApi")
-//    private val noPhotoDrawable = AppCompatDrawableManager.get().getDrawable(baseContext, R.drawable.ic_nophoto).apply { setColorFilter(baseContext.resources.getColor(R.color.ic_normal_dark), PorterDuff.Mode.MULTIPLY) }
+//    private val noPhotoDrawable = AppCompatDrawableManager.get().getDrawable(baseContext, R.drawable.ic_nophoto).apply {
+// setColorFilter(baseContext.resources.getColor(R.color.ic_normal_dark), PorterDuff.Mode.MULTIPLY)
+// }
 
 
     @SuppressLint("RestrictedApi")
@@ -84,13 +118,35 @@ class EditPetView : BaseActivity(), IEditPetView {
             presenter.onBackToParent()
         }
 
+
+        /**
+         * Задизейблить первую позицию списка - это и будет hint
+         */
+//        val spinnerCategoryAdapter = object : ArrayAdapter<String>(this, R.layout.spinner_simple_item, spinner_category) {
+//            override fun isEnabled(position: Int): Boolean {
+//                return if (position == 0) false else true
+//            }
+//
+//            override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+//                val view = super.getDropDownView(position, convertView, parent)
+//                val tv = view as TextView
+//                if (position == 0) {
+//                    tv.setTextColor(Color.GREEN)
+//                }
+//                return view
+//            }
+//        }
+
         val spinnerCategoryAdapter = ArrayAdapter(this, R.layout.spinner_simple_item, spinner_category)
         spinnerCategoryAdapter.setDropDownViewResource(R.layout.spinner_drop_down)
         spinner_categories.adapter = spinnerCategoryAdapter
+//        spinner_categories.adapter = spinnerMainActionAdapter
         spinner_categories.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                category = spinner_category[position]
+//                val selectedItem = spinnerMainActionAdapter.getItem(position)
+//                spinnerMainActionAdapter.selectedItem = selectedItem
+                category = spinner_category[position] // if (position > 0)
             }
         }
 
@@ -131,6 +187,10 @@ class EditPetView : BaseActivity(), IEditPetView {
         button_delete_me.visibility = isEdit.toAndroidVisibility()
     }
 
+    override fun onDeleteItem(param: Int?) {
+        button_delete_me.setOnClickListener { database.deletePet(param!!) }
+    }
+
     override fun updateAllData(period: String) {
         this.period = period
     }
@@ -150,5 +210,9 @@ class EditPetView : BaseActivity(), IEditPetView {
 //                    .centerCrop()
 //                    .into(iv_pet_image)
         }
+    }
+
+    companion object {
+        const val ID_CARD = "id_card"
     }
 }

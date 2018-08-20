@@ -1,5 +1,6 @@
 package com.vadym.adv.myhomepet.ui.pet.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -48,7 +49,7 @@ class PetView : BaseActivity(), IPetView {
         allpets = database.listPets()
 
         if (allpets.isNotEmpty()) {
-            adapter = PetAdapter(allpets, this, database)
+            adapter = PetAdapter(allpets, this, database) { presenter.onEditCardItem() }
             list_my_pets.adapter = adapter
         }
         presenter.onEmptyListVisibility(allpets.isNotEmpty())
@@ -63,6 +64,11 @@ class PetView : BaseActivity(), IPetView {
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         presenter.unbindView(this)
+    }
+
+    override fun onEditCardPet(param: Int?) {
+        val intent = Intent(this, EditPetView::class.java)
+        startActivity(intent.putExtra(EditPetView.ID_CARD, param))
     }
 
     override fun setTitleVisibility(isVisible: Boolean) {

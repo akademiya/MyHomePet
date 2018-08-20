@@ -142,7 +142,7 @@ abstract class BaseActivity : AppCompatActivity(), IView, NavigationView.OnNavig
 
     abstract fun init(savedInstanceState: Bundle?)
 
-    fun goToEditPet() {
+    fun onCreateCardPet() {
         startActivity(Intent(this, EditPetView::class.java))
     }
 

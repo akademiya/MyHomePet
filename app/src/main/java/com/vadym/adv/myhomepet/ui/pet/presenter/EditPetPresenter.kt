@@ -16,7 +16,9 @@ class EditPetPresenter(editPetView: EditPetView, application: Application) : Bas
 
     override fun onBindView() {
         view?.setCreateOrEditTitle(param?.id != null)
+        view?.onDeleteItem(param?.id)
     }
+
     override fun onUnbindView() {}
 
     fun onBackToParent() {

@@ -1,6 +1,5 @@
 package com.vadym.adv.myhomepet.ui.pet
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -8,15 +7,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import com.vadym.adv.myhomepet.R
-import com.vadym.adv.myhomepet.R.string.delete_item
 import com.vadym.adv.myhomepet.data.SqliteDatabase
 import kotlinx.android.synthetic.main.item_my_pet_card_list.view.*
 
-class PetAdapter(private val pets: List<PetModel>, private val context: Context, private val database: SqliteDatabase) : RecyclerView.Adapter<PetAdapter.VH>() {
+class PetAdapter(private val pets: List<PetModel>,
+                 private val context: Context,
+                 private val database: SqliteDatabase,
+                 private val onEditItem: () -> Unit) : RecyclerView.Adapter<PetAdapter.VH>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = VH (
-            LayoutInflater.from(parent.context).inflate(R.layout.item_my_pet_card_list, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_my_pet_card_list, parent, false),
+            onEditItem = onEditItem
     )
 
     override fun getItemCount(): Int { return pets.size }
@@ -24,11 +27,16 @@ class PetAdapter(private val pets: List<PetModel>, private val context: Context,
     override fun onBindViewHolder(holder: VH, position: Int) {
         val singlePet = pets[position]
         holder.bind(pets[position])
+
         holder.deleteItem?.setOnClickListener {
             database.deletePet(singlePet.id)
             (context as Activity).finish()
             context.startActivity(context.intent)
         }
+
+//        holder.listView?.setOnClickListener {
+//              database.updatePet(pets[id])
+//        }
     }
 
 //    private fun editTaskDialog(person: Person) {
@@ -57,9 +65,11 @@ class PetAdapter(private val pets: List<PetModel>, private val context: Context,
 //        builder.show()
 //    }
 
-    class VH(view: View?) : RecyclerView.ViewHolder(view) {
-        @SuppressLint("ResourceType")
-        val deleteItem = view?.findViewById<ImageView>(delete_item)
+    class VH(view: View?, val onEditItem: () -> Unit) : RecyclerView.ViewHolder(view) {
+
+        val deleteItem = view?.findViewById<ImageView>(R.id.delete_item)
+        val listView = view?.findViewById<RelativeLayout>(R.id.listView)
+
         fun bind(petModel: PetModel) {
             itemView.apply {
                 listView.setOnLongClickListener {
@@ -67,11 +77,9 @@ class PetAdapter(private val pets: List<PetModel>, private val context: Context,
                     false
                 }
 
-                listView.setOnClickListener {  }
-
-//                delete_item.setOnClickListener {
-//
-//                }
+                listView.setOnClickListener {
+                    onEditItem()
+                }
 
                 go_back.setOnClickListener {
                     listReview?.visibility = View.GONE

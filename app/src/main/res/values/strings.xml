@@ -51,6 +51,24 @@
     <string name="edit_item">Edit item</string>
     <string name="create_item">Create item</string>
 
+    // SPINNER
+    <string name="full">отдам в хорошие руки</string>
+    <string name="on_time">отдам на время</string>
+
+    <string name="dog">dog</string>
+    <string name="cat">cat</string>
+    <string name="see_pig">морская свинка</string>
+    <string name="mouse">mouse</string>
+    <string name="homyak">хомяк</string>
+    <string name="squirrel">squirrel</string>
+    <string name="shinshila">шиншила</string>
+    <string name="popugay">попугай</string>
+    <string name="sova">сова</string>
+    <string name="kener">канарейка</string>
+    <string name="chicken">chicken</string>
+    <string name="spider">spider</string>
+    <string name="kukarachi">декоративный таракан</string>
+    <string name="butterfly">butterfly</string>
 
     // INFO
     <string name="info_view"><b>What is MVP Design Pattern?</b>\nModel View Presenter is an architectural pattern used to encourage/facilitate separation of concern in software projects.

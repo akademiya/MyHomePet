@@ -4,4 +4,5 @@ interface IPetView {
     fun setTitleVisibility(isVisible: Boolean)
     fun showEmptyList(isVisible: Boolean)
     fun showListPets(isVisible: Boolean)
+    fun onEditCardPet(param: Int?)
 }
