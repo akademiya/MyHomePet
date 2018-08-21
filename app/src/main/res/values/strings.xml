@@ -16,6 +16,20 @@
     <string name="re_enter_password">Re-enter password</string>
     <string name="create_account">Create account</string>
     <string name="please_agree">Please agree to the Terms of Use and Privacy Policy</string>
+    <string name="signup_successful">Registration successful</string>
+
+    // INVALID VALUE
+    <string name="no_name">No name</string>
+    <string name="no_phone">No phone</string>
+    <string name="phone_incorrect">Pho number incorrect</string>
+    <string name="no_email">No email</string>
+    <string name="email_incorrect">Email incorrect</string>
+    <string name="email_exist">This email already exist</string>
+    <string name="no_password">No password</string>
+    <string name="password_too_short">Password too short</string>
+    <string name="repassword_wrong">This password value don`t compile with password</string>
+    <string name="checkbox_gdpr">Checkbox disable</string>
+    <string name="no_internet">No internet</string>
 
     // MENU
     <string name="main">Main</string>

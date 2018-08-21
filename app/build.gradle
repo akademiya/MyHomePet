@@ -77,5 +77,9 @@ dependencies {
 //    implementation 'com.google.android.gms:play-services-analytics:16.0.1'
 //    implementation 'com.android.support:multidex:1.0.3'
 //    implementation 'com.google.android.gms:play-services-ads:15.0.1'
-//    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.firebase:firebase-auth:16.0.3'
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.android.gms:play-services-auth:16.0.0'
 }
+
+apply plugin: 'com.google.gms.google-services'
