@@ -5,10 +5,10 @@ import com.vadym.adv.myhomepet.di.module.AppModule
 import com.vadym.adv.myhomepet.di.module.NetModule
 import com.vadym.adv.myhomepet.ui.info.InfoPresenter
 import com.vadym.adv.myhomepet.ui.info.InfoView
-import com.vadym.adv.myhomepet.ui.login.LoginActivity
-import com.vadym.adv.myhomepet.ui.login.LoginPresenter
-import com.vadym.adv.myhomepet.ui.login.SignupActivity
-import com.vadym.adv.myhomepet.ui.login.SignupPresenter
+import com.vadym.adv.myhomepet.ui.login.view.LoginActivity
+import com.vadym.adv.myhomepet.ui.login.presenter.LoginPresenter
+import com.vadym.adv.myhomepet.ui.login.view.SignupActivity
+import com.vadym.adv.myhomepet.ui.login.presenter.SignupPresenter
 import com.vadym.adv.myhomepet.ui.main.MainActivity
 import com.vadym.adv.myhomepet.ui.main.MainPresenter
 import com.vadym.adv.myhomepet.ui.pet.presenter.EditPetPresenter

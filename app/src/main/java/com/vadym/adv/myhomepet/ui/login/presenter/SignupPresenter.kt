@@ -1,9 +1,11 @@
-package com.vadym.adv.myhomepet.ui.login
+package com.vadym.adv.myhomepet.ui.login.presenter
 
 import android.app.Application
 import com.vadym.adv.myhomepet.AndroidApplication
 import com.vadym.adv.myhomepet.BasePresenter
 import com.vadym.adv.myhomepet.isEmailAddressValid
+import com.vadym.adv.myhomepet.ui.login.ISignupActivity
+import com.vadym.adv.myhomepet.ui.login.view.SignupActivity
 
 class SignupPresenter(signupActivity: SignupActivity, application: Application) : BasePresenter<SignupActivity>(signupActivity) {
     init { (application as AndroidApplication).applicationComponent.inject(this) }

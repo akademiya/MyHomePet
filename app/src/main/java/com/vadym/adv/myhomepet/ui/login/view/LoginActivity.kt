@@ -1,4 +1,4 @@
-package com.vadym.adv.myhomepet.ui.login
+package com.vadym.adv.myhomepet.ui.login.view
 
 import android.app.ProgressDialog
 import android.content.Intent
@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.vadym.adv.myhomepet.R
 import com.vadym.adv.myhomepet.setSimpleTextWatcher
+import com.vadym.adv.myhomepet.ui.login.ILoginActivity
+import com.vadym.adv.myhomepet.ui.login.presenter.LoginPresenter
 import com.vadym.adv.myhomepet.ui.main.MainActivity
 import kotlinx.android.synthetic.main.view_login.*
 
