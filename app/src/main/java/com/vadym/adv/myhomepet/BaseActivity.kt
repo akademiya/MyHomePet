@@ -19,6 +19,7 @@ import com.vadym.adv.myhomepet.ui.info.InfoView
 import com.vadym.adv.myhomepet.ui.main.MainActivity
 import com.vadym.adv.myhomepet.ui.pet.view.EditPetView
 import com.vadym.adv.myhomepet.ui.pet.view.PetView
+import com.vadym.adv.myhomepet.ui.settings.SettingsView
 
 abstract class BaseActivity : AppCompatActivity(), IView, NavigationView.OnNavigationItemSelectedListener {
 
@@ -74,10 +75,7 @@ abstract class BaseActivity : AppCompatActivity(), IView, NavigationView.OnNavig
         when (id) {
             R.id.nav_main -> startActivity(Intent(this, MainActivity::class.java))
             R.id.nav_my_pet -> startActivity(Intent(this, PetView::class.java))
-            R.id.nav_settings -> {
-                Toast.makeText(applicationContext, "You Clicked Options B", Toast.LENGTH_SHORT).show()
-                drawer.closeDrawer(GravityCompat.START)
-            }
+            R.id.nav_settings -> startActivity(Intent(this, SettingsView::class.java))
             R.id.nav_share -> {
                 val sharingIntent = Intent(Intent.ACTION_SEND)
                 val shareBody = getString(R.string.share_body)
