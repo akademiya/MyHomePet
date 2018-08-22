@@ -5,6 +5,8 @@ import com.vadym.adv.myhomepet.di.module.AppModule
 import com.vadym.adv.myhomepet.di.module.NetModule
 import com.vadym.adv.myhomepet.ui.info.InfoPresenter
 import com.vadym.adv.myhomepet.ui.info.InfoView
+import com.vadym.adv.myhomepet.ui.login.LoginActivity
+import com.vadym.adv.myhomepet.ui.login.LoginPresenter
 import com.vadym.adv.myhomepet.ui.login.SignupActivity
 import com.vadym.adv.myhomepet.ui.login.SignupPresenter
 import com.vadym.adv.myhomepet.ui.main.MainActivity
@@ -26,6 +28,7 @@ interface ApplicationComponent {
     fun inject(petView: PetView)
     fun inject(editPetView: EditPetView)
     fun inject(signupActivity: SignupActivity)
+    fun inject(loginActivity: LoginActivity)
 
     // PRESENTER
     fun inject(infoPresenter: InfoPresenter)
@@ -33,5 +36,6 @@ interface ApplicationComponent {
     fun inject(petPresenter: PetPresenter)
     fun inject(editPetPresenter: EditPetPresenter)
     fun inject(signupPresenter: SignupPresenter)
+    fun inject(loginPresenter: LoginPresenter)
 
 }

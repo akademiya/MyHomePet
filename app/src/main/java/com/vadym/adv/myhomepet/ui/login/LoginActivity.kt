@@ -1,111 +1,85 @@
 package com.vadym.adv.myhomepet.ui.login
 
-import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
-import android.widget.Toast
-import com.vadym.adv.myhomepet.ui.main.MainActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.vadym.adv.myhomepet.R
+import com.vadym.adv.myhomepet.setSimpleTextWatcher
+import com.vadym.adv.myhomepet.ui.main.MainActivity
 import kotlinx.android.synthetic.main.view_login.*
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity(), ILoginActivity {
+
+    private lateinit var presenter: LoginPresenter
+    private var auth: FirebaseAuth? = null
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.view_login)
+        presenter = LoginPresenter(this, application)
+        auth = FirebaseAuth.getInstance()
 
-        btn_login.setOnClickListener { login() }
+        input_email.setSimpleTextWatcher {
+            presenter.onResetError()
+            presenter.onUpdateOwnerEmail(it)
+        }
+        input_password.setSimpleTextWatcher {
+            presenter.onResetError()
+            presenter.onUpdateOwnerPassword(it)
+        }
+
+        btn_login.setOnClickListener { presenter.onValidateAndLogin() }
 
         link_signup.setOnClickListener {
             val intent = Intent(applicationContext, SignupActivity::class.java)
-            startActivityForResult(intent, REQUEST_SIGNUP)
+            startActivityForResult(intent, 0)
             finish()
             overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)
         }
     }
 
-    fun login() {
-        Log.d(TAG, "Login")
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        presenter.bindView(this)
+    }
 
-        if (!validate()) {
-            onLoginFailed()
-            return
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        presenter.unbindView(this)
+    }
+
+    override fun onResetError() {
+        til_input_email.error = ""
+        til_input_password.error = ""
+    }
+
+    override fun setButtonLoginEnabled(isEnable: Boolean) {
+        btn_login.isEnabled = isEnable
+    }
+
+    override fun showInvalidValue(errorField: ILoginActivity.InvalidValue) {
+        when(errorField) {
+            ILoginActivity.InvalidValue.NO_EMAIL -> til_input_email.error = resources.getString(R.string.no_email)
+            ILoginActivity.InvalidValue.INVALID_EMAIL -> til_input_email.error = resources.getString(R.string.email_incorrect)
+            ILoginActivity.InvalidValue.NO_PASSWORD -> til_input_password.error = resources.getString(R.string.no_password)
+            ILoginActivity.InvalidValue.PASSWORD_TOO_SHORT -> til_input_password.error = resources.getString(R.string.password_too_short)
         }
+    }
 
-        btn_login.isEnabled = false
-
+    override fun onLoginSuccess() {
         val progressDialog = ProgressDialog(this@LoginActivity) // TODO: I can add style
         progressDialog.isIndeterminate = true
         progressDialog.setMessage("Login...")
         progressDialog.show()
 
-//        val email = input_email.text.toString()
-        val password = input_password.text.toString()
-
-        // TODO: Implement your own authentication logic here.
-
-        android.os.Handler().postDelayed(
-                {
-                    // On complete call either onLoginSuccess or onLoginFailed
-                    onLoginSuccess()
-                    // onLoginFailed();
-                    progressDialog.dismiss()
-                }, 3000)
-    }
-
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        if (requestCode == REQUEST_SIGNUP) {
-            if (resultCode == Activity.RESULT_OK) {
-
-                // TODO: Implement successful signup logic here
-                // By default we just finish the Activity and log them in automatically
-                this.finish()
+        auth?.signInWithEmailAndPassword(input_email.text.toString(), input_password.text.toString())?.addOnCompleteListener(this@LoginActivity) { task ->
+            if (auth?.currentUser != null) {
+                progressDialog.dismiss()
+                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                finish()
             }
         }
-    }
-
-    override fun onBackPressed() {
-        // Disable going back to the MainActivity
-        moveTaskToBack(true)
-    }
-
-    private fun onLoginSuccess() {
-        btn_login.isEnabled = true
-//        finish()
-        startActivity(Intent(this, MainActivity::class.java))
-    }
-
-    private fun onLoginFailed() {
-        Toast.makeText(baseContext, "Login failed", Toast.LENGTH_LONG).show()
-        btn_login.isEnabled = true
-    }
-
-    private fun validate(): Boolean {
-        var valid = true
-
-//        val email = input_email.text.toString()
-        val password = input_password.text.toString()
-
-//        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-//            input_email.error = "enter a valid email address"
-//            valid = false
-//        } else input_email.error = null
-
-        // TODO validate password
-//        if (password.isEmpty() || password.length < 4 || password.length > 10) {
-//            input_password.error = "between 4 and 10 alphanumeric characters"
-//            valid = false
-//        } else input_password.error = null
-
-        return valid
-    }
-
-    companion object {
-        private val TAG = "LoginActivity"
-        private val REQUEST_SIGNUP = 0
     }
 }
