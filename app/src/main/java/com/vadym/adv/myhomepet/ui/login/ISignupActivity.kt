@@ -2,6 +2,9 @@ package com.vadym.adv.myhomepet.ui.login
 
 interface ISignupActivity {
     fun showInvalidValue(errorField: InvalidValue)
+    fun setButtonCreateEnabled(enable: Boolean)
+    fun onSignupSuccess()
+    fun onResetError()
 
     enum class InvalidValue {
         NO_NAME,

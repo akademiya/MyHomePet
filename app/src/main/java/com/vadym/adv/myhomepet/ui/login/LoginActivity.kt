@@ -23,6 +23,7 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(applicationContext, SignupActivity::class.java)
             startActivityForResult(intent, REQUEST_SIGNUP)
             finish()
+            overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)
         }
     }
 

@@ -63,32 +63,7 @@ class EditPetView : BaseActivity(), IEditPetView {
 
     private val spinner_acton = arrayOf("отдам в хорошие руки", "отдам на время")
 
-    private val spinner_country = arrayOf(
-            "Киев",
-            "Винницкая область", "Винница", "Жмеринка",
-            "Волынская область", "Луцк",
-            "Днепропетровская область", "Днепродзержинск", "Днепропетровск", "Кривой Рог", "Никополь", "Павлоград",
-            "Донецкая область", "Артемовск", "Горловка", "Дзержинск", "Донецк", "Енакиево", "Константиновка", "Краматорск", "Макеевка", "Мариуполь", "Славянск", "Торез", "Харцызск",
-            "Житомирская область", "Бердичев", "Житомир",
-            "Закарпатская область", "Мукачево", "Ужгород",
-            "Запорожская область", "Бердянск", "Запорожье", "Мукачево",
-            "Ивано-Франковская область", "Ивано-Франковск",
-            "Киевская область", "Белая Церковь", "Борисполь", "Бровары", "Ирпень",
-            "Кировоградская область", "Александрия", "Кировоград",
-            "Луганская область", "Алчевск", "Красный Луч", "Лисичанск", "Луганск", "Свердловск", "Северодонецк", "Стаханов",
-            "Львовская область", "Львов", "Жовква",
-            "Николаевская область", "Николаев",
-            "Одесская область", "Измаил", "Ильичевск", "Одесса",
-            "Полтавская область", "Комсомольск", "Кременчуг", "Полтава",
-            "Ровенская область", "Дубно", "Ровно",
-            "Сумская область", "Конотоп", "Сумы", "Шостка",
-            "Тернопольская область", "Тернополь",
-            "Харьковская область", "Лозовая", "Харьков",
-            "Херсонская область", "Каховка", "Херсон",
-            "Хмельницкая область", "Каменец-Подольский", "Хмельницкий",
-            "Черкасская область", "Смела", "Умань", "Черкассы",
-            "Черниговская область", "Нежин", "Чернигов", "Черновцы"
-    )
+
 
 
 //    @SuppressLint("RestrictedApi")
@@ -157,16 +132,6 @@ class EditPetView : BaseActivity(), IEditPetView {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 action = spinner_acton[position]
-            }
-        }
-
-        val spinnerCountryAdapter = ArrayAdapter(this, R.layout.spinner_simple_item, spinner_country)
-        spinnerCountryAdapter.setDropDownViewResource(R.layout.spinner_drop_down)
-        owner_country.adapter = spinnerCountryAdapter
-        owner_country.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                country = spinner_country[position]
             }
         }
 
