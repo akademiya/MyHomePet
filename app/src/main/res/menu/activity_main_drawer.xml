@@ -15,6 +15,11 @@
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings"
             android:title="@string/settings" />
+
+        <item
+            android:id="@+id/nav_info"
+            android:icon="@drawable/ic_info"
+            android:title="@string/info" />
     </group>
 
     <item android:title="@string/communicate">
@@ -27,10 +32,6 @@
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_send"
                 android:title="@string/send" />
-            <item
-                android:id="@+id/nav_info"
-                android:icon="@drawable/ic_info"
-                android:title="@string/info" />
         </menu>
     </item>
 </menu>
