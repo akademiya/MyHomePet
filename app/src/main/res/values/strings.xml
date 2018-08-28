@@ -69,6 +69,7 @@
     <string name="age_hint">Enter quantity in month</string>
 
     // SPINNER
+    <string name="title_spinner_category">категория питомца</string>
     <string name="full">отдам в хорошие руки</string>
     <string name="on_time">отдам на время</string>
 
@@ -104,4 +105,30 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="pet_category">
+        <item>категория питомца</item>
+        <item>собака</item>
+        <item>кошка</item>
+        <item>морская свинка</item>
+        <item>декоративная мишь</item>
+        <item>хомяк</item>
+        <item>белка</item>
+        <item>шиншила</item>
+        <item>попугай</item>
+        <item>канарейка</item>
+        <item>сова</item>
+        <item>курица</item>
+        <item>паук</item>
+        <item>декоративный таракан</item>
+        <item>бабочка</item>
+        <item>жук</item>
+        <item>аквариумные рыбки</item>
+        <item>прудовые рыбы</item>
+    </string-array>
+
+    <string-array name="pet_action">
+        <item>отдам в хорошие руки</item>
+        <item>отдам на время</item>
+    </string-array>
 </resources>
