@@ -32,4 +32,8 @@ class EditPetPresenter(editPetView: EditPetView, application: Application) : Bas
     fun updateData() {
         view?.updateAllData(period)
     }
+
+    fun onVaccineChange(isChange: Boolean) {
+        param?.vaccine = isChange
+    }
 }

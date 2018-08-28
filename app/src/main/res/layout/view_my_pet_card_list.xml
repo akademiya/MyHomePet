@@ -30,6 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                app:closeIcon="@drawable/ic_close"
                 app:queryHint="Search"
                 app:searchIcon="@drawable/ic_search_white" />
         </RelativeLayout>
@@ -45,7 +46,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list_my_pets"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         tools:listitem="@layout/item_my_pet_card_list" />
 
     <android.support.design.widget.FloatingActionButton

@@ -1,22 +1,15 @@
 package com.vadym.adv.myhomepet.ui.pet.view
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.TextView
 import com.vadym.adv.myhomepet.*
-import com.vadym.adv.myhomepet.R.string.category
 import com.vadym.adv.myhomepet.data.SqliteDatabase
-import com.vadym.adv.myhomepet.ui.pet.PetActionSpinner
+import com.vadym.adv.myhomepet.di.module.GlideApp
 import com.vadym.adv.myhomepet.ui.pet.PetModel
 import com.vadym.adv.myhomepet.ui.pet.presenter.EditPetPresenter
-import kotlinx.android.synthetic.main.spinner_drop_down.view.*
 import kotlinx.android.synthetic.main.view_my_pet_card_edit.*
 
 
@@ -33,7 +26,7 @@ class EditPetView : BaseActivity(), IEditPetView {
 
 //    lateinit var formatHelper: FormatHelper
 //
-//    private val spinnerMainActionAdapter = SpinnerAdapter<PetActionSpinner> { isDropDown, position, convertView, parent ->
+//    private val spinnerMainCategoryAdapter = SpinnerAdapter<PetActionSpinner> { isDropDown, position, convertView, parent ->
 //        val convertView = convertView ?: if (isDropDown) {
 //            LayoutInflater.from(baseContext).inflate(R.layout.spinner_simple_item, parent, false)
 //        } else {
@@ -63,27 +56,20 @@ class EditPetView : BaseActivity(), IEditPetView {
 
     private val spinner_acton = arrayOf("отдам в хорошие руки", "отдам на время")
 
-
-
-
-//    @SuppressLint("RestrictedApi")
-//    private val noPhotoDrawable = AppCompatDrawableManager.get().getDrawable(baseContext, R.drawable.ic_nophoto).apply {
-// setColorFilter(baseContext.resources.getColor(R.color.ic_normal_dark), PorterDuff.Mode.MULTIPLY)
-// }
-
-
     @SuppressLint("RestrictedApi")
     override fun init(savedInstanceState: Bundle?) {
         super.setContentView(R.layout.view_my_pet_card_edit)
         presenter = EditPetPresenter(this, application)
         database = SqliteDatabase.getInstance(this)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        button_back.setOnClickListener { presenter.onBackToParent() }
+
 
         btn_choose_photo.setOnClickListener { applicationContext.startTakeGalleryImageIntent() }
         btn_take_photo.setOnClickListener { applicationContext.startCaptureCameraImageIntent() }
         btn_remove_photo.setOnClickListener { updateImageRepresentation("") }
 
-        val name = "rr" //pet_name.text.toString()
-//        val photo = 0 //resources.getDrawable(R.drawable.kisa2)
 
         action_period.setSimpleTextWatcher { presenter.updatePeriod(it) }
 
@@ -135,6 +121,13 @@ class EditPetView : BaseActivity(), IEditPetView {
             }
         }
 
+        rg_vaccine.setOnCheckedChangeListener { _, checkedId ->
+            when(checkedId) {
+                R.id.rb_vaccine_no -> presenter.onVaccineChange(false)
+                R.id.rb_vaccine_yes -> presenter.onVaccineChange(true)
+            }
+        }
+
     }
 
     override fun onAttachedToWindow() {
@@ -168,12 +161,12 @@ class EditPetView : BaseActivity(), IEditPetView {
         } else {
             iv_pet_image.clearColorFilter()
             btn_remove_photo.visibility = View.VISIBLE
-//            GlideApp.with(baseContext)
-//                    .load(src)
-//                    .fallback(noPhotoDrawable)
-//                    .error(noPhotoDrawable)
-//                    .centerCrop()
-//                    .into(iv_pet_image)
+            GlideApp.with(baseContext)
+                    .load(src)
+                    .fallback(resources.getDrawable(R.drawable.ic_nophoto))
+                    .error(resources.getDrawable(R.drawable.ic_nophoto))
+                    .centerCrop()
+                    .into(iv_pet_image)
         }
     }
 

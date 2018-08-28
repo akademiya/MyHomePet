@@ -8,6 +8,7 @@ class PetModel {
     var action: String? = null
     var period: String? = null
     var country: String? = null
+    var vaccine: Boolean = false
 
     constructor(pet_category: String?, pet_action: String?, pet_period: String?, pet_country: String?) {
 //        this.petPhoto = pet_photo

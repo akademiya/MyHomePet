@@ -15,11 +15,13 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.Toast
+import com.vadym.adv.myhomepet.domain.Owner
 import com.vadym.adv.myhomepet.ui.info.InfoView
 import com.vadym.adv.myhomepet.ui.main.MainActivity
 import com.vadym.adv.myhomepet.ui.pet.view.EditPetView
 import com.vadym.adv.myhomepet.ui.pet.view.PetView
 import com.vadym.adv.myhomepet.ui.settings.SettingsView
+import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 abstract class BaseActivity : AppCompatActivity(), IView, NavigationView.OnNavigationItemSelectedListener {
 
@@ -27,6 +29,7 @@ abstract class BaseActivity : AppCompatActivity(), IView, NavigationView.OnNavig
     private lateinit var drawer: DrawerLayout
     private lateinit var navigationView: NavigationView
     private lateinit var toggle: ActionBarDrawerToggle
+    private var ownerData: Owner = Owner()
 
     override fun setContentView(layoutResID: Int) {
         val fullView = layoutInflater.inflate(R.layout.activity_nav_drawer, null) as DrawerLayout
@@ -45,6 +48,8 @@ abstract class BaseActivity : AppCompatActivity(), IView, NavigationView.OnNavig
 
         navigationView = findViewById<View>(R.id.nav_view) as NavigationView
         navigationView.setNavigationItemSelectedListener(this)
+        navigationView.getHeaderView(0).owner_name.text = ownerData.name
+        navigationView.getHeaderView(0).owner_country.text = ownerData.city
     }
 
     override fun onBackPressed() {

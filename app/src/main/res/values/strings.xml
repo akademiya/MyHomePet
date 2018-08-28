@@ -65,6 +65,8 @@
     <string name="message">Write message</string>
     <string name="edit_item">Edit item</string>
     <string name="create_item">Create item</string>
+    <string name="period_hint">Enter quantity days</string>
+    <string name="age_hint">Enter quantity in month</string>
 
     // SPINNER
     <string name="full">отдам в хорошие руки</string>

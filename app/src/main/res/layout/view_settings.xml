@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--OWNER-->
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/parent_margin_edge"
+        app:cardElevation="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/parent_margin_edge"
+            android:layout_marginEnd="@dimen/parent_margin_edge"
+            android:layout_marginStart="@dimen/parent_margin_edge"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextStyle_SubHeader_Accent"
+                android:layout_marginBottom="@dimen/space_4"
+                android:layout_marginTop="@dimen/space_8"
+                android:text="@string/owner" />
+
+            <android.support.design.widget.TextInputLayout
+                style="@style/TextStyle_SubHeader_Accent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/negative_margin_edit_text"
+                android:layout_marginStart="@dimen/negative_margin_edit_text"
+                android:layout_marginTop="@dimen/space_8"
+                android:hint="@string/owner_name"
+                android:textColorHint="@color/text_secondary_dark">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/owner_name"
+                    style="@style/TextStyle_Body2_Primary_Dark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPersonName"
+                    android:paddingBottom="@dimen/space_12"
+                    android:paddingTop="@dimen/space_8" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                style="@style/TextStyle_SubHeader_Accent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/negative_margin_edit_text"
+                android:layout_marginStart="@dimen/negative_margin_edit_text"
+                android:hint="@string/mobile"
+                android:textColorHint="@color/text_secondary_dark">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/owner_telephone"
+                    style="@style/TextStyle_Body2_Primary_Dark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="phone"
+                    android:paddingBottom="@dimen/space_12"
+                    android:paddingTop="@dimen/space_8" />
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/write_message"
+                style="@style/ButtonFillGreen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/message"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>
