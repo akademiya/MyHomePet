@@ -15,6 +15,8 @@ import com.vadym.adv.myhomepet.ui.pet.presenter.EditPetPresenter
 import com.vadym.adv.myhomepet.ui.pet.presenter.PetPresenter
 import com.vadym.adv.myhomepet.ui.pet.view.EditPetView
 import com.vadym.adv.myhomepet.ui.pet.view.PetView
+import com.vadym.adv.myhomepet.ui.settings.SettingsPresenter
+import com.vadym.adv.myhomepet.ui.settings.SettingsView
 import dagger.Component
 
 @Component(modules = [AppModule::class, NetModule::class, NetModule::class])
@@ -29,6 +31,7 @@ interface ApplicationComponent {
     fun inject(editPetView: EditPetView)
     fun inject(signupActivity: SignupActivity)
     fun inject(loginActivity: LoginActivity)
+    fun inject(settingsView: SettingsView)
 
     // PRESENTER
     fun inject(infoPresenter: InfoPresenter)
@@ -37,5 +40,6 @@ interface ApplicationComponent {
     fun inject(editPetPresenter: EditPetPresenter)
     fun inject(signupPresenter: SignupPresenter)
     fun inject(loginPresenter: LoginPresenter)
+    fun inject(settingsPresenter: SettingsPresenter)
 
 }

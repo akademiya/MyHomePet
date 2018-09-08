@@ -6,6 +6,28 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/Toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:padding="0dp"
+        app:contentInsetEnd="0dp"
+        app:contentInsetStart="0dp">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            style="@style/Toolbar.TitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/space_20"
+            android:layout_toEndOf="@+id/button_back"
+            android:gravity="center_vertical"
+            android:text="@string/settings"
+            android:textColor="@color/white" />
+
+    </android.support.v7.widget.Toolbar>
+
     <!--OWNER-->
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -67,16 +89,37 @@
                     android:paddingBottom="@dimen/space_12"
                     android:paddingTop="@dimen/space_8" />
             </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 
-            <Button
-                android:id="@+id/write_message"
-                style="@style/ButtonFillGreen"
+    <!--OPTIONAL SETTINGS-->
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/parent_margin_edge"
+        app:cardElevation="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/parent_margin_edge"
+            android:layout_marginEnd="@dimen/parent_margin_edge"
+            android:layout_marginStart="@dimen/parent_margin_edge"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextStyle_SubHeader_Accent"
+                android:layout_marginBottom="@dimen/space_4"
+                android:layout_marginTop="@dimen/space_8"
+                android:text="@string/optional_settings" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/sw_notification"
+                style="@style/TextStyle_Body2_Primary_Dark"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/message"
-                android:visibility="gone"
-                tools:visibility="visible" />
-
+                android:layout_height="48dp"
+                android:layout_marginTop="@dimen/space_8"
+                android:text="@string/notification" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

@@ -87,6 +87,10 @@
     <string name="spider">spider</string>
     <string name="kukarachi">декоративный таракан</string>
     <string name="butterfly">butterfly</string>
+    
+    // SETTINGS
+    <string name="optional_settings">Optional settings</string>
+    <string name="notification">Notification</string>
 
     // INFO
     <string name="info_view"><b>What is MVP Design Pattern?</b>\nModel View Presenter is an architectural pattern used to encourage/facilitate separation of concern in software projects.
