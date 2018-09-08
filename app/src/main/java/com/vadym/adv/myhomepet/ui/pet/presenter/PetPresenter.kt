@@ -22,8 +22,9 @@ class PetPresenter(petView: PetView, applicationComponent: Application) : BasePr
     }
 
     fun goToAddNewPosition() { view?.onCreateCardPet() }
-    fun onEditCardItem() {
-        view?.onEditCardPet(petModel?.id)
+
+    fun onEditCardItem(petModel: PetModel) {
+        view?.onEditCardPet(petModel.id)
     }
 
     fun onEmptyListVisibility(emptyList: Boolean) {

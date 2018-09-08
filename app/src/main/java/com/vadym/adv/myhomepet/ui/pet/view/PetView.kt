@@ -49,7 +49,7 @@ class PetView : BaseActivity(), IPetView {
         allpets = database.listPets()
 
         if (allpets.isNotEmpty()) {
-            adapter = PetAdapter(allpets, this, database) { presenter.onEditCardItem() }
+            adapter = PetAdapter(allpets, this, database,  { presenter.onEditCardItem(it) })
             list_my_pets.adapter = adapter
         }
         presenter.onEmptyListVisibility(allpets.isNotEmpty())

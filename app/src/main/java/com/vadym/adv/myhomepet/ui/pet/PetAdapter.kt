@@ -6,8 +6,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RelativeLayout
 import com.vadym.adv.myhomepet.R
 import com.vadym.adv.myhomepet.data.SqliteDatabase
 import kotlinx.android.synthetic.main.item_my_pet_card_list.view.*
@@ -15,23 +13,41 @@ import kotlinx.android.synthetic.main.item_my_pet_card_list.view.*
 class PetAdapter(private val pets: List<PetModel>,
                  private val context: Context,
                  private val database: SqliteDatabase,
-                 private val onEditItem: () -> Unit) : RecyclerView.Adapter<PetAdapter.VH>() {
+                 private val onEditItem: (PetModel) -> Unit) : RecyclerView.Adapter<PetAdapter.VH>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = VH (
-            LayoutInflater.from(parent.context).inflate(R.layout.item_my_pet_card_list, parent, false),
-            onEditItem = onEditItem
+            LayoutInflater.from(parent.context).inflate(R.layout.item_my_pet_card_list, parent, false)
     )
 
     override fun getItemCount(): Int { return pets.size }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         val singlePet = pets[position]
-        holder.bind(pets[position])
 
-        holder.deleteItem?.setOnClickListener {
-            database.deletePet(singlePet.id)
-            (context as Activity).finish()
-            context.startActivity(context.intent)
+        holder.apply {
+            itemView.listView.setOnLongClickListener {
+                itemView.listReview.visibility = View.VISIBLE
+                false
+            }
+
+            itemView.go_back.setOnClickListener {
+                itemView.listReview?.visibility = View.GONE
+            }
+
+//                img_pet.setImageDrawable(petModel.petPhoto)
+            itemView.category_pet.text = singlePet.category
+            itemView.main_action.text = singlePet.action
+            itemView.period.text = singlePet.period
+            itemView.country.text = singlePet.country
+
+            itemView.delete_item.setOnClickListener {
+                database.deletePet(singlePet.id)
+                (context as Activity).finish()
+                context.startActivity(context.intent)
+            }
+
+            itemView.setOnClickListener { onEditItem(singlePet) }
+
         }
 
 //        holder.listView?.setOnClickListener {
@@ -65,32 +81,5 @@ class PetAdapter(private val pets: List<PetModel>,
 //        builder.show()
 //    }
 
-    class VH(view: View?, val onEditItem: () -> Unit) : RecyclerView.ViewHolder(view) {
-
-        val deleteItem = view?.findViewById<ImageView>(R.id.delete_item)
-        val listView = view?.findViewById<RelativeLayout>(R.id.listView)
-
-        fun bind(petModel: PetModel) {
-            itemView.apply {
-                listView.setOnLongClickListener {
-                    listReview?.visibility = View.VISIBLE
-                    false
-                }
-
-                listView.setOnClickListener {
-                    onEditItem()
-                }
-
-                go_back.setOnClickListener {
-                    listReview?.visibility = View.GONE
-                }
-
-//                img_pet.setImageDrawable(petModel.petPhoto)
-                category_pet.text = petModel.category
-                main_action.text = petModel.action
-                period.text = petModel.period
-                country.text = petModel.country
-            }
-        }
-    }
+    class VH(view: View?) : RecyclerView.ViewHolder(view)
 }
