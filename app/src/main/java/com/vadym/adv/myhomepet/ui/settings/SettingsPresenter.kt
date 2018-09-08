@@ -19,4 +19,12 @@ class SettingsPresenter(settingsView: SettingsView, application: Application) : 
         hasNotification = isChecked
     }
 
+    fun onEditName() {
+        view?.updateOwnerName()
+    }
+    fun onEditEmail() {}
+    fun onEditPassword() {}
+    fun onEditPhone() {}
+    fun onEdirCity() {}
+
 }
