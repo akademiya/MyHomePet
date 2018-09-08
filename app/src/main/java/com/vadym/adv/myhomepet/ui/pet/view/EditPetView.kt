@@ -1,18 +1,23 @@
 package com.vadym.adv.myhomepet.ui.pet.view
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Spinner
+import android.widget.Toast
+import com.karumi.dexter.PermissionToken
 import com.vadym.adv.myhomepet.*
 import com.vadym.adv.myhomepet.data.SqliteDatabase
 import com.vadym.adv.myhomepet.di.module.GlideApp
 import com.vadym.adv.myhomepet.ui.pet.PetModel
 import com.vadym.adv.myhomepet.ui.pet.presenter.EditPetPresenter
 import kotlinx.android.synthetic.main.view_my_pet_card_edit.*
+import java.io.IOException
 
 
 class EditPetView : BaseActivity(), IEditPetView {
@@ -27,6 +32,9 @@ class EditPetView : BaseActivity(), IEditPetView {
     private var period = ""
     private var country = ""
 
+    private val CAMERA = 0
+    private val GALLERY = 1
+
 
     @SuppressLint("RestrictedApi")
     override fun init(savedInstanceState: Bundle?) {
@@ -37,9 +45,8 @@ class EditPetView : BaseActivity(), IEditPetView {
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         button_back.setOnClickListener { presenter.onBackToParent() }
 
-
-        btn_choose_photo.setOnClickListener { applicationContext.startTakeGalleryImageIntent() }
-        btn_take_photo.setOnClickListener { applicationContext.startCaptureCameraImageIntent() }
+        btn_choose_photo.setOnClickListener { presenter.onSelectImageChecked() }
+        btn_take_photo.setOnClickListener { presenter.onTakePhotoChecked(this@EditPetView) } // FIXME: applicationContext.startCaptureCameraImageIntent();
         btn_remove_photo.setOnClickListener { updateImageRepresentation("") }
 
 
@@ -131,22 +138,79 @@ class EditPetView : BaseActivity(), IEditPetView {
         this.period = period
     }
 
+    /** START SET IMAGE */
     private fun updateImageRepresentation(src: String) {
-        if (src.isBlank()) {
-            iv_pet_image.setImageResource(R.drawable.ic_nophoto)
-            iv_pet_image.setColorFilter(resources.getColor(R.color.ic_normal_dark))
-            btn_remove_photo.visibility = View.GONE
-        } else {
-            iv_pet_image.clearColorFilter()
-            btn_remove_photo.visibility = View.VISIBLE
+        photo_pet.visibility = View.GONE
             GlideApp.with(baseContext)
                     .load(src)
                     .fallback(resources.getDrawable(R.drawable.ic_nophoto))
                     .error(resources.getDrawable(R.drawable.ic_nophoto))
                     .centerCrop()
                     .into(iv_pet_image)
+    }
+
+    override fun showDialogCameraPermission(token: PermissionToken) {
+        AlertDialog.Builder(this@EditPetView)
+                .setTitle(R.string.project_id)
+                .setMessage(R.string.message)
+                .setNegativeButton(android.R.string.cancel,
+                        { dialog, _ ->
+                            dialog.dismiss()
+                            token.cancelPermissionRequest()
+                        }
+                )
+                .setPositiveButton(android.R.string.ok,
+                        { dialog, _ ->
+                            dialog.dismiss()
+                            token.continuePermissionRequest()
+                        }
+                )
+                .setOnDismissListener({ token.cancelPermissionRequest() })
+                .show()
+    }
+
+    override fun onSelectImageInAlbum(intent: Intent) {
+        if (intent.resolveActivity(packageManager) != null)
+            startActivityForResult(intent, GALLERY)
+    }
+
+    override fun onTakePhoto(intent: Intent) {
+        if (intent.resolveActivity(packageManager) != null)
+            startActivityForResult(intent, CAMERA)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == GALLERY) {
+            if (data != null) {
+                photo_pet.visibility = View.VISIBLE
+                val imgURI = data.data
+                try {
+                    val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, imgURI)
+                    presenter.onSaveImage(bitmap)
+                    iv_pet_image.setImageBitmap(bitmap)
+                    photo_pet.setImageBitmap(bitmap)
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                    Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
+                }
+            }
+        } else if (requestCode == CAMERA) {
+            photo_pet.visibility = View.VISIBLE
+            val thumbnail = data!!.extras!!.get("data") as Bitmap
+            iv_pet_image.setImageBitmap(thumbnail)
+            photo_pet.setImageBitmap(thumbnail)
+            presenter.onSaveImage(thumbnail)
         }
     }
+
+//    TODO: photo remove button
+//    private fun onRemovePhotoVisibility(visibility: Boolean) {
+//        btn_remove_photo.visibility = visibility.toAndroidVisibility()
+//        if (visibility) btn_remove_photo.clearColorFilter()
+//        else return
+//    }
+    /** END SET IMAGE */
 
     companion object {
         const val ID_CARD = "id_card"

@@ -92,8 +92,7 @@
                                 android:id="@+id/iv_pet_image"
                                 android:layout_width="140dp"
                                 android:layout_height="140dp"
-                                android:src="@drawable/ic_nophoto"
-                                android:tint="@color/ic_normal_dark" />
+                                android:src="@drawable/ic_nophoto" />
 
                             <ImageButton
                                 android:id="@+id/btn_remove_photo"
@@ -413,6 +412,34 @@
                             android:paddingBottom="@dimen/space_12"
                             android:paddingTop="@dimen/space_8" />
                     </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <!--BUTTON MESSAGE-->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/parent_margin_edge"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:id="@+id/button_write_message"
+                    style="@style/ButtonFillGreen"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <Button
+                        android:id="@+id/write_message"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:clickable="false"
+                        android:text="@string/message"
+                        android:textColor="@color/white" />
+
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
