@@ -3,7 +3,8 @@ package com.vadym.adv.myhomepet.ui.settings
 import android.app.Application
 import com.vadym.adv.myhomepet.AndroidApplication
 import com.vadym.adv.myhomepet.BasePresenter
-
+import com.vadym.adv.myhomepet.domain.interactor.owner.GetOwnerDataCase
+// private val getOwnerDataCase: GetOwnerDataCase,
 class SettingsPresenter(settingsView: SettingsView, application: Application) : BasePresenter<SettingsView>(settingsView) {
     init { (application as AndroidApplication).applicationComponent.inject(this) }
 
@@ -19,12 +20,17 @@ class SettingsPresenter(settingsView: SettingsView, application: Application) : 
         hasNotification = isChecked
     }
 
-    fun onEditName() {
-        view?.updateOwnerName()
+    fun onEditName(name: String) {
+        view?.updateOwnerName(name, {})
     }
-    fun onEditEmail() {}
-    fun onEditPassword() {}
-    fun onEditPhone() {}
-    fun onEdirCity() {}
+    fun onEditPassword(password: String) {
+        view?.updateOwnerPassword(password, {})
+    }
+    fun onEditPhone(phone: String) {
+        view?.updateOwnerPhone(phone, {})
+    }
+    fun onEditCity(city: String) {
+        view?.updateOwnerCity(city, {})
+    }
 
 }

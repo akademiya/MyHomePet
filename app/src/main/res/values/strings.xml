@@ -68,11 +68,15 @@
     <string name="period_hint">Enter quantity days</string>
     <string name="age_hint">Enter quantity in month</string>
 
-    // SPINNER
-    <string name="title_spinner_category">категория питомца</string>
-    <string name="full">отдам в хорошие руки</string>
-    <string name="on_time">отдам на время</string>
+    // DIALOG
+    <string name="cancel">Cancel</string>
+    <string name="change">Change</string>
+    <string name="change_owner_name">Change name</string>
+    <string name="change_owner_phone">Change phone</string>
+    <string name="change_owner_password">Change password</string>
+    <string name="change_owner_city">Change city</string>
 
+    // PET CATEGORIES
     <string name="dog">dog</string>
     <string name="cat">cat</string>
     <string name="see_pig">морская свинка</string>
@@ -107,8 +111,10 @@
     <string name="loading">Loading</string>
     <string name="error">Error</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    // SPINNER
+    <string name="title_spinner_category">категория питомца</string>
+    <string name="full">отдам в хорошие руки</string>
+    <string name="on_time">отдам на время</string>
 
     <string-array name="pet_category">
         <item>категория питомца</item>

@@ -69,7 +69,7 @@
         android:layout_height="wrap_content"
         android:background="@color/icon_pressed"
         android:visibility="gone"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <RelativeLayout
             android:layout_width="match_parent"

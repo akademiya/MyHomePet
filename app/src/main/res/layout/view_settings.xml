@@ -49,46 +49,232 @@
                 android:layout_marginTop="@dimen/space_8"
                 android:text="@string/owner" />
 
-            <android.support.design.widget.TextInputLayout
-                style="@style/TextStyle_SubHeader_Accent"
+            <LinearLayout
+                android:id="@+id/represent_as_image_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/negative_margin_edit_text"
-                android:layout_marginStart="@dimen/negative_margin_edit_text"
-                android:layout_marginTop="@dimen/space_8"
-                android:hint="@string/owner_name"
-                android:textColorHint="@color/text_secondary_dark">
+                android:gravity="center_vertical"
+                android:layout_marginBottom="@dimen/parent_margin_edge"
+                android:layout_marginTop="@dimen/parent_margin_edge"
+                android:orientation="horizontal">
 
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/owner_name"
-                    style="@style/TextStyle_Body2_Primary_Dark"
-                    android:layout_width="match_parent"
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/iv_pet_image"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:padding="@dimen/space_16"
+                        android:background="@drawable/circle_decorator"
+                        android:src="@drawable/ic_person" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:imeOptions="actionNext"
-                    android:inputType="textPersonName"
-                    android:paddingBottom="@dimen/space_12"
-                    android:paddingTop="@dimen/space_8" />
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_marginStart="@dimen/space_16"
+                    android:orientation="vertical">
 
-            <android.support.design.widget.TextInputLayout
-                style="@style/TextStyle_SubHeader_Accent"
+                    <Button
+                        android:id="@+id/btn_choose_photo"
+                        style="@style/ButtonTransparent"
+                        android:layout_width="wrap_content"
+                        android:layout_marginBottom="@dimen/space_8"
+                        android:background="@drawable/button_background_white"
+                        android:drawableStart="@drawable/ic_choose_photo"
+                        android:text="@string/choose_photo" />
+
+                    <Button
+                        android:id="@+id/btn_take_photo"
+                        style="@style/ButtonTransparent"
+                        android:layout_width="wrap_content"
+                        android:background="@drawable/button_background_white"
+                        android:drawableStart="@drawable/ic_take_photo"
+                        android:text="@string/take_photo" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/negative_margin_edit_text"
-                android:layout_marginStart="@dimen/negative_margin_edit_text"
-                android:hint="@string/mobile"
-                android:textColorHint="@color/text_secondary_dark">
+                android:layout_height="48dp"
+                android:gravity="center_vertical">
 
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/owner_telephone"
+                <TextView
                     style="@style/TextStyle_Body2_Primary_Dark"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:imeOptions="actionNext"
-                    android:inputType="phone"
-                    android:paddingBottom="@dimen/space_12"
-                    android:paddingTop="@dimen/space_8" />
-            </android.support.design.widget.TextInputLayout>
+                    android:text="@string/owner_name" />
+
+                <TextView
+                    style="@style/TextStyle_Body2_Primary_Dark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=": " />
+
+                <TextView
+                    android:id="@+id/settings_owner_name"
+                    style="@style/TextStyle_Body2_Primary_Dark"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Vadym" />
+
+                <Button
+                    android:id="@+id/edit_owner_name"
+                    style="@style/ButtonFillGreen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:text="edit" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:gravity="center_vertical"
+                android:layout_height="48dp">
+
+                <TextView
+                    style="@style/TextStyle_Body2_Primary_Dark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="@string/mobile" />
+
+                <TextView
+                    style="@style/TextStyle_Body2_Primary_Dark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=": " />
+
+                <TextView
+                    android:id="@+id/settings_owner_phone"
+                    style="@style/TextStyle_Body2_Primary_Dark"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="+38099632145" />
+
+                <Button
+                    android:id="@+id/edit_owner_phone"
+                    style="@style/ButtonFillGreen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:text="edit" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:gravity="center_vertical"
+                android:layout_height="48dp">
+
+                <TextView
+                    style="@style/TextStyle_Body2_Primary_Dark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="@string/country" />
+
+                <TextView
+                    style="@style/TextStyle_Body2_Primary_Dark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=": " />
+
+                <TextView
+                    android:id="@+id/settings_owner_city"
+                    style="@style/TextStyle_Body2_Primary_Dark"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Kiev" />
+
+                <Button
+                    android:id="@+id/edit_owner_city"
+                    style="@style/ButtonFillGreen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:text="edit" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:gravity="center_vertical"
+                android:layout_height="48dp">
+
+                <TextView
+                    style="@style/TextStyle_Body2_Primary_Dark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="@string/password" />
+
+                <TextView
+                    style="@style/TextStyle_Body2_Primary_Dark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=": " />
+
+                <TextView
+                    android:id="@+id/settings_owner_password"
+                    style="@style/TextStyle_Body2_Primary_Dark"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="******" />
+
+                <Button
+                    android:id="@+id/edit_owner_password"
+                    style="@style/ButtonFillGreen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:text="edit" />
+            </LinearLayout>
+
+            <!--<android.support.design.widget.TextInputLayout-->
+            <!--style="@style/TextStyle_SubHeader_Accent"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginEnd="@dimen/negative_margin_edit_text"-->
+            <!--android:layout_marginStart="@dimen/negative_margin_edit_text"-->
+            <!--android:layout_marginTop="@dimen/space_8"-->
+            <!--android:hint="@string/owner_name"-->
+            <!--android:textColorHint="@color/text_secondary_dark">-->
+
+            <!--<android.support.design.widget.TextInputEditText-->
+            <!--android:id="@+id/owner_name"-->
+            <!--style="@style/TextStyle_Body2_Primary_Dark"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:imeOptions="actionNext"-->
+            <!--android:inputType="textPersonName"-->
+            <!--android:paddingBottom="@dimen/space_12"-->
+            <!--android:paddingTop="@dimen/space_8" />-->
+            <!--</android.support.design.widget.TextInputLayout>-->
+
+            <!--<android.support.design.widget.TextInputLayout-->
+            <!--style="@style/TextStyle_SubHeader_Accent"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginEnd="@dimen/negative_margin_edit_text"-->
+            <!--android:layout_marginStart="@dimen/negative_margin_edit_text"-->
+            <!--android:hint="@string/mobile"-->
+            <!--android:textColorHint="@color/text_secondary_dark">-->
+
+            <!--<android.support.design.widget.TextInputEditText-->
+            <!--android:id="@+id/owner_telephone"-->
+            <!--style="@style/TextStyle_Body2_Primary_Dark"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:imeOptions="actionNext"-->
+            <!--android:inputType="phone"-->
+            <!--android:paddingBottom="@dimen/space_12"-->
+            <!--android:paddingTop="@dimen/space_8" />-->
+            <!--</android.support.design.widget.TextInputLayout>-->
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
