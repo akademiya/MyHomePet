@@ -18,7 +18,7 @@ class SqliteDatabase private constructor(context: Context) : SQLiteOpenHelper(co
         onCreate(db)
     }
 
-    fun listPets(): List<PetModel> {
+    fun listPets(): MutableList<PetModel> {
         val sql = "select * from $TABLE_PETS"
         val db = this.readableDatabase
         val storePets = ArrayList<PetModel>()

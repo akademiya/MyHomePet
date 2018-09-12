@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.View
 import android.widget.LinearLayout
 import com.vadym.adv.myhomepet.BaseActivity
@@ -12,6 +13,7 @@ import com.vadym.adv.myhomepet.data.SqliteDatabase
 import com.vadym.adv.myhomepet.toAndroidVisibility
 import com.vadym.adv.myhomepet.ui.pet.PetAdapter
 import com.vadym.adv.myhomepet.ui.pet.PetModel
+import com.vadym.adv.myhomepet.ui.pet.SwipeToDeleteCallback
 import com.vadym.adv.myhomepet.ui.pet.presenter.PetPresenter
 import kotlinx.android.synthetic.main.view_my_pet_card_list.*
 
@@ -19,7 +21,7 @@ class PetView : BaseActivity(), IPetView {
 
     private lateinit var presenter: PetPresenter
     private lateinit var database: SqliteDatabase
-    private lateinit var allpets: List<PetModel>
+    private lateinit var allpets: MutableList<PetModel>
     private lateinit var adapter: PetAdapter
 
     override fun init(savedInstanceState: Bundle?) {
@@ -53,6 +55,15 @@ class PetView : BaseActivity(), IPetView {
             list_my_pets.adapter = adapter
         }
         presenter.onEmptyListVisibility(allpets.isNotEmpty())
+
+        val swipeHandler = object : SwipeToDeleteCallback(this) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder?, direction: Int) {
+                adapter.removeItem(viewHolder!!.adapterPosition)
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(swipeHandler)
+        itemTouchHelper.attachToRecyclerView(list_my_pets)
 
     }
 

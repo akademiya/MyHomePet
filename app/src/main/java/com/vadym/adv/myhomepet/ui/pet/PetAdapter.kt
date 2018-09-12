@@ -10,7 +10,7 @@ import com.vadym.adv.myhomepet.R
 import com.vadym.adv.myhomepet.data.SqliteDatabase
 import kotlinx.android.synthetic.main.item_my_pet_card_list.view.*
 
-class PetAdapter(private val pets: List<PetModel>,
+class PetAdapter(private val pets: MutableList<PetModel>,
                  private val context: Context,
                  private val database: SqliteDatabase,
                  private val onEditItem: (PetModel) -> Unit) : RecyclerView.Adapter<PetAdapter.VH>() {
@@ -40,11 +40,11 @@ class PetAdapter(private val pets: List<PetModel>,
             itemView.period.text = singlePet.period
             itemView.country.text = singlePet.country
 
-            itemView.delete_item.setOnClickListener {
-                database.deletePet(singlePet.id)
-                (context as Activity).finish()
-                context.startActivity(context.intent)
-            }
+//            itemView.delete_item.setOnClickListener {
+//                database.deletePet(singlePet.id)
+//                (context as Activity).finish()
+//                context.startActivity(context.intent)
+//            }
 
             itemView.setOnClickListener { onEditItem(singlePet) }
 
@@ -53,6 +53,14 @@ class PetAdapter(private val pets: List<PetModel>,
 //        holder.listView?.setOnClickListener {
 //              database.updatePet(pets[id])
 //        }
+    }
+
+    fun removeItem(position: Int) {
+        database.deletePet(pets[position].id)
+        pets.removeAt(position)
+        notifyItemRemoved(position)
+        (context as Activity).finish()
+        context.startActivity(context.intent)
     }
 
 //    private fun editTaskDialog(person: Person) {
