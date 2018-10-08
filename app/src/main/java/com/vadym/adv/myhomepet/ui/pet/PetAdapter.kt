@@ -25,26 +25,11 @@ class PetAdapter(private val pets: MutableList<PetModel>,
         val singlePet = pets[position]
 
         holder.apply {
-            itemView.listView.setOnLongClickListener {
-                itemView.listReview.visibility = View.VISIBLE
-                false
-            }
-
-            itemView.go_back.setOnClickListener {
-                itemView.listReview?.visibility = View.GONE
-            }
-
 //                img_pet.setImageDrawable(petModel.petPhoto)
             itemView.category_pet.text = singlePet.category
             itemView.main_action.text = singlePet.action
             itemView.period.text = singlePet.period
             itemView.country.text = singlePet.country
-
-//            itemView.delete_item.setOnClickListener {
-//                database.deletePet(singlePet.id)
-//                (context as Activity).finish()
-//                context.startActivity(context.intent)
-//            }
 
             itemView.setOnClickListener { onEditItem(singlePet) }
 

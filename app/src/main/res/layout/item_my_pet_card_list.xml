@@ -63,41 +63,41 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="92dp" />
 
-    <FrameLayout
-        android:id="@+id/listReview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/icon_pressed"
-        android:visibility="gone"
-        tools:visibility="gone">
+    <!--<FrameLayout-->
+        <!--android:id="@+id/listReview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/icon_pressed"-->
+        <!--android:visibility="gone"-->
+        <!--tools:visibility="gone">-->
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="75dp">
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="75dp">-->
 
-            <ImageView
-                android:id="@+id/go_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/parent_margin_edge"
-                android:background="@drawable/button_ripple_green"
-                android:padding="12dp"
-                android:tint="@color/black_effective"
-                android:src="@drawable/ic_arrow_back_white" />
+            <!--<ImageView-->
+                <!--android:id="@+id/go_back"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentStart="true"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_marginStart="@dimen/parent_margin_edge"-->
+                <!--android:background="@drawable/button_ripple_green"-->
+                <!--android:padding="12dp"-->
+                <!--android:tint="@color/black_effective"-->
+                <!--android:src="@drawable/ic_arrow_back_white" />-->
 
-            <ImageView
-                android:id="@+id/delete_item"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/parent_margin_edge"
-                android:background="@drawable/button_ripple_green"
-                android:padding="12dp"
-                android:src="@drawable/ic_delete" />
+            <!--<ImageView-->
+                <!--android:id="@+id/delete_item"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_marginEnd="@dimen/parent_margin_edge"-->
+                <!--android:background="@drawable/button_ripple_green"-->
+                <!--android:padding="12dp"-->
+                <!--android:src="@drawable/ic_delete" />-->
 
-        </RelativeLayout>
-    </FrameLayout>
+        <!--</RelativeLayout>-->
+    <!--</FrameLayout>-->
 </RelativeLayout>
