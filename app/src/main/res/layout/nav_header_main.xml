@@ -1,48 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/drawer_bg2">
-
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="@dimen/drawer_logo"
-        android:layout_height="@dimen/drawer_logo"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="@dimen/parent_margin_edge"
-        android:layout_marginTop="@dimen/space_36"
-        android:background="@drawable/circle_decorator"
-        android:backgroundTint="@color/white"
-        android:src="@drawable/dog" />
+    android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/owner_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/space_16"
-        android:layout_marginEnd="@dimen/space_4"
-        android:layout_marginStart="@dimen/space_16"
         android:layout_marginTop="@dimen/space_36"
-        android:layout_toStartOf="@+id/logo"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
+        android:layout_marginStart="@dimen/parent_margin_edge"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="@dimen/drawer_logo"
+            android:layout_height="@dimen/drawer_logo"
+            android:layout_marginEnd="@dimen/space_16"
+            android:background="@drawable/circle_decorator"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/dog" />
 
         <TextView
-            android:id="@+id/owner_name"
-            style="@style/TextStyle_Body2_Primary_Dark"
-            android:layout_marginBottom="@dimen/space_4"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:textColor="@color/white"
-            android:text="Owner" />
-
-        <TextView
-            android:id="@+id/owner_country"
-            style="@style/TextStyle_Body2_Primary_Dark"
-            android:layout_marginBottom="@dimen/space_4"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:textColor="@color/white"
-            android:text="Kiev" />
+            style="@style/TextStyle_Drawer_Header"
+            android:text="@string/login_slang"
+            android:textAllCaps="true"
+            android:textSize="@dimen/drawer_app_name_size" />
     </LinearLayout>
-</RelativeLayout>
+
+    <TextView
+        android:id="@+id/owner_name"
+        style="@style/TextStyle_Drawer_Header"
+        android:layout_marginTop="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_4"
+        android:text="Owner"
+        android:textSize="@dimen/body2_text_size" />
+
+    <TextView
+        android:id="@+id/owner_country"
+        style="@style/TextStyle_Drawer_Header"
+        android:layout_marginBottom="@dimen/space_16"
+        android:text="Kiev" />
+
+    <View style="@style/AppTheme.HorizontalViewDivider" />
+
+</LinearLayout>

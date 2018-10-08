@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:id="@+id/listView"
     android:layout_height="75dp"
-    android:background="@drawable/background_selectable_item"
+    android:background="?selectableItemBackground"
     android:foreground="?android:selectableItemBackground">
 
     <ImageView
