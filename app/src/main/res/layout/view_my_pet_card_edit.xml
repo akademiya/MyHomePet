@@ -47,7 +47,6 @@
                 android:gravity="center"
                 android:text="@string/save" />
         </RelativeLayout>
-
     </android.support.v7.widget.Toolbar>
 
     <ScrollView
@@ -72,16 +71,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/parent_margin_edge"
                     android:orientation="vertical"
-                    android:paddingEnd="@dimen/parent_margin_edge"
-                    android:paddingStart="@dimen/parent_margin_edge">
+                    android:paddingStart="@dimen/parent_margin_edge"
+                    android:paddingEnd="@dimen/parent_margin_edge">
 
                     <!--Add photo-->
                     <LinearLayout
                         android:id="@+id/represent_as_image_container"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/parent_margin_edge"
                         android:layout_marginTop="@dimen/parent_margin_edge"
+                        android:layout_marginBottom="@dimen/parent_margin_edge"
                         android:orientation="horizontal">
 
                         <FrameLayout
@@ -153,8 +152,8 @@
 
                         <TextView
                             style="@style/TextStyle_SubHeader_Accent"
-                            android:layout_marginBottom="@dimen/space_4"
                             android:layout_marginTop="@dimen/space_8"
+                            android:layout_marginBottom="@dimen/space_4"
                             android:text="@string/category" />
 
                         <Spinner
@@ -167,6 +166,17 @@
                         <View
                             style="@style/AppTheme.HorizontalSpinnerDivider"
                             android:layout_marginTop="@dimen/space_8" />
+
+                        <!--Error-->
+                        <TextView
+                            android:id="@+id/spCategoryError"
+                            style="@style/TextAppearance.AppCompat.Small.ErrorStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_8"
+                            android:text="must be selected"
+                            android:visibility="gone"
+                            tools:visibility="visible" />
                     </LinearLayout>
 
                     <!--Действие с питомцом-->
@@ -180,8 +190,8 @@
 
                         <TextView
                             style="@style/TextStyle_SubHeader_Accent"
-                            android:layout_marginBottom="@dimen/space_4"
                             android:layout_marginTop="@dimen/space_8"
+                            android:layout_marginBottom="@dimen/space_4"
                             android:text="@string/action" />
 
                         <Spinner
@@ -197,12 +207,13 @@
 
                     <!--Период-->
                     <android.support.design.widget.TextInputLayout
+                        android:id="@+id/til_action_period"
                         style="@style/TextStyle_SubHeader_Accent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/negative_margin_edit_text"
                         android:layout_marginStart="@dimen/negative_margin_edit_text"
                         android:layout_marginTop="@dimen/space_8"
+                        android:layout_marginEnd="@dimen/negative_margin_edit_text"
                         android:hint="@string/period"
                         android:textColorHint="@color/text_secondary_dark">
 
@@ -213,8 +224,8 @@
                             android:layout_height="wrap_content"
                             android:imeOptions="actionNext"
                             android:inputType="number"
-                            android:paddingBottom="@dimen/space_12"
                             android:paddingTop="@dimen/space_8"
+                            android:paddingBottom="@dimen/space_12"
                             android:singleLine="true" />
                     </android.support.design.widget.TextInputLayout>
 
@@ -222,16 +233,19 @@
                         style="@style/TextStyle_Hint"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/space_24"
                         android:text="@string/period_hint" />
 
                     <!--Кличка питомца-->
                     <android.support.design.widget.TextInputLayout
+                        android:id="@+id/til_pet_name"
                         style="@style/TextStyle_SubHeader_Accent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/negative_margin_edit_text"
                         android:layout_marginStart="@dimen/negative_margin_edit_text"
                         android:layout_marginTop="@dimen/space_8"
+                        android:layout_marginEnd="@dimen/negative_margin_edit_text"
+                        android:layout_marginBottom="@dimen/space_24"
                         android:hint="@string/pet_name"
                         android:textColorHint="@color/text_secondary_dark">
 
@@ -242,21 +256,22 @@
                             android:layout_height="wrap_content"
                             android:imeOptions="actionNext"
                             android:inputType="textPersonName"
-                            android:paddingBottom="@dimen/space_12"
                             android:paddingTop="@dimen/space_8"
+                            android:paddingBottom="@dimen/space_12"
                             android:singleLine="true" />
                     </android.support.design.widget.TextInputLayout>
 
 
                     <!--Порода питомца-->
                     <android.support.design.widget.TextInputLayout
+                        android:id="@+id/til_pet_breed"
                         style="@style/TextStyle_SubHeader_Accent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/parent_margin_edge"
-                        android:layout_marginEnd="@dimen/negative_margin_edit_text"
                         android:layout_marginStart="@dimen/negative_margin_edit_text"
                         android:layout_marginTop="@dimen/space_8"
+                        android:layout_marginEnd="@dimen/negative_margin_edit_text"
+                        android:layout_marginBottom="@dimen/parent_margin_edge"
                         android:hint="@string/breed"
                         android:textColorHint="@color/text_secondary_dark">
 
@@ -267,19 +282,21 @@
                             android:layout_height="wrap_content"
                             android:imeOptions="actionNext"
                             android:inputType="text"
-                            android:paddingBottom="@dimen/space_12"
                             android:paddingTop="@dimen/space_8"
+                            android:paddingBottom="@dimen/space_12"
                             android:singleLine="true" />
                     </android.support.design.widget.TextInputLayout>
 
+
                     <!--Возраст питомца-->
                     <android.support.design.widget.TextInputLayout
+                        android:id="@+id/til_pet_age"
                         style="@style/TextStyle_SubHeader_Accent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/negative_margin_edit_text"
                         android:layout_marginStart="@dimen/negative_margin_edit_text"
                         android:layout_marginTop="@dimen/space_8"
+                        android:layout_marginEnd="@dimen/negative_margin_edit_text"
                         android:hint="@string/pet_age"
                         android:textColorHint="@color/text_secondary_dark">
 
@@ -291,8 +308,8 @@
                             android:imeOptions="actionDone"
                             android:inputType="number"
                             android:maxLength="2"
-                            android:paddingBottom="@dimen/space_12"
                             android:paddingTop="@dimen/space_8"
+                            android:paddingBottom="@dimen/space_12"
                             android:singleLine="true" />
                     </android.support.design.widget.TextInputLayout>
 
@@ -300,7 +317,9 @@
                         style="@style/TextStyle_Hint"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/space_24"
                         android:text="@string/age_hint" />
+
 
                     <!--Наличие прививок-->
                     <LinearLayout
@@ -313,8 +332,8 @@
 
                         <TextView
                             style="@style/TextStyle_SubHeader_Accent"
-                            android:layout_marginBottom="@dimen/space_4"
                             android:layout_marginTop="@dimen/space_8"
+                            android:layout_marginBottom="@dimen/space_4"
                             android:text="@string/vaccine" />
 
                         <RadioGroup
@@ -348,10 +367,10 @@
                         style="@style/TextStyle_SubHeader_Accent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/parent_margin_edge"
-                        android:layout_marginEnd="@dimen/negative_margin_edit_text"
                         android:layout_marginStart="@dimen/negative_margin_edit_text"
                         android:layout_marginTop="@dimen/space_8"
+                        android:layout_marginEnd="@dimen/negative_margin_edit_text"
+                        android:layout_marginBottom="@dimen/parent_margin_edge"
                         android:hint="@string/description"
                         android:textColorHint="@color/text_secondary_dark">
 
@@ -360,11 +379,9 @@
                             style="@style/TextStyle_Body2_Primary_Dark"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="top"
-                            android:inputType="textMultiLine"
-                            android:lines="3"
-                            android:paddingBottom="@dimen/space_12"
-                            android:paddingTop="@dimen/space_8" />
+                            android:inputType="text"
+                            android:paddingTop="@dimen/space_8"
+                            android:paddingBottom="@dimen/space_12" />
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -379,24 +396,24 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/parent_margin_edge"
-                    android:layout_marginEnd="@dimen/parent_margin_edge"
                     android:layout_marginStart="@dimen/parent_margin_edge"
+                    android:layout_marginEnd="@dimen/parent_margin_edge"
+                    android:layout_marginBottom="@dimen/parent_margin_edge"
                     android:orientation="vertical">
 
                     <TextView
                         style="@style/TextStyle_SubHeader_Accent"
-                        android:layout_marginBottom="@dimen/space_4"
                         android:layout_marginTop="@dimen/space_8"
+                        android:layout_marginBottom="@dimen/space_4"
                         android:text="@string/furniture" />
 
                     <android.support.design.widget.TextInputLayout
                         style="@style/TextStyle_SubHeader_Accent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/negative_margin_edit_text"
                         android:layout_marginStart="@dimen/negative_margin_edit_text"
                         android:layout_marginTop="@dimen/space_8"
+                        android:layout_marginEnd="@dimen/negative_margin_edit_text"
                         android:hint="@string/furniture_description"
                         android:textColorHint="@color/text_secondary_dark">
 
@@ -405,12 +422,10 @@
                             style="@style/TextStyle_Body2_Primary_Dark"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="top"
                             android:imeOptions="actionDone"
-                            android:inputType="textMultiLine"
-                            android:lines="3"
-                            android:paddingBottom="@dimen/space_12"
-                            android:paddingTop="@dimen/space_8" />
+                            android:inputType="text"
+                            android:paddingTop="@dimen/space_8"
+                            android:paddingBottom="@dimen/space_12" />
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -464,8 +479,8 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:clickable="false"
-                        android:drawablePadding="@dimen/space_12"
                         android:drawableStart="@drawable/ic_delete"
+                        android:drawablePadding="@dimen/space_12"
                         android:duplicateParentState="true"
                         android:text="@string/delete_item" />
 

@@ -12,6 +12,8 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.karumi.dexter.PermissionToken
 import com.vadym.adv.myhomepet.*
+import com.vadym.adv.myhomepet.R.id.*
+import com.vadym.adv.myhomepet.R.string.action
 import com.vadym.adv.myhomepet.data.SqliteDatabase
 import com.vadym.adv.myhomepet.di.module.GlideApp
 import com.vadym.adv.myhomepet.ui.pet.PetModel
@@ -24,6 +26,7 @@ class EditPetView : BaseActivity(), IEditPetView {
 
     private lateinit var presenter: EditPetPresenter
     private lateinit var database: SqliteDatabase
+    private var noFires = false
     private lateinit var petModel: PetModel
     private val isLocked = SimpleLock()
 //    private val idCard = intent.getIntExtra(ID_CARD, 0)
@@ -49,34 +52,6 @@ class EditPetView : BaseActivity(), IEditPetView {
         btn_take_photo.setOnClickListener { presenter.onTakePhotoChecked(this@EditPetView) } // FIXME: applicationContext.startCaptureCameraImageIntent();
         btn_remove_photo.setOnClickListener { updateImageRepresentation("") }
 
-
-        action_period.setSimpleTextWatcher { presenter.updatePeriod(it) }
-
-        button_save.setOnClickListener {
-            presenter.updateData()
-            database.addPet(PetModel(this.category, this.action, this.period, this.country))
-            presenter.onBackToParent()
-        }
-
-
-        /**
-         * Задизейблить первую позицию списка - это и будет hint
-         */
-//        val spinnerCategoryAdapter = object : ArrayAdapter<String>(this, R.layout.spinner_simple_item, spinner_category) {
-//            override fun isEnabled(position: Int): Boolean {
-//                return if (position == 0) false else true
-//            }
-//
-//            override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
-//                val view = super.getDropDownView(position, convertView, parent)
-//                val tv = view as TextView
-//                if (position == 0) {
-//                    tv.setTextColor(Color.GREEN)
-//                }
-//                return view
-//            }
-//        }
-
         val spinnerCategoryAdapter = ArrayAdapter.createFromResource(
                 this,
                 R.array.pet_category,
@@ -87,7 +62,8 @@ class EditPetView : BaseActivity(), IEditPetView {
         spinner_categories.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                category = spinnerCategoryAdapter.getItem(position).toString()  // if (position > 0)
+                presenter.onSpinnerCategorySelected(position)
+                category = spinnerCategoryAdapter.getItem(position).toString()
             }
         }
 
@@ -105,11 +81,33 @@ class EditPetView : BaseActivity(), IEditPetView {
             }
         }
 
+        action_period.setSimpleTextWatcher {
+            presenter.onResetError()
+            presenter.updatePeriod(it)
+        }
+        pet_name.setSimpleTextWatcher {
+            presenter.onResetError()
+            presenter.updateName(it)
+        }
+        pet_breed.setSimpleTextWatcher {
+            presenter.onResetError()
+            presenter.updateBreed(it)
+        }
+        pet_age.setSimpleTextWatcher {
+            presenter.onResetError()
+            presenter.updateAge(it)
+        }
+
         rg_vaccine.setOnCheckedChangeListener { _, checkedId ->
             when(checkedId) {
                 R.id.rb_vaccine_no -> presenter.onVaccineChange(false)
                 R.id.rb_vaccine_yes -> presenter.onVaccineChange(true)
             }
+        }
+
+        button_save.setOnClickListener {
+            presenter.updateData()
+            presenter.onValidate()
         }
 
     }
@@ -124,10 +122,20 @@ class EditPetView : BaseActivity(), IEditPetView {
         super.onDetachedFromWindow()
     }
 
+    private fun noFires(block: () -> Unit) {
+        noFires = true
+        block()
+        noFires = false
+    }
+
     override fun setCreateOrEditTitle(isEdit: Boolean) {
-        if (!isLocked.isLocked) return
         toolbar_title.setText(if (isEdit) R.string.edit_item else R.string.create_item)
         button_delete_me.visibility = isEdit.toAndroidVisibility()
+    }
+
+    override fun onSuccessValid() {
+        database.addPet(PetModel(this.category, this.action, this.period, this.country))
+        presenter.onBackToParent()
     }
 
     override fun onDeleteItem(param: Int?) {
@@ -136,6 +144,28 @@ class EditPetView : BaseActivity(), IEditPetView {
 
     override fun updateAllData(period: String) {
         this.period = period
+    }
+
+    override fun showInvalidValue(error: IEditPetView.InvalidData) {
+        when (error) {
+            IEditPetView.InvalidData.NO_PERIOD -> til_action_period.error = resources.getString(R.string.no_email)
+            IEditPetView.InvalidData.NO_NAME -> til_pet_name.error = resources.getString(R.string.no_email)
+            IEditPetView.InvalidData.NO_BREED -> til_pet_breed.error = resources.getString(R.string.no_email)
+            IEditPetView.InvalidData.NO_AGE -> til_pet_age.error = resources.getString(R.string.no_email)
+            IEditPetView.InvalidData.ACTON_NOT_SELECTED -> spCategoryError.visibility = View.VISIBLE
+        }
+    }
+
+    override fun onResetError() {
+        til_action_period.error = ""
+        til_pet_name.error = ""
+        til_pet_breed.error = ""
+        til_pet_age.error = ""
+        spCategoryError.visibility = View.GONE
+    }
+
+    override fun setButtonSaveEnabled(enable: Boolean) {
+        button_save.isEnabled = enable
     }
 
     /** START SET IMAGE */
@@ -210,7 +240,6 @@ class EditPetView : BaseActivity(), IEditPetView {
 //        if (visibility) btn_remove_photo.clearColorFilter()
 //        else return
 //    }
-    /** END SET IMAGE */
 
     companion object {
         const val ID_CARD = "id_card"

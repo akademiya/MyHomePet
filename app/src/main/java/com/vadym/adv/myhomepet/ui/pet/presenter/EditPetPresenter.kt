@@ -17,6 +17,7 @@ import com.vadym.adv.myhomepet.BasePresenter
 import com.vadym.adv.myhomepet.FlowActivity
 import com.vadym.adv.myhomepet.ui.pet.PetModel
 import com.vadym.adv.myhomepet.ui.pet.view.EditPetView
+import com.vadym.adv.myhomepet.ui.pet.view.IEditPetView
 import java.io.ByteArrayOutputStream
 
 class EditPetPresenter(editPetView: EditPetView, application: Application) : BasePresenter<EditPetView>(editPetView) {
@@ -24,7 +25,12 @@ class EditPetPresenter(editPetView: EditPetView, application: Application) : Bas
     init { (application as AndroidApplication).applicationComponent.inject(this) }
 
     private var period = ""
+    private var name = ""
+    private var breed = ""
+    private var age = ""
     private val param: PetModel? = null
+    private var spinnerPosition = 0
+    private var isValidateSuccess = true
 
     override fun onBindView() {
         view?.setCreateOrEditTitle(param?.id != null)
@@ -33,13 +39,51 @@ class EditPetPresenter(editPetView: EditPetView, application: Application) : Bas
 
     override fun onUnbindView() {}
 
-    fun onBackToParent() {
-        view?.goTo(FlowActivity.MY_PET)
+    fun onValidate() {
+        if (period.isBlank()) {
+            view?.showInvalidValue(IEditPetView.InvalidData.NO_PERIOD)
+            view?.setButtonSaveEnabled(false)
+            isValidateSuccess = false
+        }
+
+        if (name.isBlank()) {
+            view?.showInvalidValue(IEditPetView.InvalidData.NO_NAME)
+            view?.setButtonSaveEnabled(false)
+            isValidateSuccess = false
+        }
+
+        if (breed.isBlank()) {
+            view?.showInvalidValue(IEditPetView.InvalidData.NO_BREED)
+            view?.setButtonSaveEnabled(false)
+            isValidateSuccess = false
+        }
+
+        if (age.isBlank()) {
+            view?.showInvalidValue(IEditPetView.InvalidData.NO_AGE)
+            view?.setButtonSaveEnabled(false)
+            isValidateSuccess = false
+        }
+
+        if (spinnerPosition == 0) {
+            view?.showInvalidValue(IEditPetView.InvalidData.ACTON_NOT_SELECTED)
+            view?.setButtonSaveEnabled(false)
+            isValidateSuccess = false
+        }
+
+        if (isValidateSuccess) view?.onSuccessValid()
     }
 
-    fun updatePeriod(period: String) {
-        this.period = period
+    fun onResetError() {
+        view?.setButtonSaveEnabled(true)
+        view?.onResetError()
+        isValidateSuccess = true
     }
+
+    fun onSpinnerCategorySelected(position: Int) { this.spinnerPosition = position }
+    fun updatePeriod(period: String) { this.period = period }
+    fun updateName(name: String) { this.name = name }
+    fun updateBreed(breed: String) { this.breed = breed }
+    fun updateAge(age: String) { this.age = age }
 
     fun updateData() {
         view?.updateAllData(period)
@@ -97,5 +141,9 @@ class EditPetPresenter(editPetView: EditPetView, application: Application) : Bas
 //            e1.printStackTrace()
 //        }
 //        return ""
+    }
+
+    fun onBackToParent() {
+        view?.goTo(FlowActivity.MY_PET)
     }
 }

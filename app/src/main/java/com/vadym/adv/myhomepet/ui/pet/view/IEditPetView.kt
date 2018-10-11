@@ -11,4 +11,16 @@ interface IEditPetView {
     fun onSelectImageInAlbum(intent: Intent)
     fun onTakePhoto(intent: Intent)
     fun showDialogCameraPermission(token: PermissionToken)
+    fun onSuccessValid()
+    fun onResetError()
+    fun showInvalidValue(error: InvalidData)
+    fun setButtonSaveEnabled(enable: Boolean)
+
+    enum class InvalidData {
+        NO_NAME,
+        NO_PERIOD,
+        NO_BREED,
+        NO_AGE,
+        ACTON_NOT_SELECTED
+    }
 }
