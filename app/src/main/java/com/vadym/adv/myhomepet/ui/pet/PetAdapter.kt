@@ -23,12 +23,13 @@ class PetAdapter(private val pets: MutableList<PetModel>,
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         val singlePet = pets[position]
+        val days = singlePet.period?.toInt()
 
         holder.apply {
 //                img_pet.setImageDrawable(petModel.petPhoto)
             itemView.category_pet.text = singlePet.category
             itemView.main_action.text = singlePet.action
-            itemView.period.text = singlePet.period
+            itemView.period.text = days?.let { context.resources.getQuantityString(R.plurals.days, it, it) }
             itemView.country.text = singlePet.country
 
             itemView.setOnClickListener { onEditItem(singlePet) }
