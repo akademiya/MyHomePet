@@ -29,7 +29,8 @@ class EditPetPresenter(editPetView: EditPetView, application: Application) : Bas
     private var breed = ""
     private var age = ""
     private val param: PetModel? = null
-    private var spinnerPosition = 0
+    private var categoryPosition = 0
+    private var actionPosition = 0
     private var isValidateSuccess = true
 
     override fun onBindView() {
@@ -64,8 +65,8 @@ class EditPetPresenter(editPetView: EditPetView, application: Application) : Bas
             isValidateSuccess = false
         }
 
-        if (spinnerPosition == 0) {
-            view?.showInvalidValue(IEditPetView.InvalidData.ACTON_NOT_SELECTED)
+        if (categoryPosition == 0) {
+            view?.showInvalidValue(IEditPetView.InvalidData.CATEGORY_NOT_SELECTED)
             view?.setButtonSaveEnabled(false)
             isValidateSuccess = false
         }
@@ -79,7 +80,8 @@ class EditPetPresenter(editPetView: EditPetView, application: Application) : Bas
         isValidateSuccess = true
     }
 
-    fun onSpinnerCategorySelected(position: Int) { this.spinnerPosition = position }
+    fun onSpinnerCategorySelected(position: Int) { this.categoryPosition = position }
+    fun onSpinnerActionSelected(position: Int) { this.actionPosition = position }
     fun updatePeriod(period: String) { this.period = period }
     fun updateName(name: String) { this.name = name }
     fun updateBreed(breed: String) { this.breed = breed }

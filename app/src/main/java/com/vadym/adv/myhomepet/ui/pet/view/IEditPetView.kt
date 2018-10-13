@@ -21,6 +21,6 @@ interface IEditPetView {
         NO_PERIOD,
         NO_BREED,
         NO_AGE,
-        ACTON_NOT_SELECTED
+        CATEGORY_NOT_SELECTED
     }
 }

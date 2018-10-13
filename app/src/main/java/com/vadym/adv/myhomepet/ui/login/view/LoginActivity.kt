@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.vadym.adv.myhomepet.R
+import com.vadym.adv.myhomepet.hideKeyboard
 import com.vadym.adv.myhomepet.setSimpleTextWatcher
 import com.vadym.adv.myhomepet.ui.login.ILoginActivity
 import com.vadym.adv.myhomepet.ui.login.presenter.LoginPresenter
@@ -71,12 +72,13 @@ class LoginActivity : AppCompatActivity(), ILoginActivity {
     }
 
     override fun onLoginSuccess() {
+        hideKeyboard()
         val progressDialog = ProgressDialog(this@LoginActivity) // TODO: I can add style
         progressDialog.isIndeterminate = true
         progressDialog.setMessage("Login...")
         progressDialog.show()
 
-        auth?.signInWithEmailAndPassword(input_email.text.toString(), input_password.text.toString())?.addOnCompleteListener(this@LoginActivity) { task ->
+        auth?.signInWithEmailAndPassword(input_email.text.toString(), input_password.text.toString())?.addOnCompleteListener(this@LoginActivity) { _ ->
             if (auth?.currentUser != null) {
                 progressDialog.dismiss()
                 startActivity(Intent(this@LoginActivity, MainActivity::class.java))

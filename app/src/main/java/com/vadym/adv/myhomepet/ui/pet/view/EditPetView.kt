@@ -11,11 +11,12 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.karumi.dexter.PermissionToken
-import com.vadym.adv.myhomepet.*
-import com.vadym.adv.myhomepet.R.id.*
-import com.vadym.adv.myhomepet.R.string.action
+import com.vadym.adv.myhomepet.BaseActivity
+import com.vadym.adv.myhomepet.R
 import com.vadym.adv.myhomepet.data.SqliteDatabase
 import com.vadym.adv.myhomepet.di.module.GlideApp
+import com.vadym.adv.myhomepet.setSimpleTextWatcher
+import com.vadym.adv.myhomepet.toAndroidVisibility
 import com.vadym.adv.myhomepet.ui.pet.PetModel
 import com.vadym.adv.myhomepet.ui.pet.presenter.EditPetPresenter
 import kotlinx.android.synthetic.main.view_my_pet_card_edit.*
@@ -27,11 +28,9 @@ class EditPetView : BaseActivity(), IEditPetView {
     private lateinit var presenter: EditPetPresenter
     private lateinit var database: SqliteDatabase
     private var noFires = false
-    private lateinit var petModel: PetModel
-    private val isLocked = SimpleLock()
-//    private val idCard = intent.getIntExtra(ID_CARD, 0)
     private var category = ""
     private var action = ""
+    private var actionPosition = 0
     private var period = ""
     private var country = ""
 
@@ -62,6 +61,7 @@ class EditPetView : BaseActivity(), IEditPetView {
         spinner_categories.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                onResetError()
                 presenter.onSpinnerCategorySelected(position)
                 category = spinnerCategoryAdapter.getItem(position).toString()
             }
@@ -77,9 +77,23 @@ class EditPetView : BaseActivity(), IEditPetView {
         spinner_action.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                actionPosition = position
+                presenter.onSpinnerActionSelected(position)
                 action = spinnerActionAdapter.getItem(position).toString()
             }
         }
+
+//        TODO: если выбран пункт "отдать на совсем", то поле периода нужно скрыть
+//        when (actionPosition) {
+//            0 -> {
+//                action_period.visibility = View.GONE
+//                hint_period.visibility = View.GONE
+//            }
+//            1 -> {
+//                action_period.visibility = View.VISIBLE
+//                hint_period.visibility = View.VISIBLE
+//            }
+//        }
 
         action_period.setSimpleTextWatcher {
             presenter.onResetError()
@@ -152,15 +166,15 @@ class EditPetView : BaseActivity(), IEditPetView {
             IEditPetView.InvalidData.NO_NAME -> til_pet_name.error = resources.getString(R.string.no_email)
             IEditPetView.InvalidData.NO_BREED -> til_pet_breed.error = resources.getString(R.string.no_email)
             IEditPetView.InvalidData.NO_AGE -> til_pet_age.error = resources.getString(R.string.no_email)
-            IEditPetView.InvalidData.ACTON_NOT_SELECTED -> spCategoryError.visibility = View.VISIBLE
+            IEditPetView.InvalidData.CATEGORY_NOT_SELECTED -> spCategoryError.visibility = View.VISIBLE
         }
     }
 
     override fun onResetError() {
-        til_action_period.error = ""
-        til_pet_name.error = ""
-        til_pet_breed.error = ""
-        til_pet_age.error = ""
+        til_action_period.error = null
+        til_pet_name.error = null
+        til_pet_breed.error = null
+        til_pet_age.error = null
         spCategoryError.visibility = View.GONE
     }
 
