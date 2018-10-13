@@ -171,10 +171,10 @@ class EditPetView : BaseActivity(), IEditPetView {
     }
 
     override fun onResetError() {
-        til_action_period.error = null
-        til_pet_name.error = null
-        til_pet_breed.error = null
-        til_pet_age.error = null
+        til_action_period.isErrorEnabled = false
+        til_pet_name.isErrorEnabled = false
+        til_pet_breed.isErrorEnabled = false
+        til_pet_age.isErrorEnabled = false
         spCategoryError.visibility = View.GONE
     }
 
