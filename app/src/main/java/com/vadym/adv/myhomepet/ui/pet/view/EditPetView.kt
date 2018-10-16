@@ -248,6 +248,7 @@ class EditPetView : BaseActivity(), IEditPetView {
         }
     }
 
+
 //    TODO: photo remove button
 //    private fun onRemovePhotoVisibility(visibility: Boolean) {
 //        btn_remove_photo.visibility = visibility.toAndroidVisibility()
