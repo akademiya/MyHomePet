@@ -39,7 +39,7 @@
 
             <Button
                 android:id="@+id/button_save"
-                style="@style/ButtonToolbarWithStartEndPadding"
+                style="@style/ButtonToolbarWithPadding"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"

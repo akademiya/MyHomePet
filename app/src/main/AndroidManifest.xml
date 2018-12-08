@@ -37,9 +37,6 @@
         <activity android:name=".ui.pet.view.EditPetView"/>
         <activity android:name=".ui.info.InfoView" />
         <activity android:name=".ui.settings.SettingsView"/>
-        <activity
-            android:name=".TestForVisual"
-            android:exported="true" />
 
     </application>
 </manifest>

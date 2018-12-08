@@ -61,17 +61,14 @@ fun Context.showDialog2Button(title: String?,
                               buttonPos: String,
                               onClickPos: (DialogInterface) -> Unit): AlertDialog {
 
-    val inflater = LayoutInflater.from(this)
-    val subView = inflater.inflate(R.layout.item_edit_data_owner, null)
-
+    val subView = LayoutInflater.from(this).inflate(R.layout.item_edit_data_owner, null)
     val descriptionField = subView.findViewById<EditText>(R.id.owner_data)
-    descriptionField.setText(param)
 
     return AlertDialog.Builder(this).run {
+        setView(subView)
         setCancelable(false)
         title?.let { setTitle(it) }
         descriptionField.setText(param)
-        setView(subView)
         setNegativeButton(buttonNeg) { dialog, _ -> onClickNeg(dialog) }
         setPositiveButton(buttonPos) { dialog, _ -> onClickPos(dialog) }
         show().apply {
@@ -91,6 +88,34 @@ fun Context.showDialogEditDataOwner(title: String?,
                                     onYesClick: (DialogInterface) -> Unit) = showDialog2Button(
         title, param, resources.getString(R.string.cancel), onNoClick, resources.getString(R.string.change), onYesClick
 )
+
+
+fun Context.showDialogEditDataOwnerQ(title: String?,
+                                     param: String?,
+                                     buttonNeg: String,
+                                     onClickNeg: (DialogInterface) -> Unit,
+                                     buttonPos: String,
+                                     onClickPos: (DialogInterface) -> Unit): AlertDialog {
+
+    val subView = LayoutInflater.from(this).inflate(R.layout.item_edit_data_owner, null)
+    val descriptionField = subView.findViewById<EditText>(R.id.owner_data)
+
+    return AlertDialog.Builder(this).run {
+        setView(subView)
+        create()
+        title?.let { setTitle(it) }
+        descriptionField.setText(param)
+        setNegativeButton(buttonNeg) { dialog, _ -> onClickNeg(dialog) }
+        setPositiveButton(buttonPos) { dialog, _ -> onClickPos(dialog) }
+        show().apply {
+            getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.text_primary_dark))
+            this.findViewById<TextView>(android.R.id.message)!!.run {
+                movementMethod = LinkMovementMethod.getInstance()
+                setLinkTextColor(resources.getColor(R.color.link_color))
+            }
+        }
+    }
+}
 
 fun doNothing() {}
 

@@ -3,9 +3,13 @@ package com.vadym.adv.myhomepet
 import android.app.ProgressDialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.NavigationView
+import android.support.design.widget.Snackbar
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
@@ -16,14 +20,18 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.Toast
 import com.vadym.adv.myhomepet.domain.Owner
+import com.vadym.adv.myhomepet.network.InternetConnectionReceiver
 import com.vadym.adv.myhomepet.ui.info.InfoView
+import com.vadym.adv.myhomepet.ui.login.view.LoginActivity
 import com.vadym.adv.myhomepet.ui.main.MainActivity
 import com.vadym.adv.myhomepet.ui.pet.view.EditPetView
 import com.vadym.adv.myhomepet.ui.pet.view.PetView
 import com.vadym.adv.myhomepet.ui.settings.SettingsView
+import com.vadym.adv.myhomepet.ui.settings.SettingsView.Companion.CITY_KEY
+import com.vadym.adv.myhomepet.ui.settings.SettingsView.Companion.NAME_KEY
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 
-abstract class BaseActivity : AppCompatActivity(), IView, NavigationView.OnNavigationItemSelectedListener {
+abstract class BaseActivity : AppCompatActivity(), IView, NavigationView.OnNavigationItemSelectedListener, InternetConnectionReceiver.NetworkReceiverListener {
 
     internal lateinit var toolbar: Toolbar
     private lateinit var drawer: DrawerLayout
@@ -48,8 +56,13 @@ abstract class BaseActivity : AppCompatActivity(), IView, NavigationView.OnNavig
 
         navigationView = findViewById<View>(R.id.nav_view) as NavigationView
         navigationView.setNavigationItemSelectedListener(this)
-        navigationView.getHeaderView(0).owner_name.text = ownerData.name
-        navigationView.getHeaderView(0).owner_country.text = ownerData.city
+
+        FirestoreUtils.currentUserDocRef.addSnapshotListener { documentSnapshot, _ ->
+            if (documentSnapshot?.exists()!!) {
+                navigationView.getHeaderView(0).owner_name.text = documentSnapshot.getString(NAME_KEY)
+                navigationView.getHeaderView(0).owner_country.text = documentSnapshot.getString(CITY_KEY)
+            }
+        }
     }
 
     override fun onBackPressed() {
@@ -117,6 +130,17 @@ abstract class BaseActivity : AppCompatActivity(), IView, NavigationView.OnNavig
         super.onCreate(savedInstanceState)
         initProgressDialog()
         init(savedInstanceState)
+        registerReceiver(InternetConnectionReceiver(), IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+    }
+
+    private fun showMessageNoInternet(isConnected: Boolean) { //TODO show message no internet on any activity
+        var mSnackBar: Snackbar? = null
+        if (!isConnected) {
+            mSnackBar = Snackbar.make(findViewById(R.id.content_base), R.string.no_internet, Snackbar.LENGTH_LONG)
+            mSnackBar.duration = Snackbar.LENGTH_INDEFINITE
+            mSnackBar.show()
+        } else
+            mSnackBar?.dismiss()
     }
 
     fun initProgressDialog() {
@@ -125,6 +149,10 @@ abstract class BaseActivity : AppCompatActivity(), IView, NavigationView.OnNavig
             mProgressDialog!!.isIndeterminate = true
             mProgressDialog!!.setCancelable(false)
         }
+    }
+
+    override fun onNetworkConnectionChanged(isConnected: Boolean) {
+        showMessageNoInternet(isConnected)
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -151,6 +179,10 @@ abstract class BaseActivity : AppCompatActivity(), IView, NavigationView.OnNavig
 
     fun goTo(flowActivity: FlowActivity) {
         proceedToActivity(flowActivity)
+    }
+
+    fun signOut() {
+        startActivity(Intent(this, LoginActivity::class.java))
     }
 
     private fun proceedToActivity(flowActivity: FlowActivity) {

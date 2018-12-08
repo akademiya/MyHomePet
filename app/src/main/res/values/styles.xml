@@ -73,6 +73,10 @@
         <item name="android:textColor">@color/foreground_text_color_dark</item>
     </style>
 
+    <style name="TextStyleSettingsOwnerData" parent="TextStyle_Body2_Primary_Dark">
+        <item name="android:textColor">@color/text_primary_dark</item>
+    </style>
+
     <style name="TextStyle_SubHeader_Primary_Dark" parent="AppTheme">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -122,7 +126,7 @@
         <item name="android:background">@drawable/button_ripple_circle_green</item>
     </style>
 
-    <style name="ButtonToolbarWithStartEndPadding" parent="Base.Widget.AppCompat.ActionButton">
+    <style name="ButtonToolbarWithPadding" parent="Base.Widget.AppCompat.ActionButton">
         <item name="android:background">@drawable/button_background_toolbar</item>
         <item name="android:textColor">@color/foreground_text_color_light</item>
         <item name="android:textAllCaps">true</item>
@@ -148,6 +152,11 @@
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/foreground_text_color_dark</item>
         <item name="android:layout_height">56dp</item>
+    </style>
+
+    // FIXME: сделать серым background
+    <style name="ButtonSignOut" parent="ButtonFillWhite">
+        <item name="android:background">@drawable/button_background_gray</item>
     </style>
 
     <style name="ButtonTransparent" parent="Widget.AppCompat.Button.Borderless">

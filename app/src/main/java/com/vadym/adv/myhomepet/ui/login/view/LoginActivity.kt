@@ -4,6 +4,7 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.vadym.adv.myhomepet.R
 import com.vadym.adv.myhomepet.hideKeyboard
@@ -78,11 +79,20 @@ class LoginActivity : AppCompatActivity(), ILoginActivity {
         progressDialog.setMessage("Login...")
         progressDialog.show()
 
-        auth?.signInWithEmailAndPassword(input_email.text.toString(), input_password.text.toString())?.addOnCompleteListener(this@LoginActivity) { _ ->
-            if (auth?.currentUser != null) {
+        auth?.signInWithEmailAndPassword(input_email.text.toString(), input_password.text.toString())?.addOnCompleteListener(this@LoginActivity) { task ->
+            if (task.isSuccessful) {
+                if (auth?.currentUser != null) {
+                    progressDialog.dismiss()
+                    startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                    finish()
+                }
+            } else {
                 progressDialog.dismiss()
-                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                finish()
+                if (auth?.currentUser?.email != input_email.text.toString().trim()) {
+                    Toast.makeText(this, R.string.unregister_user, Toast.LENGTH_SHORT).show()
+                } else if (auth?.currentUser?.uid != input_password.text.toString()) {
+                    Toast.makeText(this, R.string.invalid_password, Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

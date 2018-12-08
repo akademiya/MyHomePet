@@ -20,6 +20,9 @@
     <string name="terms_of_use">Terms of Use</string>
     <string name="private_policy">Privacy Policy</string>
     <string name="signup_successful">Registration successful</string>
+    <string name="unregister_user">This user is not registered</string>
+    <string name="invalid_password">Invalid password</string>
+    <string name="sign_out">Sign out</string>
 
     // INVALID VALUE
     <string name="no_name">This field cannot be blank</string>
@@ -31,6 +34,7 @@
     <string name="repassword_wrong">This password value don`t compile with password</string>
     <string name="checkbox_gdpr">Please agree to the Terms of Use and Privacy Policy</string>
     <string name="no_internet">No internet connection</string>
+    <string name="error_password_change">Error: new password does not match the old password</string>
 
     // MENU
     <string name="main">Main</string>
@@ -55,7 +59,7 @@
     <string name="breed">Breed</string>
     <string name="pet_name">Pet name</string>
     <string name="pet_age">Pet age</string>
-    <string name="vaccine">Наличие прививок</string>
+    <string name="vaccine">Availability of vaccinations</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="description">Description</string>
@@ -72,29 +76,34 @@
     <string name="cancel">Cancel</string>
     <string name="change">Change</string>
     <string name="change_owner_name">Change name</string>
-    <string name="change_owner_phone">Change phone</string>
+    <string name="change_owner_phone">Change phone number</string>
     <string name="change_owner_password">Change password</string>
     <string name="change_owner_city">Change city</string>
 
     // PET CATEGORIES
     <string name="dog">dog</string>
     <string name="cat">cat</string>
-    <string name="see_pig">морская свинка</string>
+    <string name="see_pig">cavy</string>
     <string name="mouse">mouse</string>
-    <string name="homyak">хомяк</string>
+    <string name="homyak">hamster</string>
     <string name="squirrel">squirrel</string>
-    <string name="shinshila">шиншила</string>
-    <string name="popugay">попугай</string>
-    <string name="sova">сова</string>
-    <string name="kener">канарейка</string>
+    <string name="shinshila">chinchilla</string>
+    <string name="popugay">parrot</string>
+    <string name="sova">owl</string>
+    <string name="kener">canary</string>
     <string name="chicken">chicken</string>
     <string name="spider">spider</string>
-    <string name="kukarachi">декоративный таракан</string>
+    <string name="kukarachi">decorative cockroach</string>
     <string name="butterfly">butterfly</string>
     
     // SETTINGS
     <string name="optional_settings">Optional settings</string>
     <string name="notification">Notification</string>
+    <string name="old_password">Old password</string>
+    <string name="new_password">New password</string>
+    <string name="hint_phone">0671234567</string>
+    <string name="empty_phone">add your number</string>
+    <string name="message_save_successful">All data saved successful!</string>
 
     // INFO
     <string name="info_view"><b>What is MVP Design Pattern?</b>\nModel View Presenter is an architectural pattern used to encourage/facilitate separation of concern in software projects.
@@ -112,9 +121,9 @@
     <string name="error">Error</string>
 
     // SPINNER
-    <string name="title_spinner_category">категория питомца</string>
-    <string name="full">отдам в хорошие руки</string>
-    <string name="on_time">отдам на время</string>
+    <string name="title_spinner_category">pet category</string>
+    <string name="full">give pet</string>
+    <string name="on_time">give for a term</string>
 
     <string-array name="pet_category">
         <item>категория питомца</item>
@@ -140,5 +149,100 @@
     <string-array name="pet_action">
         <item>отдам в хорошие руки</item>
         <item>отдам на время</item>
+    </string-array>
+
+    <string-array name="city_owner">
+        <item>Киев</item>
+        <!--Винницкая область-->
+        <item>Винница</item>
+        <item>Жмеринка</item>
+        <!--Волынская область-->
+        <item>Луцк</item>
+        <!--Днепропетровская область-->
+        <item>Днепродзержинск</item>
+        <item>Днепропетровск</item>
+        <item>Кривой Рог</item>
+        <item>Никополь</item>
+        <item>Павлоград</item>
+        <!--Донецкая область-->
+        <item>Артемовск</item>
+        <item>Горловка</item>
+        <item>Дзержинск</item>
+        <item>Донецк</item>
+        <item>Енакиево</item>
+        <item>Константиновка</item>
+        <item>Краматорск</item>
+        <item>Макеевка</item>
+        <item>Мариуполь</item>
+        <item>Славянск</item>
+        <item>Торез</item>
+        <item>Харцызск</item>
+        <!--Житомирская область-->
+        <item>Бердичев</item>
+        <item>Житомир</item>
+        <!--Закарпатская область-->
+        <item>Мукачево</item>
+        <item>Ужгород</item>
+        <!--Запорожская область-->
+        <item>Бердянск</item>
+        <item>Запорожье</item>
+        <item>Мукачево</item>
+        <!--Ивано-Франковская область-->
+        <item>Ивано-Франковск</item>
+        <!--Киевская область-->
+        <item>Белая Церковь</item>
+        <item>Борисполь</item>
+        <item>Бровары</item>
+        <item>Ирпень</item>
+        <!--Кировоградская область-->
+        <item>Александрия</item>
+        <item>Кировоград</item>
+        <!--Луганская область-->
+        <item>Алчевск</item>
+        <item>Красный Луч</item>
+        <item>Лисичанск</item>
+        <item>Луганск</item>
+        <item>Свердловск</item>
+        <item>Северодонецк</item>
+        <item>Стаханов</item>
+        <!--Львовская область-->
+        <item>Львов</item>
+        <item>Жовква</item>
+        <!--Николаевская область-->
+        <item>Николаев</item>
+        <!--Одесская область-->
+        <item>Измаил</item>
+        <item>Ильичевск</item>
+        <item>Одесса</item>
+        <!--Полтавская область-->
+        <item>Комсомольск</item>
+        <item>Кременчуг</item>
+        <item>Полтава</item>
+        <!--Ровенская область-->
+        <item>Дубно</item>
+        <item>Ровно</item>
+        <!--Сумская область-->
+        <item>Конотоп</item>
+        <item>Сумы</item>
+        <item>Шостка</item>
+        <!--Тернопольская область-->
+        <item>Тернополь</item>
+        <!--Харьковская область-->
+        <item>Лозовая</item>
+        <item>Харьков</item>
+        <!--Херсонская область-->
+        <item>Каховка</item>
+        <item>Херсон</item>
+        <!--Хмельницкая область-->
+        <item>Каменец-Подольский</item>
+        <item>Хмельницкий</item>
+        <!--Черкасская область-->
+        <item>Смела</item>
+        <item>Умань</item>
+        <item>Черкассы</item>
+        <!--Черниговская область-->
+        <item>Нежин</item>
+        <item>Чернигов</item>
+        <item>Черновцы</item>
     </string-array>
 </resources>

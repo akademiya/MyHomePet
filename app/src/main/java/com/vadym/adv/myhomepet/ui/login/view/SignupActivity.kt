@@ -8,44 +8,29 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.iid.FirebaseInstanceId
+import com.vadym.adv.myhomepet.FirestoreUtils
 import com.vadym.adv.myhomepet.R
+import com.vadym.adv.myhomepet.hideKeyboard
+import com.vadym.adv.myhomepet.service.FirebaseOwnerIDService
 import com.vadym.adv.myhomepet.setSimpleTextWatcher
 import com.vadym.adv.myhomepet.ui.login.ISignupActivity
 import com.vadym.adv.myhomepet.ui.login.presenter.SignupPresenter
 import com.vadym.adv.myhomepet.ui.main.MainActivity
+import com.vadym.adv.myhomepet.ui.settings.SettingsView.Companion.CITY_ID_KEY
+import com.vadym.adv.myhomepet.ui.settings.SettingsView.Companion.CITY_KEY
+import com.vadym.adv.myhomepet.ui.settings.SettingsView.Companion.EMAIL_KEY
+import com.vadym.adv.myhomepet.ui.settings.SettingsView.Companion.NAME_KEY
+import com.vadym.adv.myhomepet.ui.settings.SettingsView.Companion.PHONE_KEY
+import com.vadym.adv.myhomepet.ui.settings.SettingsView.Companion.PIN_KEY
 import kotlinx.android.synthetic.main.view_signup.*
 
 class SignupActivity : AppCompatActivity(), ISignupActivity {
 
     private var auth: FirebaseAuth? = null
+    private var city = ""
+    private var cityID: Int = 0
     lateinit var presenter: SignupPresenter
-
-    private val spinner_country = arrayOf(
-            "Киев",
-            "Винницкая область", "Винница", "Жмеринка",
-            "Волынская область", "Луцк",
-            "Днепропетровская область", "Днепродзержинск", "Днепропетровск", "Кривой Рог", "Никополь", "Павлоград",
-            "Донецкая область", "Артемовск", "Горловка", "Дзержинск", "Донецк", "Енакиево", "Константиновка", "Краматорск", "Макеевка", "Мариуполь", "Славянск", "Торез", "Харцызск",
-            "Житомирская область", "Бердичев", "Житомир",
-            "Закарпатская область", "Мукачево", "Ужгород",
-            "Запорожская область", "Бердянск", "Запорожье", "Мукачево",
-            "Ивано-Франковская область", "Ивано-Франковск",
-            "Киевская область", "Белая Церковь", "Борисполь", "Бровары", "Ирпень",
-            "Кировоградская область", "Александрия", "Кировоград",
-            "Луганская область", "Алчевск", "Красный Луч", "Лисичанск", "Луганск", "Свердловск", "Северодонецк", "Стаханов",
-            "Львовская область", "Львов", "Жовква",
-            "Николаевская область", "Николаев",
-            "Одесская область", "Измаил", "Ильичевск", "Одесса",
-            "Полтавская область", "Комсомольск", "Кременчуг", "Полтава",
-            "Ровенская область", "Дубно", "Ровно",
-            "Сумская область", "Конотоп", "Сумы", "Шостка",
-            "Тернопольская область", "Тернополь",
-            "Харьковская область", "Лозовая", "Харьков",
-            "Херсонская область", "Каховка", "Херсон",
-            "Хмельницкая область", "Каменец-Подольский", "Хмельницкий",
-            "Черкасская область", "Смела", "Умань", "Черкассы",
-            "Черниговская область", "Нежин", "Чернигов", "Черновцы"
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,13 +70,18 @@ class SignupActivity : AppCompatActivity(), ISignupActivity {
             overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)
         }
 
-        val spinnerCountryAdapter = ArrayAdapter(this, R.layout.spinner_simple_item, spinner_country)
+        val spinnerCountryAdapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.city_owner,
+                R.layout.spinner_simple_item
+        )
         spinnerCountryAdapter.setDropDownViewResource(R.layout.spinner_drop_down)
         input_owner_city.adapter = spinnerCountryAdapter
         input_owner_city.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                presenter.onUpdateOwnerAddress(spinner_country[position])
+                cityID = position
+                city = spinnerCountryAdapter.getItem(position).toString()
             }
         }
     }
@@ -104,6 +94,10 @@ class SignupActivity : AppCompatActivity(), ISignupActivity {
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         presenter.unbindView(this)
+    }
+
+    override fun setButtonCreateEnabled(enable: Boolean) {
+        btn_signup.isEnabled = enable
     }
 
     override fun showInvalidValue(errorField: ISignupActivity.InvalidValue) {
@@ -129,22 +123,38 @@ class SignupActivity : AppCompatActivity(), ISignupActivity {
     }
 
     override fun onSignupSuccess() {
+        hideKeyboard()
         val progressDialog = ProgressDialog(this@SignupActivity)
-        progressDialog.isIndeterminate = true
-        progressDialog.setMessage(resources.getString(R.string.signup_successful))
-        progressDialog.show()
+        val email = input_email.text.toString().trim()
+        val name = input_name.text.toString().trim()
+        val password = input_password.text.toString().trim()
+        val city = this.city
+        val phone = resources.getString(R.string.empty_phone)
 
-        auth?.createUserWithEmailAndPassword(input_email.text.toString(), input_password.text.toString())?.addOnCompleteListener(this@SignupActivity) { task ->
-            startActivity(Intent(this@SignupActivity, MainActivity::class.java))
-            finish()
+        auth?.createUserWithEmailAndPassword(email, password)?.addOnCompleteListener(this@SignupActivity) { task ->
+            if (task.isSuccessful) {
+                progressDialog.isIndeterminate = true
+                progressDialog.setMessage(resources.getString(R.string.signup_successful))
+                progressDialog.show()
+
+                if (email.isBlank() || password.isBlank() || name.isBlank() || city.isBlank()) { return@addOnCompleteListener }
+                val dataToSave = HashMap<String, Any>()
+                dataToSave[NAME_KEY] = name
+                dataToSave[EMAIL_KEY] = email
+                dataToSave[PIN_KEY] = password
+                dataToSave[CITY_KEY] = city
+                dataToSave[PHONE_KEY] = phone
+                dataToSave[CITY_ID_KEY] = this.cityID
+                FirestoreUtils.currentUserDocRef.set(dataToSave)
+
+                FirestoreUtils.initCurrentUserIfFirstTime {
+                    FirebaseOwnerIDService.addTokenToFirestore(FirebaseInstanceId.getInstance().token)
+                    progressDialog.dismiss()
+                    startActivity(Intent(this@SignupActivity, MainActivity::class.java))
+                    finish()
+                }
+            } // TODO if(noInternetConnection) Exception
         }
     }
 
-    override fun setButtonCreateEnabled(enable: Boolean) {
-        btn_signup.isEnabled = enable
-    }
-
-    companion object {
-        private val TAG = "SignupActivity"
-    }
 }

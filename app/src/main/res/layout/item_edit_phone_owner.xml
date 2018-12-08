@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/phone_code"
+        style="@style/TextStyle_Body2_Primary_Dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_8"
+        android:text="+38 " />
+
+    <EditText
+        android:id="@+id/owner_data"
+        style="@style/TextStyle_Body2_Primary_Dark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_4"
+        android:layout_marginTop="@dimen/space_8"
+        android:layout_marginEnd="@dimen/space_20"
+        android:hint="@string/hint_phone"
+        android:imeOptions="actionDone"
+        android:maxLength="10"
+        android:inputType="phone"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        tools:text="0671234567" />
+
+</LinearLayout>

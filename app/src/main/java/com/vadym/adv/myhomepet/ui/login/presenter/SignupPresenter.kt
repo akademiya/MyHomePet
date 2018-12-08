@@ -11,7 +11,6 @@ class SignupPresenter(signupActivity: SignupActivity, application: Application) 
     init { (application as AndroidApplication).applicationComponent.inject(this) }
 
     private var name = ""
-    private var address = ""
     private var email = ""
     private var password = ""
     private var repassword = ""
@@ -72,9 +71,6 @@ class SignupPresenter(signupActivity: SignupActivity, application: Application) 
 
     fun onUpdateOwnerName(name: String) {
         this.name = name
-    }
-    fun onUpdateOwnerAddress(address: String) {
-        this.address = address
     }
     fun onUpdateOwnerEmail(email: String) {
         this.email = email

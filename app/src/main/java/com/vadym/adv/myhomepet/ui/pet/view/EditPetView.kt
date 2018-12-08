@@ -195,7 +195,7 @@ class EditPetView : BaseActivity(), IEditPetView {
 
     override fun showDialogCameraPermission(token: PermissionToken) {
         AlertDialog.Builder(this@EditPetView)
-                .setTitle(R.string.project_id)
+                .setTitle(R.string.message)
                 .setMessage(R.string.message)
                 .setNegativeButton(android.R.string.cancel,
                         { dialog, _ ->

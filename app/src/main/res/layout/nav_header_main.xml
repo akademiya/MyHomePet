@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <LinearLayout
@@ -32,14 +33,14 @@
         style="@style/TextStyle_Drawer_Header"
         android:layout_marginTop="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_4"
-        android:text="Owner"
+        tools:text="Owner"
         android:textSize="@dimen/body2_text_size" />
 
     <TextView
         android:id="@+id/owner_country"
         style="@style/TextStyle_Drawer_Header"
         android:layout_marginBottom="@dimen/space_16"
-        android:text="Kiev" />
+        tools:text="Kiev" />
 
     <View style="@style/AppTheme.HorizontalViewDivider" />
 
