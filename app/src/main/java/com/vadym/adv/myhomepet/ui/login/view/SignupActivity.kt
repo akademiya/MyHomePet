@@ -17,7 +17,6 @@ import com.vadym.adv.myhomepet.setSimpleTextWatcher
 import com.vadym.adv.myhomepet.ui.login.ISignupActivity
 import com.vadym.adv.myhomepet.ui.login.presenter.SignupPresenter
 import com.vadym.adv.myhomepet.ui.main.MainActivity
-import com.vadym.adv.myhomepet.ui.settings.SettingsView.Companion.CITY_ID_KEY
 import com.vadym.adv.myhomepet.ui.settings.SettingsView.Companion.CITY_KEY
 import com.vadym.adv.myhomepet.ui.settings.SettingsView.Companion.EMAIL_KEY
 import com.vadym.adv.myhomepet.ui.settings.SettingsView.Companion.NAME_KEY
@@ -144,7 +143,6 @@ class SignupActivity : AppCompatActivity(), ISignupActivity {
                 dataToSave[PIN_KEY] = password
                 dataToSave[CITY_KEY] = city
                 dataToSave[PHONE_KEY] = phone
-                dataToSave[CITY_ID_KEY] = this.cityID
                 FirestoreUtils.currentUserDocRef.set(dataToSave)
 
                 FirestoreUtils.initCurrentUserIfFirstTime {

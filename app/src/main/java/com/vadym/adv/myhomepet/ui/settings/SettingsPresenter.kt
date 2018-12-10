@@ -6,8 +6,6 @@ import android.provider.MediaStore
 import com.google.firebase.auth.FirebaseAuth
 import com.vadym.adv.myhomepet.AndroidApplication
 import com.vadym.adv.myhomepet.BasePresenter
-import com.vadym.adv.myhomepet.FirestoreUtils
-import com.vadym.adv.myhomepet.FlowActivity
 
 
 class SettingsPresenter(settingsView: SettingsView, application: Application) : BasePresenter<SettingsView>(settingsView) {
@@ -29,17 +27,31 @@ class SettingsPresenter(settingsView: SettingsView, application: Application) : 
     }
 
     fun onEditName(name: String) {
-        view?.updateOwnerName(name, {})
+        view?.updateOwnerName(name)
     }
     fun onEditPassword(password: String) {
         this.password = password
         view?.updateOwnerPassword(password)
     }
     fun onEditPhone(phone: String) {
-        view?.updateOwnerPhone(phone, {})
+        view?.updateOwnerPhone(phone)
     }
     fun onEditCity(city: String) {
-        view?.updateOwnerCity(city, {})
+        view?.updateOwnerCity(city)
+    }
+
+    fun updateName(newName: String) {
+        if (newName.isNotBlank()) {
+            view?.onChangedNameSuccessful(newName)
+        } else
+            view?.onErrorDataChanged(ISettingsView.ErrorEditing.ERROR_NAME)
+    }
+
+    fun updateNumberPhone(newNumber: String) {
+        if (newNumber.isNotBlank()) { // TODO validate phone number
+            view?.onChangedNumberPhoneSuccessful(newNumber)
+        } else
+            view?.onErrorDataChanged(ISettingsView.ErrorEditing.ERROR_PHONE)
     }
 
     fun updatePassword(oldPassword: String, newPassword: String) {
@@ -47,7 +59,7 @@ class SettingsPresenter(settingsView: SettingsView, application: Application) : 
             auth?.currentUser?.updatePassword(newPassword)
             view?.onChangedPasswordSuccessful(newPassword)
         } else
-            view?.onErrorEditPassword(ISettingsView.ErrorEditing.ERROR_PASSWORD) //ISettingsView.ErrorEditing.ERROR_PASSWORD
+            view?.onErrorDataChanged(ISettingsView.ErrorEditing.ERROR_PASSWORD)
     }
 
     fun onSelectImageChecked() {

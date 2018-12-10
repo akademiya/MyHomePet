@@ -176,6 +176,16 @@
                         android:text="edit" />
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/error_name_change"
+                    style="@style/TextAppearance.AppCompat.Small.ErrorStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginBottom="@dimen/parent_margin_edge"
+                    tools:visibility="visible"
+                    android:text="@string/error_name_change" />
+
                 <!--mobile-->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -211,6 +221,16 @@
                         android:layout_gravity="end|center_vertical"
                         android:text="edit" />
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/error_number_change"
+                    style="@style/TextAppearance.AppCompat.Small.ErrorStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginBottom="@dimen/parent_margin_edge"
+                    tools:visibility="visible"
+                    android:text="@string/error_number_change" />
 
                 <!--city-->
                 <LinearLayout

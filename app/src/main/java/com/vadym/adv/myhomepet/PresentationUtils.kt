@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.Spinner
 import android.widget.TextView
 import java.util.regex.Pattern
 
@@ -115,6 +116,17 @@ fun Context.showDialogEditDataOwnerQ(title: String?,
             }
         }
     }
+}
+
+fun getIndex(spinner: Spinner, myString: String): Int {
+    var index = 0
+
+    for (i in 0 until spinner.count) {
+        if (spinner.getItemAtPosition(i).equals(myString)) {
+            index = i
+        }
+    }
+    return index
 }
 
 fun doNothing() {}

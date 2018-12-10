@@ -4,20 +4,20 @@ import android.content.Intent
 
 interface ISettingsView {
     fun updateNotification(isChecked: Boolean)
-    fun updateOwnerName(name: String, onConfirm: () -> Unit)
-    fun updateOwnerPhone(phone: String, onConfirm: () -> Unit)
-    fun updateOwnerCity(city: String, onConfirm: () -> Unit)
+    fun updateOwnerName(name: String)
+    fun updateOwnerPhone(phone: String)
+    fun updateOwnerCity(city: String)
     fun updateOwnerPassword(ownerOldPassword: String)
     fun onSaveDataSettings()
     fun onSelectImageInAlbum(intent: Intent)
-    fun onErrorEditPassword(error: ErrorEditing) //error: ErrorEditing
+    fun onErrorDataChanged(error: ErrorEditing)
     fun onChangedPasswordSuccessful(newPassword: String)
-    fun onCityChanged(city: String)
+    fun onChangedNameSuccessful(newName: String)
+    fun onChangedNumberPhoneSuccessful(newNumber: String)
 
     enum class ErrorEditing {
         ERROR_PASSWORD,
         ERROR_NAME,
-        ERROR_PHONE,
-        ERROR_CITY
+        ERROR_PHONE
     }
 }

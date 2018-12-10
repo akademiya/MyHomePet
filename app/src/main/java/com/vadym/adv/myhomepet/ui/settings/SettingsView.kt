@@ -10,10 +10,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import com.vadym.adv.myhomepet.*
-import com.vadym.adv.myhomepet.R.string.action
 import com.vadym.adv.myhomepet.di.module.GlideApp
 import kotlinx.android.synthetic.main.view_settings.*
 import java.io.ByteArrayOutputStream
+
 
 class SettingsView : BaseActivity(), ISettingsView {
 
@@ -31,7 +31,6 @@ class SettingsView : BaseActivity(), ISettingsView {
         val EMAIL_KEY = "email"
         val PHONE_KEY = "phone"
         val CITY_KEY = "city"
-        val CITY_ID_KEY = "city_id"
     }
 
     override fun init(savedInstanceState: Bundle?) {
@@ -46,19 +45,20 @@ class SettingsView : BaseActivity(), ISettingsView {
                     settings_owner_phone.text = documentSnapshot.getString(PHONE_KEY)
                     settings_owner_city.text = documentSnapshot.getString(CITY_KEY)
                     settings_owner_email.text = documentSnapshot.getString(EMAIL_KEY)
-//                    cityPosition = documentSnapshot[CITY_ID_KEY].toString().toInt()
 
                     edit_owner_name.setOnClickListener {
+                        clearError()
                         presenter.onEditName(settings_owner_name.text.toString())
                     }
                     edit_owner_phone.setOnClickListener {
+                        clearError()
                         presenter.onEditPhone(settings_owner_phone.text.toString())
                     }
                     edit_owner_city.setOnClickListener {
                         presenter.onEditCity(settings_owner_city.text.toString())
                     }
                     edit_owner_password.setOnClickListener {
-                        error_password_change.visibility = View.GONE
+                        clearError()
                         presenter.onEditPassword(documentSnapshot.getString(PIN_KEY)!!)
                     }
                 }
@@ -112,7 +112,7 @@ class SettingsView : BaseActivity(), ISettingsView {
         sw_notification.isChecked = isChecked
     }
 
-    override fun updateOwnerName(name: String, onConfirm: () -> Unit) {
+    override fun updateOwnerName(name: String) {
         val subView = LayoutInflater.from(this).inflate(R.layout.item_edit_data_owner, null)
         val editableName = subView.findViewById<EditText>(R.id.owner_data)
         editableName.setText(name)
@@ -122,7 +122,7 @@ class SettingsView : BaseActivity(), ISettingsView {
             create()
             setTitle(R.string.change_owner_name)
             setPositiveButton(R.string.change) { _, _ ->
-                settings_owner_name.text = editableName.text
+                presenter.updateName(editableName.text.toString())
             }
             setNegativeButton(R.string.cancel) { _, _ -> }
             show().apply {
@@ -131,11 +131,10 @@ class SettingsView : BaseActivity(), ISettingsView {
         }
     }
 
-    override fun updateOwnerCity(city: String, onConfirm: () -> Unit) {
+    override fun updateOwnerCity(city: String) {
         val subView = LayoutInflater.from(this).inflate(R.layout.item_edit_city_owner, null)
         val editableCity = subView.findViewById<Spinner>(R.id.change_city)
         var editedCity = editableCity.toString()
-//        cityPosition?.let { editableCity.setPromptId(it) }
 
         val spinnerCountryAdapter = ArrayAdapter.createFromResource(
                 this,
@@ -144,6 +143,7 @@ class SettingsView : BaseActivity(), ISettingsView {
         )
         spinnerCountryAdapter.setDropDownViewResource(R.layout.spinner_drop_down)
         editableCity.adapter = spinnerCountryAdapter
+        editableCity.setSelection(getIndex(editableCity, city))
         editableCity.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -166,7 +166,7 @@ class SettingsView : BaseActivity(), ISettingsView {
         }
     }
 
-    override fun updateOwnerPhone(phone: String, onConfirm: () -> Unit) {
+    override fun updateOwnerPhone(phone: String) {
         val subView = LayoutInflater.from(this).inflate(R.layout.item_edit_phone_owner, null)
         val editablePhone = subView.findViewById<EditText>(R.id.owner_data)
         val phoneCode = subView.findViewById<TextView>(R.id.phone_code)
@@ -177,7 +177,7 @@ class SettingsView : BaseActivity(), ISettingsView {
             create()
             setTitle(R.string.change_owner_phone)
             setPositiveButton(R.string.change) { _, _ ->
-                settings_owner_phone.text = phoneCode.text.toString() + editablePhone.text
+                presenter.updateNumberPhone(phoneCode.text.toString() + editablePhone.text)
             }
             setNegativeButton(R.string.cancel) { _, _ -> }
             show().apply {
@@ -207,8 +207,12 @@ class SettingsView : BaseActivity(), ISettingsView {
         }
     }
 
-    override fun onCityChanged(city: String) {
-        settings_owner_city.text = city
+    override fun onChangedNameSuccessful(newName: String) {
+        settings_owner_name.text = newName
+    }
+
+    override fun onChangedNumberPhoneSuccessful(newNumber: String) {
+        settings_owner_phone.text = newNumber
     }
 
     override fun onChangedPasswordSuccessful(newPassword: String) {
@@ -226,7 +230,6 @@ class SettingsView : BaseActivity(), ISettingsView {
                 settings_owner_password.text.toString(),
                 settings_owner_phone.text.toString(),
                 settings_owner_city.text.toString(),
-                cityPosition,
                 if (::editOwnerPhoto.isInitialized) {
                     ImageUtils.uploadPhoto(editOwnerPhoto) {}.toString()
                 } else null
@@ -234,12 +237,18 @@ class SettingsView : BaseActivity(), ISettingsView {
         Toast.makeText(this, resources.getString(R.string.message_save_successful), Toast.LENGTH_SHORT).show()
     }
 
-    override fun onErrorEditPassword(error: ISettingsView.ErrorEditing) { //error: ISettingsView.ErrorEditing
-//        error_password_change.visibility = View.VISIBLE
+    override fun onErrorDataChanged(error: ISettingsView.ErrorEditing) {
         when(error) {
             ISettingsView.ErrorEditing.ERROR_PASSWORD -> error_password_change.visibility = View.VISIBLE
-            else -> { }
+            ISettingsView.ErrorEditing.ERROR_NAME -> error_name_change.visibility = View.VISIBLE
+            ISettingsView.ErrorEditing.ERROR_PHONE -> error_number_change.visibility = View.VISIBLE
         }
+    }
+
+    private fun clearError() {
+        error_password_change.visibility = View.GONE
+        error_name_change.visibility = View.GONE
+        error_number_change.visibility = View.GONE
     }
 
     private fun noFires(block: () -> Unit) {

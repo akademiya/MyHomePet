@@ -4,7 +4,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.vadym.adv.myhomepet.domain.Owner
-import com.vadym.adv.myhomepet.ui.settings.SettingsView.Companion.CITY_ID_KEY
 import com.vadym.adv.myhomepet.ui.settings.SettingsView.Companion.CITY_KEY
 import com.vadym.adv.myhomepet.ui.settings.SettingsView.Companion.NAME_KEY
 import com.vadym.adv.myhomepet.ui.settings.SettingsView.Companion.PHONE_KEY
@@ -36,20 +35,18 @@ object FirestoreUtils {
                           pin: String = "",
                           phone: String = "",
                           city: String = "",
-                          city_id: Int? = null,
                           photo: String? = null) {
         val userFieldMap = mutableMapOf<String, Any>()
         if (name.isNotBlank()) userFieldMap[NAME_KEY] = name
         if (pin.isNotBlank()) userFieldMap[PIN_KEY] = pin
         if (phone.isNotBlank()) userFieldMap[PHONE_KEY] = phone
         if (city.isNotBlank()) userFieldMap[CITY_KEY] = city
-        if (city_id != null) userFieldMap[CITY_ID_KEY] = city_id
         if (photo != null) userFieldMap["owner_photo"] = photo
         currentUserDocRef.update(userFieldMap)
     }
 
 
-//    TODO: for notification
+    /** for notification */
     fun getFCMRegistrationToken(onComplete: (tokens: MutableList<String>) -> Unit) {
         currentUserDocRef.get().addOnSuccessListener {
             val owner = it.toObject(Owner::class.java)!!
