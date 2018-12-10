@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <Spinner
         android:id="@+id/change_city"
@@ -10,5 +11,10 @@
         android:layout_height="@dimen/space_36"
         android:layout_marginStart="@dimen/space_24"
         android:layout_marginTop="@dimen/space_16" />
+
+    <View
+        style="@style/AppTheme.HorizontalViewDivider"
+        android:layout_marginStart="@dimen/space_24"
+        android:layout_marginBottom="@dimen/space_8" />
 
 </LinearLayout>

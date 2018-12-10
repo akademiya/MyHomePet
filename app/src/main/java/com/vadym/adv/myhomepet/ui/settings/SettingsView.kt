@@ -125,7 +125,9 @@ class SettingsView : BaseActivity(), ISettingsView {
                 settings_owner_name.text = editableName.text
             }
             setNegativeButton(R.string.cancel) { _, _ -> }
-            show()
+            show().apply {
+                getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.text_primary_dark))
+            }
         }
     }
 
@@ -158,7 +160,9 @@ class SettingsView : BaseActivity(), ISettingsView {
                 settings_owner_city.text = editedCity
             }
             setNegativeButton(R.string.cancel) { _, _ -> }
-            show()
+            show().apply {
+                getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.text_primary_dark))
+            }
         }
     }
 
@@ -176,7 +180,9 @@ class SettingsView : BaseActivity(), ISettingsView {
                 settings_owner_phone.text = phoneCode.text.toString() + editablePhone.text
             }
             setNegativeButton(R.string.cancel) { _, _ -> }
-            show()
+            show().apply {
+                getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.text_primary_dark))
+            }
         }
     }
 
@@ -195,7 +201,9 @@ class SettingsView : BaseActivity(), ISettingsView {
                 presenter.updatePassword(oldPassword, newPassword)
             }
             setNegativeButton(R.string.cancel) { _, _ -> }
-            show()
+            show().apply {
+                getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.text_primary_dark))
+            }
         }
     }
 
