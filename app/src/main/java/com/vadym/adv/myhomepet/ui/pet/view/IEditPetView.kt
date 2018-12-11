@@ -15,6 +15,7 @@ interface IEditPetView {
     fun onResetError()
     fun showInvalidValue(error: InvalidData)
     fun setButtonSaveEnabled(enable: Boolean)
+    fun setPositionContainerVisibility(isVisible: Boolean)
 
     enum class InvalidData {
         NO_NAME,

@@ -1,7 +1,6 @@
 package com.vadym.adv.myhomepet.ui.pet.view
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -28,7 +27,6 @@ class EditPetView : BaseActivity(), IEditPetView {
     private var noFires = false
     private var category = ""
     private var action = ""
-    private var actionPosition = 0
     private var period = ""
     private var country = ""
 
@@ -75,23 +73,12 @@ class EditPetView : BaseActivity(), IEditPetView {
         spinner_action.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                actionPosition = position
+                presenter.updateActionPosition(position)
                 presenter.onSpinnerActionSelected(position)
                 action = spinnerActionAdapter.getItem(position).toString()
             }
         }
 
-//        TODO: если выбран пункт "отдать на совсем", то поле периода нужно скрыть
-//        when (actionPosition) {
-//            0 -> {
-//                action_period.visibility = View.GONE
-//                hint_period.visibility = View.GONE
-//            }
-//            1 -> {
-//                action_period.visibility = View.VISIBLE
-//                hint_period.visibility = View.VISIBLE
-//            }
-//        }
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
@@ -187,6 +174,10 @@ class EditPetView : BaseActivity(), IEditPetView {
         button_save.isEnabled = enable
     }
 
+    override fun setPositionContainerVisibility(isVisible: Boolean) {
+        container_period.visibility = isVisible.toAndroidVisibility()
+    }
+
     /** START SET IMAGE */
     private fun updateImageRepresentation(src: String) {
         photo_pet.visibility = View.GONE
@@ -199,23 +190,7 @@ class EditPetView : BaseActivity(), IEditPetView {
     }
 
     override fun showDialogCameraPermission(token: PermissionToken) {
-        AlertDialog.Builder(this@EditPetView)
-                .setTitle(R.string.message)
-                .setMessage(R.string.message)
-                .setNegativeButton(android.R.string.cancel,
-                        { dialog, _ ->
-                            dialog.dismiss()
-                            token.cancelPermissionRequest()
-                        }
-                )
-                .setPositiveButton(android.R.string.ok,
-                        { dialog, _ ->
-                            dialog.dismiss()
-                            token.continuePermissionRequest()
-                        }
-                )
-                .setOnDismissListener({ token.cancelPermissionRequest() })
-                .show()
+        onDialogCameraPermission(this@EditPetView, token)
     }
 
     override fun onSelectImageInAlbum(intent: Intent) {

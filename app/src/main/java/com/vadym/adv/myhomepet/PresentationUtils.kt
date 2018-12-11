@@ -10,12 +10,14 @@ import android.support.v7.app.AlertDialog
 import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.LinkMovementMethod
+import android.util.JsonToken
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
+import com.karumi.dexter.PermissionToken
 import com.vadym.adv.myhomepet.R.id.tv_day_from
 import kotlinx.android.synthetic.main.view_my_pet_card_edit.*
 import java.util.regex.Pattern
@@ -126,6 +128,26 @@ fun Context.setCalendarDateOfPeriod(year: Int, month: Int, day: Int, textView: T
         textView.text = "$dayOfMonth. $monthOfYear. $year"
     }, year, month, day).show()
     return textView
+}
+
+fun Context.onDialogCameraPermission(context: Context, token: PermissionToken) {
+    android.app.AlertDialog.Builder(context)
+            .setTitle(R.string.message)
+            .setMessage(R.string.message)
+            .setNegativeButton(android.R.string.cancel,
+                    { dialog, _ ->
+                        dialog.dismiss()
+                        token.cancelPermissionRequest()
+                    }
+            )
+            .setPositiveButton(android.R.string.ok,
+                    { dialog, _ ->
+                        dialog.dismiss()
+                        token.continuePermissionRequest()
+                    }
+            )
+            .setOnDismissListener({ token.cancelPermissionRequest() })
+            .show()
 }
 
 fun getIndex(spinner: Spinner, myString: String): Int {

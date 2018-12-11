@@ -91,6 +91,13 @@ class EditPetPresenter(editPetView: EditPetView, application: Application) : Bas
         view?.updateAllData(period)
     }
 
+    fun updateActionPosition(position: Int) {
+        when(position) {
+            0 -> view?.setPositionContainerVisibility(false)
+            1 -> view?.setPositionContainerVisibility(true)
+        }
+    }
+
     fun onVaccineChange(isChange: Boolean) {
         param?.vaccine = isChange
     }
