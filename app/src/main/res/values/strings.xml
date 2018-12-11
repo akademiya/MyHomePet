@@ -73,6 +73,8 @@
     <string name="create_item">Create item</string>
     <string name="period_hint">Enter quantity days</string>
     <string name="age_hint">Enter quantity in month</string>
+    <string name="day_from">Day from</string>
+    <string name="day_to">Day to</string>
 
     // DIALOG
     <string name="cancel">Cancel</string>

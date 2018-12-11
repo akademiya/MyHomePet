@@ -39,6 +39,8 @@
     // GLOBAL
     <dimen name="parent_margin_edge">16dp</dimen>
     <dimen name="checkbox_size">48dp</dimen>
+    <dimen name="calendar_button_padding">8dp</dimen>
+    <dimen name="calendar_container">64dp</dimen>
 
     // Toolbar
     <dimen name="toolbar_title_margin">72dp</dimen>
@@ -53,6 +55,7 @@
     <dimen name="padding_button_not_toolbar_8dp">8dp</dimen>
     <dimen name="button_drawable_padding">12dp</dimen>
     <dimen name="height_radio_button">48dp</dimen>
+    <dimen name="calendar_choose_date">48dp</dimen>
 
     // IMG
     <dimen name="logo">200dp</dimen>

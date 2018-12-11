@@ -1,6 +1,7 @@
 package com.vadym.adv.myhomepet
 
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.DialogInterface
@@ -15,6 +16,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
+import com.vadym.adv.myhomepet.R.id.tv_day_from
+import kotlinx.android.synthetic.main.view_my_pet_card_edit.*
 import java.util.regex.Pattern
 
 fun Activity.hideKeyboard() = currentFocus?.also { (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).apply { hideSoftInputFromWindow(it.windowToken, 0) } }
@@ -116,6 +119,13 @@ fun Context.showDialogEditDataOwnerQ(title: String?,
             }
         }
     }
+}
+
+fun Context.setCalendarDateOfPeriod(year: Int, month: Int, day: Int, textView: TextView) : TextView {
+    DatePickerDialog(getActivity(), DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+        textView.text = "$dayOfMonth. $monthOfYear. $year"
+    }, year, month, day).show()
+    return textView
 }
 
 fun getIndex(spinner: Spinner, myString: String): Int {

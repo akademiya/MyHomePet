@@ -194,4 +194,11 @@
         <item name="android:textColorSecondary">@color/ic_normal_dark</item>
     </style>
 
+    <!--Calendar-->
+    <style name="CalendarButton" parent="Base.Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_width">@dimen/calendar_choose_date</item>
+        <item name="android:layout_height">@dimen/calendar_choose_date</item>
+        <item name="android:padding">@dimen/calendar_button_padding</item>
+        <item name="android:background">@drawable/button_background_white</item>
+    </style>
 </resources>

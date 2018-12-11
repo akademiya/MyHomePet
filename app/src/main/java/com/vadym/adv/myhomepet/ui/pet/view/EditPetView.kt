@@ -11,16 +11,14 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.karumi.dexter.PermissionToken
-import com.vadym.adv.myhomepet.BaseActivity
-import com.vadym.adv.myhomepet.R
+import com.vadym.adv.myhomepet.*
 import com.vadym.adv.myhomepet.data.SqliteDatabase
 import com.vadym.adv.myhomepet.di.module.GlideApp
-import com.vadym.adv.myhomepet.setSimpleTextWatcher
-import com.vadym.adv.myhomepet.toAndroidVisibility
 import com.vadym.adv.myhomepet.ui.pet.PetModel
 import com.vadym.adv.myhomepet.ui.pet.presenter.EditPetPresenter
 import kotlinx.android.synthetic.main.view_my_pet_card_edit.*
 import java.io.IOException
+import java.util.*
 
 
 class EditPetView : BaseActivity(), IEditPetView {
@@ -94,6 +92,13 @@ class EditPetView : BaseActivity(), IEditPetView {
 //                hint_period.visibility = View.VISIBLE
 //            }
 //        }
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        iv_day_from.setOnClickListener { setCalendarDateOfPeriod(year, month, day, tv_day_from) }
+        iv_day_to.setOnClickListener { setCalendarDateOfPeriod(year, month, day, tv_day_to) }
 
         action_period.setSimpleTextWatcher {
             presenter.onResetError()
