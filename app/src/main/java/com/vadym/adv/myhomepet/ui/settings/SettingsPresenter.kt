@@ -48,7 +48,7 @@ class SettingsPresenter(settingsView: SettingsView, application: Application) : 
     }
 
     fun updateNumberPhone(newNumber: String) {
-        if (newNumber.isNotBlank()) { // TODO validate phone number
+        if (newNumber.length > 13) {
             view?.onChangedNumberPhoneSuccessful(newNumber)
         } else
             view?.onErrorDataChanged(ISettingsView.ErrorEditing.ERROR_PHONE)

@@ -36,7 +36,7 @@
     <string name="no_internet">No internet connection</string>
     <string name="error_password_change">Error: new password does not match the old password</string>
     <string name="error_name_change">Error: name can`t be blank</string>
-    <string name="error_number_change">Error: number phone can not contain any character other than 0\\-9</string>
+    <string name="error_number_change">Error: the phone number may be incomplete</string>
 
     // MENU
     <string name="main">Main</string>
