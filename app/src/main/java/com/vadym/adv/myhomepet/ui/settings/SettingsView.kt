@@ -45,6 +45,13 @@ class SettingsView : BaseActivity(), ISettingsView {
                     settings_owner_phone.text = documentSnapshot.getString(PHONE_KEY)
                     settings_owner_city.text = documentSnapshot.getString(CITY_KEY)
                     settings_owner_email.text = documentSnapshot.getString(EMAIL_KEY)
+                    if (!isOwnerPhotoChanged  && owner.photo != null) {
+                        GlideApp.with(this)
+                                .load(ImageUtils.pathToReference(owner.photo))
+                                .placeholder(R.drawable.ic_person)
+                                .circleCrop()
+                                .into(iv_owner_image)
+                    }
 
                     edit_owner_name.setOnClickListener {
                         clearError()
@@ -61,14 +68,6 @@ class SettingsView : BaseActivity(), ISettingsView {
                         clearError()
                         presenter.onEditPassword(documentSnapshot.getString(PIN_KEY)!!)
                     }
-                }
-
-                if (!isOwnerPhotoChanged && owner.photo != null) {
-                    GlideApp.with(this)
-                            .load(ImageUtils.pathToReference(owner.photo!!))
-                            .placeholder(R.drawable.ic_person)
-                            .centerCrop()
-                            .into(iv_owner_image)
                 }
             }
         }
@@ -225,16 +224,28 @@ class SettingsView : BaseActivity(), ISettingsView {
     }
 
     override fun onSaveDataSettings() {
-        FirestoreUtils.updateCurrentUser(
+//        val ownerPhoto = if (::editOwnerPhoto.isInitialized) {
+//            ImageUtils.uploadPhoto(editOwnerPhoto) {}.toString()
+//        } else null
+
+        if (::editOwnerPhoto.isInitialized) {
+            ImageUtils.uploadPhoto(editOwnerPhoto) { imagePath ->
+                FirestoreUtils.updateCurrentUser(
+                        settings_owner_name.text.toString(),
+                        settings_owner_password.text.toString(),
+                        settings_owner_phone.text.toString(),
+                        settings_owner_city.text.toString(),
+                        imagePath
+                )
+                Toast.makeText(this, resources.getString(R.string.message_save_successful), Toast.LENGTH_SHORT).show()
+            }
+        } else FirestoreUtils.updateCurrentUser(
                 settings_owner_name.text.toString(),
                 settings_owner_password.text.toString(),
                 settings_owner_phone.text.toString(),
                 settings_owner_city.text.toString(),
-                if (::editOwnerPhoto.isInitialized) {
-                    ImageUtils.uploadPhoto(editOwnerPhoto) {}.toString()
-                } else null
+                null
         )
-        Toast.makeText(this, resources.getString(R.string.message_save_successful), Toast.LENGTH_SHORT).show()
     }
 
     override fun onErrorDataChanged(error: ISettingsView.ErrorEditing) {

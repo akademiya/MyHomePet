@@ -41,7 +41,7 @@ object FirestoreUtils {
         if (pin.isNotBlank()) userFieldMap[PIN_KEY] = pin
         if (phone.isNotBlank()) userFieldMap[PHONE_KEY] = phone
         if (city.isNotBlank()) userFieldMap[CITY_KEY] = city
-        if (photo != null) userFieldMap["owner_photo"] = photo
+        if (photo != null) userFieldMap["photo"] = photo
         currentUserDocRef.update(userFieldMap)
     }
 
