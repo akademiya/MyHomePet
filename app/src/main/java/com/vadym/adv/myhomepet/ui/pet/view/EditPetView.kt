@@ -1,6 +1,7 @@
 package com.vadym.adv.myhomepet.ui.pet.view
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -9,13 +10,14 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import com.google.firebase.firestore.FirebaseFirestore
 import com.karumi.dexter.PermissionToken
 import com.vadym.adv.myhomepet.*
-import com.vadym.adv.myhomepet.data.SqliteDatabase
 import com.vadym.adv.myhomepet.di.module.GlideApp
 import com.vadym.adv.myhomepet.ui.pet.PetModel
 import com.vadym.adv.myhomepet.ui.pet.presenter.EditPetPresenter
 import kotlinx.android.synthetic.main.view_my_pet_card_edit.*
+import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.util.*
 
@@ -23,24 +25,21 @@ import java.util.*
 class EditPetView : BaseActivity(), IEditPetView {
 
     private lateinit var presenter: EditPetPresenter
-    private lateinit var database: SqliteDatabase
+    private var database = FirebaseFirestore.getInstance().collection("PetCollection")
     private var noFires = false
-    private var category = ""
-    private var action = ""
-    private var period = ""
-    private var country = ""
-
     private val CAMERA = 0
     private val GALLERY = 1
+    private lateinit var editPetPhoto: ByteArray
+    private var isPetPhotoChanged = false
 
 
     @SuppressLint("RestrictedApi")
     override fun init(savedInstanceState: Bundle?) {
         super.setContentView(R.layout.view_my_pet_card_edit)
         presenter = EditPetPresenter(this, application)
-        database = SqliteDatabase.getInstance(this)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
+
         button_back.setOnClickListener { presenter.onBackToParent() }
 
         btn_choose_photo.setOnClickListener { presenter.onSelectImageChecked() }
@@ -58,8 +57,7 @@ class EditPetView : BaseActivity(), IEditPetView {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 onResetError()
-                presenter.onSpinnerCategorySelected(position)
-                category = spinnerCategoryAdapter.getItem(position).toString()
+                presenter.onSpinnerCategorySelected(position, spinnerCategoryAdapter.getItem(position).toString())
             }
         }
 
@@ -73,9 +71,7 @@ class EditPetView : BaseActivity(), IEditPetView {
         spinner_action.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                presenter.updateActionPosition(position)
-                presenter.onSpinnerActionSelected(position)
-                action = spinnerActionAdapter.getItem(position).toString()
+                presenter.onSpinnerActionSelected(position, spinnerActionAdapter.getItem(position).toString())
             }
         }
 
@@ -99,9 +95,9 @@ class EditPetView : BaseActivity(), IEditPetView {
             presenter.onResetError()
             presenter.updateBreed(it)
         }
-        pet_age.setSimpleTextWatcher {
+        pet_age.setTextWatcherToInt {
             presenter.onResetError()
-            presenter.updateAge(it)
+            presenter.updateAge(it) // FIXME number format exception
         }
 
         rg_vaccine.setOnCheckedChangeListener { _, checkedId ->
@@ -112,7 +108,7 @@ class EditPetView : BaseActivity(), IEditPetView {
         }
 
         button_save.setOnClickListener {
-            presenter.updateData()
+            presenter.updateSelectionPeriod(tv_day_from.text.toString(), tv_day_to.text.toString())
             presenter.onValidate()
         }
 
@@ -139,17 +135,29 @@ class EditPetView : BaseActivity(), IEditPetView {
         button_delete_me.visibility = isEdit.toAndroidVisibility()
     }
 
-    override fun onSuccessValid() {
-        database.addPet(PetModel(this.category, this.action, this.period, this.country))
+    override fun onSuccessValid(category: String,
+                                action: String,
+                                period: String,
+                                periodFrom: String,
+                                periodTo: String,
+                                name: String,
+                                breed: String,
+                                age: Int,
+                                vaccine: Boolean) {
+        database.add(PetModel(category, action, period, periodFrom, periodTo, name, breed, age, vaccine))
+
+        if (::editPetPhoto.isInitialized) {
+            ImageUtils.uploadPhoto(editPetPhoto) { imagePath ->
+                database.add(PetModel(imagePath))
+                Toast.makeText(this, resources.getString(R.string.message_save_successful), Toast.LENGTH_SHORT).show()
+            }
+        } else database.add(PetModel(""))
+
         presenter.onBackToParent()
     }
 
     override fun onDeleteItem(param: Int?) {
-        button_delete_me.setOnClickListener { database.deletePet(param!!) }
-    }
-
-    override fun updateAllData(period: String) {
-        this.period = period
+        button_delete_me.setOnClickListener { database.document("").delete() } // TODO delete
     }
 
     override fun showInvalidValue(error: IEditPetView.InvalidData) {
@@ -160,6 +168,10 @@ class EditPetView : BaseActivity(), IEditPetView {
             IEditPetView.InvalidData.NO_AGE -> til_pet_age.error = resources.getString(R.string.no_email)
             IEditPetView.InvalidData.CATEGORY_NOT_SELECTED -> spCategoryError.visibility = View.VISIBLE
         }
+    }
+
+    override fun onPermissionDenied() {
+        Toast.makeText(this, resources.getString(R.string.google_app_id), Toast.LENGTH_SHORT).show()
     }
 
     override fun onResetError() {
@@ -205,27 +217,36 @@ class EditPetView : BaseActivity(), IEditPetView {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == GALLERY) {
-            if (data != null) {
-                photo_pet.visibility = View.VISIBLE
-                val imgURI = data.data
-                try {
-                    val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, imgURI)
-                    presenter.onSaveImage(bitmap)
-                    iv_pet_image.setImageBitmap(bitmap)
-                    photo_pet.setImageBitmap(bitmap)
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                    Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
-                }
+        if (requestCode == GALLERY && resultCode == Activity.RESULT_OK && data != null) {
+            val imgURI = data.data
+            try {
+                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imgURI)
+                val bytes = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes)
+                editPetPhoto = bytes.toByteArray()
+                GlideApp.with(this)
+                        .load(editPetPhoto)
+                        .circleCrop()
+                        .into(photo_pet)
+                iv_pet_image.setImageBitmap(bitmap)
+                isPetPhotoChanged = true
+            } catch (e: IOException) {
+                e.printStackTrace()
+                Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
             }
-        } else if (requestCode == CAMERA) {
+        } else if (requestCode == CAMERA && resultCode == Activity.RESULT_OK && data != null) {
             photo_pet.visibility = View.VISIBLE
-            val thumbnail = data!!.extras!!.get("data") as Bitmap
+            val thumbnail = data.extras!!.get("data") as Bitmap
+            val bytes = ByteArrayOutputStream()
+            thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes)
+            editPetPhoto = bytes.toByteArray()
+            GlideApp.with(this)
+                    .load(editPetPhoto)
+                    .circleCrop()
+                    .into(photo_pet)
             iv_pet_image.setImageBitmap(thumbnail)
-            photo_pet.setImageBitmap(thumbnail)
-            presenter.onSaveImage(thumbnail)
         }
+        photo_pet.visibility = View.VISIBLE
     }
 
 

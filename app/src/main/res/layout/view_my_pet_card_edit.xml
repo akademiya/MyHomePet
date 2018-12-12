@@ -81,7 +81,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/parent_margin_edge"
                         android:layout_marginBottom="@dimen/parent_margin_edge"
-                        tools:visibility="gone"
+                        tools:visibility="visible"
                         android:orientation="horizontal">
 
                         <FrameLayout
