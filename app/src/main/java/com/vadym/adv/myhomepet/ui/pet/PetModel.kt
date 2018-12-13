@@ -29,4 +29,6 @@ class PetModel {
         this.petPhoto = pet_photo
     }
 
+    constructor() {}
+
 }

@@ -8,9 +8,9 @@ import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.View
 import android.widget.LinearLayout
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.vadym.adv.myhomepet.BaseActivity
+import com.vadym.adv.myhomepet.FirestoreUtils
 import com.vadym.adv.myhomepet.R
 import com.vadym.adv.myhomepet.domain.Owner
 import com.vadym.adv.myhomepet.toAndroidVisibility
@@ -23,8 +23,7 @@ import kotlinx.android.synthetic.main.view_my_pet_card_list.*
 class PetView : BaseActivity(), IPetView {
 
     private lateinit var presenter: PetPresenter
-    private val database = FirebaseFirestore.getInstance()
-    private val petCollection = database.collection("PetCollection")
+    private val petCollection = FirestoreUtils.currentUserDocRef.collection("PetCollection")
     private lateinit var allpets: MutableList<PetModel>
     private lateinit var adapter: PetAdapter
     private var owner = Owner()
@@ -49,14 +48,14 @@ class PetView : BaseActivity(), IPetView {
 
         fab.setOnClickListener { presenter.goToAddNewPosition() }
 
-        val sortByTime = petCollection.orderBy("time", Query.Direction.DESCENDING)
+        val sortByTime = petCollection.orderBy("action", Query.Direction.DESCENDING)
         val options = FirestoreRecyclerOptions.Builder<PetModel>()
                 .setQuery(sortByTime, PetModel::class.java)
                 .build()
 
-        adapter = PetAdapter(this, owner, options)
         list_my_pets.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
         list_my_pets.setHasFixedSize(true)
+        adapter = PetAdapter(this, owner, options)
         list_my_pets.adapter = adapter
 
 //        if (petCollection.isNotEmpty) { FIXME
@@ -82,8 +81,8 @@ class PetView : BaseActivity(), IPetView {
     }
 
     override fun onDetachedFromWindow() {
-        super.onDetachedFromWindow()
         presenter.unbindView(this)
+        super.onDetachedFromWindow()
     }
 
     override fun onEditCardPet(param: Int?) {
