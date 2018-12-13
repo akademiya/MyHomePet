@@ -1,53 +1,56 @@
 package com.vadym.adv.myhomepet.ui.pet
 
-import android.app.Activity
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.vadym.adv.myhomepet.R
-import com.vadym.adv.myhomepet.data.SqliteDatabase
+import com.vadym.adv.myhomepet.R.id.img_pet
+import com.vadym.adv.myhomepet.R.plurals.days
+import com.vadym.adv.myhomepet.domain.Owner
 import kotlinx.android.synthetic.main.item_my_pet_card_list.view.*
 
-class PetAdapter(private val pets: MutableList<PetModel>,
-                 private val context: Context,
-                 private val database: SqliteDatabase,
-                 private val onEditItem: (PetModel) -> Unit) : RecyclerView.Adapter<PetAdapter.VH>() {
+class PetAdapter(private val context: Context,
+                 private val owner: Owner,
+                 options: FirestoreRecyclerOptions<PetModel>) : FirestoreRecyclerAdapter<PetModel, PetAdapter.VH>(options) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = VH (
             LayoutInflater.from(parent.context).inflate(R.layout.item_my_pet_card_list, parent, false)
     )
 
-    override fun getItemCount(): Int { return pets.size }
-
-    override fun onBindViewHolder(holder: VH, position: Int) {
-        val singlePet = pets[position]
-        val days = singlePet.period?.toInt()
-
+    override fun onBindViewHolder(holder: VH, position: Int, model: PetModel) {
         holder.apply {
-//                img_pet.setImageDrawable(petModel.petPhoto)
-            itemView.category_pet.text = singlePet.category
-            itemView.main_action.text = singlePet.action
-            itemView.period.text = days?.let { context.resources.getQuantityString(R.plurals.days, it, it) }
-            itemView.country.text = singlePet.country
-
-            itemView.setOnClickListener { onEditItem(singlePet) }
-
+//            itemView.img_pet.setImageDrawable(model.petPhoto)
+            itemView.category_pet.text = model.category
+            itemView.main_action.text = model.action
+            itemView.period.text = days.let { context.resources.getQuantityString(R.plurals.days, it, it) }
+            itemView.country.text = owner.city
         }
-
-//        holder.listView?.setOnClickListener {
-//              database.updatePet(pets[id])
-//        }
     }
 
-    fun removeItem(position: Int) {
-        database.deletePet(pets[position].id)
-        pets.removeAt(position)
-        notifyItemRemoved(position)
-        (context as Activity).finish()
-        context.startActivity(context.intent)
-    }
+    class VH(view: View?) : RecyclerView.ViewHolder(view)
+}
+
+
+
+
+
+
+
+
+
+//    override fun getItemCount(): Int { return pets.size }
+
+//    fun removeItem(position: Int) {
+//        database.deletePet(pets[position].id)
+//        pets.removeAt(position)
+//        notifyItemRemoved(position)
+//        (context as Activity).finish()
+//        context.startActivity(context.intent)
+//    }
 
 //    private fun editTaskDialog(person: Person) {
 //        val inflater = LayoutInflater.from(context)
@@ -75,5 +78,3 @@ class PetAdapter(private val pets: MutableList<PetModel>,
 //        builder.show()
 //    }
 
-    class VH(view: View?) : RecyclerView.ViewHolder(view)
-}

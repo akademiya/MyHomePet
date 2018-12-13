@@ -24,7 +24,9 @@ interface IEditPetView {
                        name: String,
                        breed: String,
                        age: Int,
-                       vaccine: Boolean)
+                       vaccine: Boolean,
+                       description: String,
+                       inventory: String)
 
     enum class InvalidData {
         NO_NAME,

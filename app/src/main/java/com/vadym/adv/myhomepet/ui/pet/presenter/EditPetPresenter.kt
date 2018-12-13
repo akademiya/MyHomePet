@@ -25,26 +25,31 @@ class EditPetPresenter(editPetView: EditPetView, application: Application) : Bas
     private var category = ""
     private var action = ""
     private var period = ""
+    private var isPeriodSelection = false
     private var periodFrom = ""
     private var periodTo = ""
     private var name = ""
     private var breed = ""
     private var age: Int = 0
     private var vaccine = false
+    private var description = ""
+    private var inventory = ""
     private val param: PetModel? = null
     private var categoryPosition = 0
     private var actionPosition = 0
     private var isValidateSuccess = true
 
     override fun onBindView() {
-        view?.setCreateOrEditTitle(param?.id != null)
-        view?.onDeleteItem(param?.id)
+        view?.setCreateOrEditTitle(true) // TODO param?.id != null
+//        view?.onDeleteItem(param?.id) TODO
     }
 
-    override fun onUnbindView() {}
+    override fun onUnbindView() {
+        isPeriodSelection = false
+    }
 
     fun onValidate() {
-        if (period.isBlank()) {
+        if (isPeriodSelection && period.isBlank()) {
             view?.showInvalidValue(IEditPetView.InvalidData.NO_PERIOD)
             view?.setButtonSaveEnabled(false)
             isValidateSuccess = false
@@ -74,7 +79,7 @@ class EditPetPresenter(editPetView: EditPetView, application: Application) : Bas
             isValidateSuccess = false
         }
 
-        if (isValidateSuccess) view?.onSuccessValid(category, action, period, periodFrom, periodTo, name, breed, age, vaccine)
+        if (isValidateSuccess) view?.onSuccessValid(category, action, period, periodFrom, periodTo, name, breed, age, vaccine, description, inventory)
     }
 
     fun onResetError() {
@@ -92,7 +97,7 @@ class EditPetPresenter(editPetView: EditPetView, application: Application) : Bas
         this.action = action
         when(position) {
             0 -> view?.setPositionContainerVisibility(false)
-            1 -> view?.setPositionContainerVisibility(true)
+            1 -> view?.setPositionContainerVisibility(true).also { isPeriodSelection = true }
         }
     }
     fun updatePeriod(period: String?) { this.period = period ?: "" }
@@ -103,6 +108,8 @@ class EditPetPresenter(editPetView: EditPetView, application: Application) : Bas
     fun updateName(name: String) { this.name = name }
     fun updateBreed(breed: String) { this.breed = breed }
     fun updateAge(age: Int?) { this.age = age ?: 0 }
+    fun updateDescription(description: String?) { this.description = description ?: ""}
+    fun updateInventory(inventory: String?) { this.inventory = inventory ?: ""}
 
     fun onVaccineChange(isChanged: Boolean) {
         vaccine = isChanged

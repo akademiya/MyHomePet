@@ -1,7 +1,6 @@
 package com.vadym.adv.myhomepet.ui.pet
 
 class PetModel {
-    var id: Int = 0
     var petPhoto: String? = null
     var petName: String? = null
     var petAge: Int = 0
@@ -11,14 +10,11 @@ class PetModel {
     var period: String? = null
     var periodFrom: String? = null
     var periodTo: String? = null
-    var country: String? = null
     var vaccine: Boolean = false
+    var description: String? = null
+    var inventory: String? = null
 
-    constructor(pet_photo: String) {
-        this.petPhoto = pet_photo
-    }
-
-    constructor(category: String?, action: String?, period: String?, periodFrom: String?, periodTo: String?, petName: String?, breed: String?, petAge: Int, vaccine: Boolean) {
+    constructor(category: String?, action: String?, period: String?, periodFrom: String?, periodTo: String?, petName: String?, breed: String?, petAge: Int, vaccine: Boolean, description: String?, inventory: String?, pet_photo: String) {
         this.category = category
         this.action = action
         this.period = period
@@ -28,14 +24,9 @@ class PetModel {
         this.breed = breed
         this.petAge = petAge
         this.vaccine = vaccine
+        this.description = description
+        this.inventory = inventory
+        this.petPhoto = pet_photo
     }
 
-    constructor(pet_id: Int, pet_name: String?, pet_category: String?, pet_action: String?, pet_period: String?, pet_country: String?) {
-        this.id = pet_id
-        this.petName = pet_name
-        this.category = pet_category
-        this.action = pet_action
-        this.period = pet_period
-        this.country = pet_country
-    }
 }

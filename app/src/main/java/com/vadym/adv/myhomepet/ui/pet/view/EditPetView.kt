@@ -10,7 +10,6 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import com.google.firebase.firestore.FirebaseFirestore
 import com.karumi.dexter.PermissionToken
 import com.vadym.adv.myhomepet.*
 import com.vadym.adv.myhomepet.di.module.GlideApp
@@ -25,7 +24,7 @@ import java.util.*
 class EditPetView : BaseActivity(), IEditPetView {
 
     private lateinit var presenter: EditPetPresenter
-    private var database = FirebaseFirestore.getInstance().collection("PetCollection")
+    private var database = FirestoreUtils.currentUserDocRef.collection("PetCollection")
     private var noFires = false
     private val CAMERA = 0
     private val GALLERY = 1
@@ -99,12 +98,17 @@ class EditPetView : BaseActivity(), IEditPetView {
             presenter.onResetError()
             presenter.updateAge(it) // FIXME number format exception
         }
-
         rg_vaccine.setOnCheckedChangeListener { _, checkedId ->
             when(checkedId) {
                 R.id.rb_vaccine_no -> presenter.onVaccineChange(false)
                 R.id.rb_vaccine_yes -> presenter.onVaccineChange(true)
             }
+        }
+        description.setSimpleTextWatcher {
+            presenter.updateDescription(it)
+        }
+        furniture.setSimpleTextWatcher {
+            presenter.updateInventory(it)
         }
 
         button_save.setOnClickListener {
@@ -143,15 +147,43 @@ class EditPetView : BaseActivity(), IEditPetView {
                                 name: String,
                                 breed: String,
                                 age: Int,
-                                vaccine: Boolean) {
-        database.add(PetModel(category, action, period, periodFrom, periodTo, name, breed, age, vaccine))
+                                vaccine: Boolean,
+                                description: String,
+                                inventory: String) {
+
 
         if (::editPetPhoto.isInitialized) {
             ImageUtils.uploadPhoto(editPetPhoto) { imagePath ->
-                database.add(PetModel(imagePath))
+                database.add(PetModel(
+                        category = category,
+                        action = action,
+                        period = period,
+                        periodFrom = periodFrom,
+                        periodTo = periodTo,
+                        petName = name,
+                        breed = breed,
+                        petAge = age,
+                        vaccine = vaccine,
+                        description = description,
+                        inventory = inventory,
+                        pet_photo = imagePath)
+                )
                 Toast.makeText(this, resources.getString(R.string.message_save_successful), Toast.LENGTH_SHORT).show()
             }
-        } else database.add(PetModel(""))
+        } else database.add(PetModel(
+                category = category,
+                action = action,
+                period = period,
+                periodFrom = periodFrom,
+                periodTo = periodTo,
+                petName = name,
+                breed = breed,
+                petAge = age,
+                vaccine = vaccine,
+                description = description,
+                inventory = inventory,
+                pet_photo = "")
+        )
 
         presenter.onBackToParent()
     }

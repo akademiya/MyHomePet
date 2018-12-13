@@ -12,7 +12,7 @@ import com.vadym.adv.myhomepet.ui.settings.SettingsView.Companion.PIN_KEY
 object FirestoreUtils {
     private val firestoreInstance: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
     val currentUserDocRef: DocumentReference
-        get() = firestoreInstance.document("users/${FirebaseAuth.getInstance().uid
+        get() = firestoreInstance.document("Owners/${FirebaseAuth.getInstance().uid
                 ?: throw NullPointerException("UID is null")}")
 
     fun initCurrentUserIfFirstTime(onComplete: () -> Unit) {
