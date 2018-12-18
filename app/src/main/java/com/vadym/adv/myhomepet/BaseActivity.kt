@@ -37,7 +37,6 @@ abstract class BaseActivity : AppCompatActivity(), IView, NavigationView.OnNavig
     private lateinit var drawer: DrawerLayout
     private lateinit var navigationView: NavigationView
     private lateinit var toggle: ActionBarDrawerToggle
-    private var ownerData: Owner = Owner()
 
     override fun setContentView(layoutResID: Int) {
         val fullView = layoutInflater.inflate(R.layout.activity_nav_drawer, null) as DrawerLayout
@@ -51,7 +50,7 @@ abstract class BaseActivity : AppCompatActivity(), IView, NavigationView.OnNavig
         drawer = findViewById<View>(R.id.drawer_layout) as DrawerLayout
         toggle = ActionBarDrawerToggle(this, drawer, toolbar, R.string.drawer_open, R.string.drawer_close)
         drawer.addDrawerListener(toggle)
-        toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.white))
+        toggle.drawerArrowDrawable.color = resources.getColor(R.color.white)
         toggle.syncState()
 
         navigationView = findViewById<View>(R.id.nav_view) as NavigationView
@@ -108,7 +107,7 @@ abstract class BaseActivity : AppCompatActivity(), IView, NavigationView.OnNavig
             R.id.nav_send -> {
                 val uri = Uri.parse("mailto:vadym.adv@gmail.com")
                 val sendIntent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"))
-                sendIntent.setData(uri)
+                sendIntent.data = uri
                 startActivity(Intent.createChooser(sendIntent, "True Father Prayers"))
             }
 
@@ -143,7 +142,7 @@ abstract class BaseActivity : AppCompatActivity(), IView, NavigationView.OnNavig
             mSnackBar?.dismiss()
     }
 
-    fun initProgressDialog() {
+    private fun initProgressDialog() {
         if (mProgressDialog == null) {
             mProgressDialog = ProgressDialog(this)
             mProgressDialog!!.isIndeterminate = true
@@ -153,14 +152,6 @@ abstract class BaseActivity : AppCompatActivity(), IView, NavigationView.OnNavig
 
     override fun onNetworkConnectionChanged(isConnected: Boolean) {
         showMessageNoInternet(isConnected)
-    }
-
-    override fun onPostCreate(savedInstanceState: Bundle?) {
-        super.onPostCreate(savedInstanceState)
-    }
-
-    override fun onResume() {
-        super.onResume()
     }
 
     override fun onDestroy() {
@@ -193,12 +184,11 @@ abstract class BaseActivity : AppCompatActivity(), IView, NavigationView.OnNavig
                 FlowActivity.MY_PET -> startActivity(Intent(this, PetView::class.java))
                 FlowActivity.SETTINGS -> TODO()
                 FlowActivity.INFO -> startActivity(Intent(this, InfoView::class.java))
-                else -> null
             }
         }
     }
 
-    fun showProgress(msgResId: Int, keyListener: DialogInterface.OnKeyListener?) {
+    private fun showProgress(msgResId: Int, keyListener: DialogInterface.OnKeyListener?) {
         if (isFinishing) return
 
         if (mProgressDialog!!.isShowing) return
@@ -227,7 +217,7 @@ abstract class BaseActivity : AppCompatActivity(), IView, NavigationView.OnNavig
     /**
      * cancel progress dialog.
      */
-    fun dismissProgress() {
+    private fun dismissProgress() {
         if (mProgressDialog != null && mProgressDialog!!.isShowing) {
             mProgressDialog?.dismiss()
         }

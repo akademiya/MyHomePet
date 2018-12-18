@@ -7,10 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.vadym.adv.myhomepet.FirestoreUtils
 import com.vadym.adv.myhomepet.R
-import com.vadym.adv.myhomepet.R.id.img_pet
 import com.vadym.adv.myhomepet.R.plurals.days
 import com.vadym.adv.myhomepet.domain.Owner
+import com.vadym.adv.myhomepet.ui.settings.SettingsView.Companion.CITY_KEY
 import kotlinx.android.synthetic.main.item_my_pet_card_list.view.*
 
 class PetAdapter(private val context: Context,
@@ -27,7 +28,12 @@ class PetAdapter(private val context: Context,
             itemView.category_pet.text = model.category
             itemView.main_action.text = model.action
             itemView.period.text = days.let { context.resources.getQuantityString(R.plurals.days, it, it) }
-            itemView.country.text = owner.city
+
+            FirestoreUtils.currentUserDocRef.addSnapshotListener { documentSnapshot, _ ->
+                if (documentSnapshot?.exists()!!) {
+                    itemView.country.text = documentSnapshot.getString(CITY_KEY)
+                }
+            }
         }
     }
 
