@@ -6,6 +6,8 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -94,9 +96,10 @@ class EditPetView : BaseActivity(), IEditPetView {
             presenter.onResetError()
             presenter.updateBreed(it)
         }
-        pet_age.setTextWatcherToInt {
+
+        pet_age.setSimpleTextWatcher {
             presenter.onResetError()
-            presenter.updateAge(it) // FIXME number format exception
+            presenter.updateAge(it)
         }
         rg_vaccine.setOnCheckedChangeListener { _, checkedId ->
             when(checkedId) {

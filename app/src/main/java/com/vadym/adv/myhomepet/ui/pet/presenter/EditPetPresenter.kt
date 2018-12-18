@@ -107,7 +107,7 @@ class EditPetPresenter(editPetView: EditPetView, application: Application) : Bas
     }
     fun updateName(name: String) { this.name = name }
     fun updateBreed(breed: String) { this.breed = breed }
-    fun updateAge(age: Int?) { this.age = age ?: 0 }
+    fun updateAge(age: String) { this.age = if (!age.isBlank()) age.toInt() else 0 }
     fun updateDescription(description: String?) { this.description = description ?: ""}
     fun updateInventory(inventory: String?) { this.inventory = inventory ?: ""}
 
