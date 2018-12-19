@@ -154,6 +154,10 @@
         <item name="android:layout_height">56dp</item>
     </style>
 
+    <style name="ButtonFillGray" parent="ButtonFillGreen">
+        <item name="android:background">@drawable/button_background_gray</item>
+    </style>
+
     // FIXME: сделать серым background
     <style name="ButtonSignOut" parent="ButtonFillWhite">
         <item name="android:background">@drawable/button_background_gray</item>

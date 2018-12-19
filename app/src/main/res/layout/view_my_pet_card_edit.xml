@@ -422,21 +422,21 @@
                             android:orientation="horizontal">
 
                             <RadioButton
-                                android:id="@+id/rb_vaccine_yes"
+                                android:id="@+id/rb_vaccine_no"
                                 android:layout_width="wrap_content"
                                 android:layout_height="@dimen/height_radio_button"
                                 android:layout_marginStart="@dimen/negative_margin_edit_text"
                                 android:checked="true"
                                 android:paddingStart="@dimen/space_4"
-                                android:text="@string/yes" />
+                                android:text="@string/no" />
 
                             <RadioButton
-                                android:id="@+id/rb_vaccine_no"
+                                android:id="@+id/rb_vaccine_yes"
                                 android:layout_width="wrap_content"
                                 android:layout_height="@dimen/height_radio_button"
                                 android:layout_marginStart="48dp"
                                 android:paddingStart="@dimen/space_4"
-                                android:text="@string/no" />
+                                android:text="@string/yes" />
                         </RadioGroup>
                     </LinearLayout>
 
@@ -545,7 +545,7 @@
 
                 <LinearLayout
                     android:id="@+id/button_delete_me"
-                    style="@style/ButtonFillWhite"
+                    style="@style/ButtonFillGray"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:gravity="center"

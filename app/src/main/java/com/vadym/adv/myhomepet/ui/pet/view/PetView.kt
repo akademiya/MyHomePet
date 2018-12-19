@@ -12,7 +12,6 @@ import com.google.firebase.firestore.Query
 import com.vadym.adv.myhomepet.BaseActivity
 import com.vadym.adv.myhomepet.FirestoreUtils
 import com.vadym.adv.myhomepet.R
-import com.vadym.adv.myhomepet.domain.Owner
 import com.vadym.adv.myhomepet.toAndroidVisibility
 import com.vadym.adv.myhomepet.ui.pet.PetAdapter
 import com.vadym.adv.myhomepet.ui.pet.PetModel
@@ -26,7 +25,6 @@ class PetView : BaseActivity(), IPetView {
     private val petCollection = FirestoreUtils.currentUserDocRef.collection("PetCollection")
     private lateinit var allpets: MutableList<PetModel>
     private lateinit var adapter: PetAdapter
-    private var owner = Owner()
 
     override fun init(savedInstanceState: Bundle?) {
         super.setContentView(R.layout.view_my_pet_card_list)
@@ -55,7 +53,7 @@ class PetView : BaseActivity(), IPetView {
 
         list_my_pets.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
         list_my_pets.setHasFixedSize(true)
-        adapter = PetAdapter(this, owner, options)
+        adapter = PetAdapter(this, options)
         list_my_pets.adapter = adapter
 
 //        if (petCollection.isNotEmpty) { FIXME

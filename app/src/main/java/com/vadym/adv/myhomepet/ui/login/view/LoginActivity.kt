@@ -8,6 +8,7 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.vadym.adv.myhomepet.R
 import com.vadym.adv.myhomepet.hideKeyboard
+import com.vadym.adv.myhomepet.setFocusableWatcher
 import com.vadym.adv.myhomepet.setSimpleTextWatcher
 import com.vadym.adv.myhomepet.ui.login.ILoginActivity
 import com.vadym.adv.myhomepet.ui.login.presenter.LoginPresenter
@@ -24,6 +25,9 @@ class LoginActivity : AppCompatActivity(), ILoginActivity {
         setContentView(R.layout.view_login)
         presenter = LoginPresenter(this, application)
         auth = FirebaseAuth.getInstance()
+
+        input_email.setFocusableWatcher()
+        input_password.setFocusableWatcher()
 
         input_email.setSimpleTextWatcher {
             presenter.onResetError()

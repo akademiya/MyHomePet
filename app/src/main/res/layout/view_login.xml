@@ -31,13 +31,15 @@
             android:id="@+id/til_input_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/space_8"
-            android:layout_marginTop="@dimen/space_8">
+            android:layout_marginTop="@dimen/space_8"
+            android:layout_marginBottom="@dimen/space_8">
 
             <EditText
                 android:id="@+id/input_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:cursorVisible="false"
+                android:focusable="false"
                 android:hint="@string/email"
                 android:inputType="textEmailAddress" />
         </android.support.design.widget.TextInputLayout>
@@ -47,13 +49,15 @@
             android:id="@+id/til_input_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/space_8"
-            android:layout_marginTop="@dimen/space_8">
+            android:layout_marginTop="@dimen/space_8"
+            android:layout_marginBottom="@dimen/space_8">
 
             <EditText
                 android:id="@+id/input_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:cursorVisible="false"
+                android:focusable="false"
                 android:hint="@string/password"
                 android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
@@ -63,8 +67,8 @@
             style="@style/ButtonFillGreen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/space_24"
             android:layout_marginTop="@dimen/space_24"
+            android:layout_marginBottom="@dimen/space_24"
             android:padding="@dimen/space_12"
             android:text="@string/login" />
 

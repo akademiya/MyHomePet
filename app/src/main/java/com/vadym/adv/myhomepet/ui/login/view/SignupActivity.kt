@@ -9,11 +9,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.iid.FirebaseInstanceId
-import com.vadym.adv.myhomepet.FirestoreUtils
-import com.vadym.adv.myhomepet.R
-import com.vadym.adv.myhomepet.hideKeyboard
+import com.vadym.adv.myhomepet.*
 import com.vadym.adv.myhomepet.service.FirebaseOwnerIDService
-import com.vadym.adv.myhomepet.setSimpleTextWatcher
 import com.vadym.adv.myhomepet.ui.login.ISignupActivity
 import com.vadym.adv.myhomepet.ui.login.presenter.SignupPresenter
 import com.vadym.adv.myhomepet.ui.main.MainActivity
@@ -37,6 +34,11 @@ class SignupActivity : AppCompatActivity(), ISignupActivity {
         presenter = SignupPresenter(this, application)
 
         auth = FirebaseAuth.getInstance()
+
+        input_name.setFocusableWatcher()
+        input_email.setFocusableWatcher()
+        input_password.setFocusableWatcher()
+        input_rePassword.setFocusableWatcher()
 
         input_name.setSimpleTextWatcher {
             presenter.onResetError()

@@ -10,12 +10,10 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.vadym.adv.myhomepet.FirestoreUtils
 import com.vadym.adv.myhomepet.R
 import com.vadym.adv.myhomepet.R.plurals.days
-import com.vadym.adv.myhomepet.domain.Owner
 import com.vadym.adv.myhomepet.ui.settings.SettingsView.Companion.CITY_KEY
 import kotlinx.android.synthetic.main.item_my_pet_card_list.view.*
 
 class PetAdapter(private val context: Context,
-                 private val owner: Owner,
                  options: FirestoreRecyclerOptions<PetModel>) : FirestoreRecyclerAdapter<PetModel, PetAdapter.VH>(options) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = VH (
@@ -57,30 +55,3 @@ class PetAdapter(private val context: Context,
 //        (context as Activity).finish()
 //        context.startActivity(context.intent)
 //    }
-
-//    private fun editTaskDialog(person: Person) {
-//        val inflater = LayoutInflater.from(context)
-//        val subView = inflater.inflate(R.layout.item_edit_list_person, null)
-//
-//        val nameField = subView.findViewById<EditText>(R.id.create_person_name)
-//        val descriptionField = subView.findViewById<EditText>(R.id.create_person_description)
-//        nameField.setText(person.personName)
-//        descriptionField.setText(person.personDescription)
-//
-//        val builder = AlertDialog.Builder(context)
-//        builder.setTitle(R.string.edit_person)
-//        builder.setView(subView)
-//        builder.create()
-//        builder.setPositiveButton(R.string.edit_person) { _, _ ->
-//            val name = nameField.text.toString()
-//            val description = descriptionField.text.toString()
-//            database.updatePerson(Person(person.personId, name, description))
-//
-//            (context as Activity).finish()
-//            context.startActivity(context.intent)
-//        }
-//
-//        builder.setNegativeButton(R.string.cancel) { _, _ -> Toast.makeText(context, R.string.task_cancelled, Toast.LENGTH_SHORT).show() }
-//        builder.show()
-//    }
-

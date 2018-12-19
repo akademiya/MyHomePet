@@ -19,6 +19,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import com.karumi.dexter.PermissionToken
 import com.vadym.adv.myhomepet.R.id.tv_day_from
+import kotlinx.android.synthetic.main.view_login.*
 import kotlinx.android.synthetic.main.view_my_pet_card_edit.*
 import java.util.regex.Pattern
 
@@ -48,6 +49,15 @@ fun EditText.setTextSmartly(text: CharSequence) {
             setText(text)
             setSelection(ss, se)
         }
+    }
+}
+
+fun EditText.setFocusableWatcher() {
+    setOnTouchListener { view, _ ->
+        isCursorVisible = true
+        view.isFocusable = true
+        view.isFocusableInTouchMode = true
+        return@setOnTouchListener false
     }
 }
 
