@@ -48,7 +48,6 @@ class SettingsView : BaseActivity(), ISettingsView {
                     if (!isOwnerPhotoChanged  && owner.photo != null) {
                         GlideApp.with(this)
                                 .load(ImageUtils.pathToReference(owner.photo))
-                                .placeholder(R.drawable.ic_person)
                                 .circleCrop()
                                 .into(iv_owner_image)
                     }
@@ -224,28 +223,21 @@ class SettingsView : BaseActivity(), ISettingsView {
     }
 
     override fun onSaveDataSettings() {
-//        val ownerPhoto = if (::editOwnerPhoto.isInitialized) {
-//            ImageUtils.uploadPhoto(editOwnerPhoto) {}.toString()
-//        } else null
-
+        var ownerPhoto: String? = null
         if (::editOwnerPhoto.isInitialized) {
-            ImageUtils.uploadPhoto(editOwnerPhoto) { imagePath ->
-                FirestoreUtils.updateCurrentUser(
-                        settings_owner_name.text.toString(),
-                        settings_owner_password.text.toString(),
-                        settings_owner_phone.text.toString(),
-                        settings_owner_city.text.toString(),
-                        imagePath
-                )
-                Toast.makeText(this, resources.getString(R.string.message_save_successful), Toast.LENGTH_SHORT).show()
+            ImageUtils.uploadOwnerPhoto(editOwnerPhoto) { imagePath ->
+                ownerPhoto = imagePath
             }
-        } else FirestoreUtils.updateCurrentUser(
+        }
+
+        FirestoreUtils.updateCurrentUser(
                 settings_owner_name.text.toString(),
                 settings_owner_password.text.toString(),
                 settings_owner_phone.text.toString(),
                 settings_owner_city.text.toString(),
-                null
+                ownerPhoto
         )
+        Toast.makeText(this, resources.getString(R.string.message_save_successful), Toast.LENGTH_SHORT).show()
     }
 
     override fun onErrorDataChanged(error: ISettingsView.ErrorEditing) {

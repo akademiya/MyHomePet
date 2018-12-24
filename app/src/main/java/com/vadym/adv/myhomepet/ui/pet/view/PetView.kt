@@ -22,9 +22,8 @@ import kotlinx.android.synthetic.main.view_my_pet_card_list.*
 class PetView : BaseActivity(), IPetView {
 
     private lateinit var presenter: PetPresenter
-    private val petCollection = FirestoreUtils.currentUserDocRef.collection("PetCollection")
-    private lateinit var allpets: MutableList<PetModel>
     private lateinit var adapter: PetAdapter
+    private val petCollection = FirestoreUtils.currentUserDocRef.collection("PetCollection")
 
     override fun init(savedInstanceState: Bundle?) {
         super.setContentView(R.layout.view_my_pet_card_list)
@@ -53,23 +52,25 @@ class PetView : BaseActivity(), IPetView {
 
         list_my_pets.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
         list_my_pets.setHasFixedSize(true)
-        adapter = PetAdapter(this, options)
+        adapter = PetAdapter(this, options) //{ presenter.onEditCardItem(petModel = petCollection.id, 0) }
         list_my_pets.adapter = adapter
 
 //        if (petCollection.isNotEmpty) { FIXME
 //            adapter = PetAdapter(this, owner, options)
 //            list_my_pets.adapter = adapter
 //        }
-        presenter.onEmptyListVisibility(true) //allpets.isNotEmpty()
+
+//        FirestoreUtils.currentPetDocRef.addSnapshotListener { documentSnapshot, _ -> FIXME: currentPetDocRef
+//            documentSnapshot?.exists()?.let { presenter.onPetListVisibility(it) }
+//        }
 
         val swipeHandler = object : SwipeToDeleteCallback(this) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder?, direction: Int) {
-//                adapter.removeItem(viewHolder!!.adapterPosition) TODO delete by swipe
+                viewHolder?.adapterPosition?.let { adapter.removeItem(it) }
             }
         }
 
-        val itemTouchHelper = ItemTouchHelper(swipeHandler)
-        itemTouchHelper.attachToRecyclerView(list_my_pets)
+        ItemTouchHelper(swipeHandler).attachToRecyclerView(list_my_pets)
 
     }
 
@@ -98,6 +99,10 @@ class PetView : BaseActivity(), IPetView {
 
     override fun showEmptyList(isVisible: Boolean) {
         list_empty.visibility = isVisible.toAndroidVisibility()
+    }
+
+    override fun isPeriodSelection(selected: Boolean) {
+        adapter.isPeriodSelection = true // TODO
     }
 
     override fun onStart() {

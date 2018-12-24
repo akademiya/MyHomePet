@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/listView"
-    android:layout_height="75dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="?selectableItemBackground"
     android:foreground="?android:selectableItemBackground">
 
     <ImageView
         android:id="@+id/img_pet"
         android:layout_width="60dp"
-        android:layout_marginStart="16dp"
         android:layout_height="60dp"
         android:layout_centerVertical="true"
+        android:layout_marginStart="16dp"
         android:background="@drawable/circle_decorator"
         android:scaleType="center"
         android:src="@drawable/ic_pets"
@@ -31,49 +31,80 @@
             style="@style/TextStyle_SubHeader_Accent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8"
             tools:text="Category" />
 
-        <TextView
-            android:id="@+id/main_action"
-            style="@style/TextStyle_Body2_Primary_Dark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Give pet" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/main_action"
+                style="@style/TextStyle_Body2_Primary_Dark"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="Give pet" />
+
+            <TextView
+                android:id="@+id/period"
+                style="@style/TextStyle_Body2_Primary_Dark"
+                android:layout_marginEnd="@dimen/parent_margin_edge"
+                android:visibility="gone"
+                tools:text="5 days"
+                tools:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/iv_take_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/parent_margin_edge"
+                android:src="@drawable/ic_home"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/container_time_period"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="from: " />
+
+            <TextView
+                android:id="@+id/period_from"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="12.12.2012" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="to: " />
+
+            <TextView
+                android:id="@+id/period_to"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/parent_margin_edge"
+                tools:text="20.20.2020" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/country"
             style="@style/TextStyle_Caption_Dark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_8"
             tools:text="Kyiv" />
     </LinearLayout>
-
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true">
-
-        <TextView
-            android:id="@+id/period"
-            style="@style/TextStyle_Body2_Primary_Dark"
-            android:layout_marginEnd="@dimen/parent_margin_edge"
-            android:visibility="gone"
-            tools:text="5 days"
-            tools:visibility="visible" />
-
-        <ImageView
-            android:id="@+id/iv_take_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/parent_margin_edge"
-            android:src="@drawable/ic_home"
-            android:visibility="gone" />
-
-    </FrameLayout>
 
     <View
         style="@style/AppTheme.HorizontalViewDivider"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="92dp" />
+        android:layout_marginStart="92dp"
+        android:layout_marginBottom="@dimen/space_8" />
 </RelativeLayout>

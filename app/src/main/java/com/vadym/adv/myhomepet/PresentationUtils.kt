@@ -135,7 +135,7 @@ fun Context.showDialogEditDataOwnerQ(title: String?,
 
 fun Context.setCalendarDateOfPeriod(year: Int, month: Int, day: Int, textView: TextView) : TextView {
     DatePickerDialog(getActivity(), DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-        textView.text = "$dayOfMonth. $monthOfYear. $year"
+        textView.text = "$dayOfMonth.$monthOfYear.$year"
     }, year, month, day).show()
     return textView
 }

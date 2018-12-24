@@ -18,6 +18,7 @@ interface IEditPetView {
     fun setPositionContainerVisibility(isVisible: Boolean)
     fun onSuccessValid(category: String,
                        action: String,
+                       isPeriodSelection: Boolean,
                        period: String,
                        periodFrom: String,
                        periodTo: String,

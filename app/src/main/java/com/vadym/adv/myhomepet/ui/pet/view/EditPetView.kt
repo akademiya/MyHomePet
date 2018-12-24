@@ -6,8 +6,6 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -144,6 +142,7 @@ class EditPetView : BaseActivity(), IEditPetView {
 
     override fun onSuccessValid(category: String,
                                 action: String,
+                                isPeriodSelection: Boolean,
                                 period: String,
                                 periodFrom: String,
                                 periodTo: String,
@@ -154,28 +153,17 @@ class EditPetView : BaseActivity(), IEditPetView {
                                 description: String,
                                 inventory: String) {
 
-
+        var petImagePath = ""
         if (::editPetPhoto.isInitialized) {
-            ImageUtils.uploadPhoto(editPetPhoto) { imagePath ->
-                database.add(PetModel(
-                        category = category,
-                        action = action,
-                        period = period,
-                        periodFrom = periodFrom,
-                        periodTo = periodTo,
-                        petName = name,
-                        breed = breed,
-                        petAge = age,
-                        vaccine = vaccine,
-                        description = description,
-                        inventory = inventory,
-                        pet_photo = imagePath)
-                )
-                Toast.makeText(this, resources.getString(R.string.message_save_successful), Toast.LENGTH_SHORT).show()
+            ImageUtils.uploadPetPhoto(editPetPhoto) { imagePath ->
+                petImagePath = imagePath
             }
-        } else database.add(PetModel(
+        }
+
+        database.add(PetModel(
                 category = category,
                 action = action,
+                isPeriodSelection = isPeriodSelection,
                 period = period,
                 periodFrom = periodFrom,
                 periodTo = periodTo,
@@ -185,8 +173,23 @@ class EditPetView : BaseActivity(), IEditPetView {
                 vaccine = vaccine,
                 description = description,
                 inventory = inventory,
-                pet_photo = "")
+                pet_photo = petImagePath)
         )
+        Toast.makeText(this, resources.getString(R.string.message_save_successful), Toast.LENGTH_SHORT).show()
+
+//        val dataToSavePet = HashMap<String, Any>()
+//        dataToSavePet[PET_CATEGORY_KEY] = category
+//        dataToSavePet[PET_ACTION_KEY] = action
+//        dataToSavePet[PET_PERIOD_KEY] = period
+//        dataToSavePet[PET_PERIOD_FROM_KEY] = periodFrom
+//        dataToSavePet[PET_PERIOD_TO_KEY] = periodTo
+//        dataToSavePet[PET_NAME_KEY] = name
+//        dataToSavePet[PET_BREED_KEY] = breed
+//        dataToSavePet[PET_AGE_KEY] = age
+//        dataToSavePet[PET_VACCINE_KEY] = vaccine
+//        dataToSavePet[PET_DESCRIPTION_KEY] = description
+//        dataToSavePet[PET_INVENTORY_KEY] = inventory
+//        FirestoreUtils.currentPetDocRef.set(dataToSavePet)
 
         presenter.onBackToParent()
     }

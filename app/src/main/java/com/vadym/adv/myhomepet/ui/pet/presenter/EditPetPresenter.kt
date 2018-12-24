@@ -79,7 +79,7 @@ class EditPetPresenter(editPetView: EditPetView, application: Application) : Bas
             isValidateSuccess = false
         }
 
-        if (isValidateSuccess) view?.onSuccessValid(category, action, period, periodFrom, periodTo, name, breed, age, vaccine, description, inventory)
+        if (isValidateSuccess) view?.onSuccessValid(category, action, isPeriodSelection, period, periodFrom, periodTo, name, breed, age, vaccine, description, inventory)
     }
 
     fun onResetError() {

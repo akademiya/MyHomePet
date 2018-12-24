@@ -4,6 +4,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.vadym.adv.myhomepet.domain.Owner
+import com.vadym.adv.myhomepet.ui.pet.PetModel
 import com.vadym.adv.myhomepet.ui.settings.SettingsView.Companion.CITY_KEY
 import com.vadym.adv.myhomepet.ui.settings.SettingsView.Companion.NAME_KEY
 import com.vadym.adv.myhomepet.ui.settings.SettingsView.Companion.PHONE_KEY
@@ -13,7 +14,15 @@ object FirestoreUtils {
     private val firestoreInstance: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
     val currentUserDocRef: DocumentReference
         get() = firestoreInstance.document("Owners/${FirebaseAuth.getInstance().uid
-                ?: throw NullPointerException("UID is null")}")
+                ?: throw NullPointerException("UID Owner is null")}")
+
+    val path = currentUserDocRef.collection("PetCollection").document().path
+    val currentPetDocRef: DocumentReference
+        get() = firestoreInstance.document(path)
+//        get() = currentUserDocRef
+//                .collection("PetCollection")
+//                .document()
+
 
     fun initCurrentUserIfFirstTime(onComplete: () -> Unit) {
         currentUserDocRef.get().addOnSuccessListener { documentSnapshot ->
@@ -28,6 +37,12 @@ object FirestoreUtils {
     fun getCurrentUser(onComplate: (Owner) -> Unit) {
         currentUserDocRef.get().addOnSuccessListener {
             onComplate(it.toObject(Owner::class.java)!!)
+        }
+    }
+
+    fun getCurrentPet(onComplate: (PetModel) -> Unit) {
+        currentPetDocRef.get().addOnSuccessListener {
+            onComplate(it.toObject(PetModel::class.java)!!)
         }
     }
 

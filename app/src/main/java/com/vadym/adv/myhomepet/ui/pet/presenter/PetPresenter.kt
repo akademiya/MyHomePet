@@ -9,8 +9,6 @@ import com.vadym.adv.myhomepet.ui.pet.view.PetView
 class PetPresenter(petView: PetView, applicationComponent: Application) : BasePresenter<PetView>(petView) {
     init { (applicationComponent as AndroidApplication).applicationComponent.inject(this) }
 
-    var petModel: PetModel? = null
-
     override fun onBindView() {
 
     }
@@ -23,11 +21,11 @@ class PetPresenter(petView: PetView, applicationComponent: Application) : BasePr
 
     fun goToAddNewPosition() { view?.onCreateCardPet() }
 
-    fun onEditCardItem(petModel: PetModel) {
+    fun onEditCardItem(petModel: PetModel, position: Int) {
 //        view?.onEditCardPet(petModel.id)
     }
 
-    fun onEmptyListVisibility(emptyList: Boolean) {
+    fun onPetListVisibility(emptyList: Boolean) {
         view?.showEmptyList(!emptyList)
         view?.showListPets(emptyList)
     }

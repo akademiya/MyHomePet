@@ -5,4 +5,5 @@ interface IPetView {
     fun showEmptyList(isVisible: Boolean)
     fun showListPets(isVisible: Boolean)
     fun onEditCardPet(param: Int?)
+    fun isPeriodSelection(selected: Boolean)
 }

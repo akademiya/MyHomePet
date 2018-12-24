@@ -14,18 +14,19 @@ object ImageUtils {
                 .child(FirebaseAuth.getInstance().currentUser?.uid
                         ?: throw NullPointerException("UID is null"))
 
-    fun uploadPhoto(imageBytes: ByteArray, onSuccess: (imagePath: String) -> Unit) {
+    fun uploadOwnerPhoto(imageBytes: ByteArray, onSuccess: (imagePath: String) -> Unit) {
         val reference = currentUserRef.child("ownerPhoto/${UUID.nameUUIDFromBytes(imageBytes)}")
         reference
                 .putBytes(imageBytes)
                 .addOnSuccessListener { onSuccess(reference.path) }
     }
 
-//    fun uploadMessageImage(imageBytes: ByteArray, onSuccess: (imagePath: String) -> Unit) {
-//        val ref = currentUserRef.child("messages/${UUID.nameUUIDFromBytes(imageBytes)}")
-//        ref.putBytes(imageBytes)
-//                .addOnSuccessListener { onSuccess(ref.path) }
-//    }
+    fun uploadPetPhoto(imageBytes: ByteArray, onSuccess: (imagePath: String) -> Unit) {
+        val reference = currentUserRef.child("petPhoto/${UUID.nameUUIDFromBytes(imageBytes)}")
+        reference
+                .putBytes(imageBytes)
+                .addOnSuccessListener { onSuccess(reference.path) }
+    }
 
     fun pathToReference(path: String) = storageInstance.getReference(path)
 }
