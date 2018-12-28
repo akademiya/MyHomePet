@@ -60,7 +60,7 @@ class PetView : BaseActivity(), IPetView {
 //            list_my_pets.adapter = adapter
 //        }
 
-//        FirestoreUtils.currentPetDocRef.addSnapshotListener { documentSnapshot, _ -> FIXME: currentPetDocRef
+//        FirestoreUtils.currentPetDocRef.addSnapshotListener { documentSnapshot, _ -> //FIXME: currentPetDocRef
 //            documentSnapshot?.exists()?.let { presenter.onPetListVisibility(it) }
 //        }
 
@@ -99,10 +99,6 @@ class PetView : BaseActivity(), IPetView {
 
     override fun showEmptyList(isVisible: Boolean) {
         list_empty.visibility = isVisible.toAndroidVisibility()
-    }
-
-    override fun isPeriodSelection(selected: Boolean) {
-        adapter.isPeriodSelection = true // TODO
     }
 
     override fun onStart() {

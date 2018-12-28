@@ -34,13 +34,12 @@ class EditPetPresenter(editPetView: EditPetView, application: Application) : Bas
     private var vaccine = false
     private var description = ""
     private var inventory = ""
-    private val param: PetModel? = null
     private var categoryPosition = 0
     private var actionPosition = 0
     private var isValidateSuccess = true
 
     override fun onBindView() {
-        view?.setCreateOrEditTitle(true) // TODO param?.id != null
+        view?.setCreateOrEditTitle(false) // TODO param?.id != null
 //        view?.onDeleteItem(param?.id) TODO
     }
 

@@ -29,6 +29,7 @@ class EditPetView : BaseActivity(), IEditPetView {
     private val CAMERA = 0
     private val GALLERY = 1
     private lateinit var editPetPhoto: ByteArray
+    private var petImagePath: String = ""
     private var isPetPhotoChanged = false
 
 
@@ -153,14 +154,8 @@ class EditPetView : BaseActivity(), IEditPetView {
                                 description: String,
                                 inventory: String) {
 
-        var petImagePath = ""
-        if (::editPetPhoto.isInitialized) {
-            ImageUtils.uploadPetPhoto(editPetPhoto) { imagePath ->
-                petImagePath = imagePath
-            }
-        }
-
         database.add(PetModel(
+                pid = database.document().id,
                 category = category,
                 action = action,
                 isPeriodSelection = isPeriodSelection,
@@ -176,20 +171,6 @@ class EditPetView : BaseActivity(), IEditPetView {
                 pet_photo = petImagePath)
         )
         Toast.makeText(this, resources.getString(R.string.message_save_successful), Toast.LENGTH_SHORT).show()
-
-//        val dataToSavePet = HashMap<String, Any>()
-//        dataToSavePet[PET_CATEGORY_KEY] = category
-//        dataToSavePet[PET_ACTION_KEY] = action
-//        dataToSavePet[PET_PERIOD_KEY] = period
-//        dataToSavePet[PET_PERIOD_FROM_KEY] = periodFrom
-//        dataToSavePet[PET_PERIOD_TO_KEY] = periodTo
-//        dataToSavePet[PET_NAME_KEY] = name
-//        dataToSavePet[PET_BREED_KEY] = breed
-//        dataToSavePet[PET_AGE_KEY] = age
-//        dataToSavePet[PET_VACCINE_KEY] = vaccine
-//        dataToSavePet[PET_DESCRIPTION_KEY] = description
-//        dataToSavePet[PET_INVENTORY_KEY] = inventory
-//        FirestoreUtils.currentPetDocRef.set(dataToSavePet)
 
         presenter.onBackToParent()
     }
@@ -264,7 +245,7 @@ class EditPetView : BaseActivity(), IEditPetView {
                 editPetPhoto = bytes.toByteArray()
                 GlideApp.with(this)
                         .load(editPetPhoto)
-                        .circleCrop()
+                        .centerCrop()
                         .into(photo_pet)
                 iv_pet_image.setImageBitmap(bitmap)
                 isPetPhotoChanged = true
@@ -280,11 +261,20 @@ class EditPetView : BaseActivity(), IEditPetView {
             editPetPhoto = bytes.toByteArray()
             GlideApp.with(this)
                     .load(editPetPhoto)
-                    .circleCrop()
+                    .centerCrop()
                     .into(photo_pet)
             iv_pet_image.setImageBitmap(thumbnail)
         }
         photo_pet.visibility = View.VISIBLE
+        initPetPhoto()
+    }
+
+    private fun initPetPhoto() {
+        if (::editPetPhoto.isInitialized) {
+            ImageUtils.uploadPetPhoto(editPetPhoto) { imagePath ->
+                petImagePath = imagePath
+            }
+        }
     }
 
 
