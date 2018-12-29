@@ -47,6 +47,8 @@ class MainAdapter(private val context: Context,
                         .into(itemView.main_img_pet)
             }
 
+//            itemView.button_more.setOnClickListener { onClickEditItem(model, position) }
+
             FirestoreUtils.currentUserDocRef.addSnapshotListener { documentSnapshot, _ ->
                 FirestoreUtils.getCurrentUser { owner ->
                     if (documentSnapshot?.exists()!!) {

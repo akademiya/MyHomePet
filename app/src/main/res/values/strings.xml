@@ -51,6 +51,7 @@
 
     // MAIN LIST
     <string name="button_more">more</string>
+    <string name="main_card_info">Card Info Pet</string>
 
     // EDIT ITEM
     <string name="save">Save</string>

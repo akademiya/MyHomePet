@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/Toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:padding="0dp"
+        app:contentInsetEnd="0dp"
+        app:contentInsetStart="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/button_back"
+                style="@style/ButtonBack_White"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="4dp"
+                android:background="@drawable/button_ripple_circle_green" />
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                style="@style/Toolbar.TitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/space_20"
+                android:layout_toEndOf="@+id/button_back"
+                android:gravity="center_vertical"
+                android:text="@string/main_card_info"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:id="@+id/container_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--PET-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/parent_margin_edge"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/parent_margin_edge"
+                android:paddingEnd="@dimen/parent_margin_edge">
+
+                <!--Photo-->
+                <ImageView
+                    android:id="@+id/photo_pet"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginBottom="@dimen/space_24"
+                    android:scaleType="centerCrop"
+                    tools:src="@drawable/kisa2" />
+
+                <!--Категория-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/space_12">
+
+                    <TextView
+                        style="@style/TextStyle_SubHeader_Accent"
+                        android:text="@string/category" />
+
+                    <TextView
+                        android:id="@+id/info_category"
+                        style="@style/TextStyle_Body2_Primary_Dark"
+                        android:layout_marginStart="@dimen/space_12"
+                        tools:text="@string/category" />
+                </LinearLayout>
+
+                <!--Действие с питомцом-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/space_12">
+
+                    <TextView
+                        style="@style/TextStyle_SubHeader_Accent"
+                        android:text="@string/action" />
+
+                    <TextView
+                        android:id="@+id/info_action"
+                        style="@style/TextStyle_Body2_Primary_Dark"
+                        android:layout_marginStart="@dimen/space_12"
+                        android:text="@string/action" />
+                </LinearLayout>
+
+                <!--Период-->
+                <LinearLayout
+                    android:id="@+id/info_container_period"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/space_12">
+
+                        <TextView
+                            style="@style/TextStyle_SubHeader_Accent"
+                            android:text="@string/period" />
+
+                        <TextView
+                            android:id="@+id/info_period"
+                            style="@style/TextStyle_Body2_Primary_Dark"
+                            android:layout_marginStart="@dimen/space_12"
+                            android:text="@string/period" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/calendar_container"
+                        android:layout_marginBottom="@dimen/space_12">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/iv_day_from"
+                                style="@style/CalendarButton"
+                                android:layout_below="@+id/from"
+                                android:src="@drawable/ic_day_from" />
+
+                            <TextView
+                                android:id="@+id/from"
+                                style="@style/TextStyle_Hint"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/day_from" />
+
+                            <TextView
+                                android:id="@+id/info_tv_day_from"
+                                style="@style/TextStyle_SubHeader_Accent"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_8"
+                                android:layout_marginTop="31dp"
+                                android:layout_toEndOf="@+id/iv_day_from"
+                                tools:text="12.12.2020" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/space_48"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/iv_day_to"
+                                style="@style/CalendarButton"
+                                android:layout_below="@+id/to"
+                                android:src="@drawable/ic_day_to" />
+
+                            <TextView
+                                android:id="@+id/to"
+                                style="@style/TextStyle_Hint"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/day_to" />
+
+                            <TextView
+                                android:id="@+id/info_tv_day_to"
+                                style="@style/TextStyle_SubHeader_Accent"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_8"
+                                android:layout_marginTop="31dp"
+                                android:layout_toEndOf="@+id/iv_day_to"
+                                tools:text="12.12.2020" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!--Кличка питомца-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/space_12">
+
+                    <TextView
+                        style="@style/TextStyle_SubHeader_Accent"
+                        android:text="@string/pet_name" />
+
+                    <TextView
+                        android:id="@+id/info_pet_name"
+                        style="@style/TextStyle_Body2_Primary_Dark"
+                        android:layout_marginStart="@dimen/space_12"
+                        tools:text="@string/pet_name" />
+                </LinearLayout>
+
+
+                <!--Порода питомца-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/space_12">
+
+                    <TextView
+                        style="@style/TextStyle_SubHeader_Accent"
+                        android:text="@string/breed" />
+
+                    <TextView
+                        android:id="@+id/info_breed"
+                        style="@style/TextStyle_Body2_Primary_Dark"
+                        android:layout_marginStart="@dimen/space_12"
+                        tools:text="@string/breed" />
+                </LinearLayout>
+
+
+                <!--Возраст питомца-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/space_12">
+
+                    <TextView
+                        style="@style/TextStyle_SubHeader_Accent"
+                        android:text="@string/pet_age" />
+
+                    <TextView
+                        android:id="@+id/info_pet_age"
+                        style="@style/TextStyle_Body2_Primary_Dark"
+                        android:layout_marginStart="@dimen/space_12"
+                        tools:text="@string/pet_age" />
+                </LinearLayout>
+
+
+                <!--Наличие прививок-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/space_12">
+
+                    <TextView
+                        style="@style/TextStyle_SubHeader_Accent"
+                        android:text="@string/vaccine" />
+
+                    <TextView
+                        android:id="@+id/info_vaccine"
+                        style="@style/TextStyle_Body2_Primary_Dark"
+                        android:layout_marginStart="@dimen/space_12"
+                        tools:text="@string/no" />
+                </LinearLayout>
+
+
+                <!--Описание-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/space_12"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextStyle_SubHeader_Accent"
+                        android:text="@string/description" />
+
+                    <TextView
+                        android:id="@+id/info_description"
+                        style="@style/TextStyle_Body2_Primary_Dark"
+                        tools:text="@string/description" />
+                </LinearLayout>
+
+                <!--FURNITURE-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/parent_margin_edge"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextStyle_SubHeader_Accent"
+                        android:text="@string/furniture" />
+
+                    <TextView
+                        android:id="@+id/info_inventory"
+                        style="@style/TextStyle_Body2_Primary_Dark"
+                        tools:text="@string/furniture" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <!--BUTTON MESSAGE-->
+            <LinearLayout
+                android:id="@+id/button_write_message"
+                style="@style/ButtonFillGreen"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="@dimen/parent_margin_edge"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/write_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:text="@string/message"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+            <View style="@style/AppTheme.HorizontalViewDivider" />
+
+            <!--ADVERTISING-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
