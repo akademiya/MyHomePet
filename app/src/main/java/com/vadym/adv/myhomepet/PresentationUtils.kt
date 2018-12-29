@@ -10,17 +10,14 @@ import android.support.v7.app.AlertDialog
 import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.LinkMovementMethod
-import android.util.JsonToken
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
 import com.karumi.dexter.PermissionToken
-import com.vadym.adv.myhomepet.R.id.tv_day_from
-import kotlinx.android.synthetic.main.view_login.*
-import kotlinx.android.synthetic.main.view_my_pet_card_edit.*
 import java.util.regex.Pattern
 
 fun Activity.hideKeyboard() = currentFocus?.also { (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).apply { hideSoftInputFromWindow(it.windowToken, 0) } }
@@ -61,6 +58,13 @@ fun EditText.setFocusableWatcher() {
     }
 }
 
+fun Spinner.hideKeyboardOnTapSpinner() = setOnTouchListener { _, event ->
+    if (event.action == MotionEvent.ACTION_UP) {
+        context.getActivity()?.hideKeyboard()
+    }
+    return@setOnTouchListener false
+}
+
 fun Context.getActivity(): Activity? {
     var context = this
     while (context is ContextWrapper) {
@@ -83,42 +87,6 @@ fun Context.showDialog2Button(title: String?,
     return AlertDialog.Builder(this).run {
         setView(subView)
         setCancelable(false)
-        title?.let { setTitle(it) }
-        descriptionField.setText(param)
-        setNegativeButton(buttonNeg) { dialog, _ -> onClickNeg(dialog) }
-        setPositiveButton(buttonPos) { dialog, _ -> onClickPos(dialog) }
-        show().apply {
-            getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.text_primary_dark))
-            this.findViewById<TextView>(android.R.id.message)!!.run {
-                movementMethod = LinkMovementMethod.getInstance()
-                setLinkTextColor(resources.getColor(R.color.link_color))
-            }
-        }
-    }
-}
-
-
-fun Context.showDialogEditDataOwner(title: String?,
-                                    param: String?,
-                                    onNoClick: (DialogInterface) -> Unit,
-                                    onYesClick: (DialogInterface) -> Unit) = showDialog2Button(
-        title, param, resources.getString(R.string.cancel), onNoClick, resources.getString(R.string.change), onYesClick
-)
-
-
-fun Context.showDialogEditDataOwnerQ(title: String?,
-                                     param: String?,
-                                     buttonNeg: String,
-                                     onClickNeg: (DialogInterface) -> Unit,
-                                     buttonPos: String,
-                                     onClickPos: (DialogInterface) -> Unit): AlertDialog {
-
-    val subView = LayoutInflater.from(this).inflate(R.layout.item_edit_data_owner, null)
-    val descriptionField = subView.findViewById<EditText>(R.id.owner_data)
-
-    return AlertDialog.Builder(this).run {
-        setView(subView)
-        create()
         title?.let { setTitle(it) }
         descriptionField.setText(param)
         setNegativeButton(buttonNeg) { dialog, _ -> onClickNeg(dialog) }

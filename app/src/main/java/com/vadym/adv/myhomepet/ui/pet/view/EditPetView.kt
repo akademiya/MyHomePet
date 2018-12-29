@@ -60,6 +60,7 @@ class EditPetView : BaseActivity(), IEditPetView {
                 presenter.onSpinnerCategorySelected(position, spinnerCategoryAdapter.getItem(position).toString())
             }
         }
+        spinner_categories.hideKeyboardOnTapSpinner()
 
         val spinnerActionAdapter = ArrayAdapter.createFromResource(
                 this,
@@ -74,6 +75,7 @@ class EditPetView : BaseActivity(), IEditPetView {
                 presenter.onSpinnerActionSelected(position, spinnerActionAdapter.getItem(position).toString())
             }
         }
+        spinner_action.hideKeyboardOnTapSpinner()
 
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
