@@ -30,9 +30,25 @@ class MainActivity : BaseActivity() {
                 .setQuery(sortByTime, PetModel::class.java)
                 .build()
 
-        adapter = MainAdapter(this, options) { model, position ->
+        adapter = MainAdapter(this, options) { documentSnapshot, model ->
+            val petModel = documentSnapshot.toObject(PetModel::class.java)
+            val docId = documentSnapshot.id
+            val path = documentSnapshot.reference.path
             val intent = Intent(this, CardInfoView::class.java)
             intent.putExtra("model", model.pid)
+            intent.putExtra("petCategory", model.category)
+            intent.putExtra("action", model.action)
+            intent.putExtra("isSelectedPeriod", model.isPeriodSelection)
+            intent.putExtra("period", model.period)
+            intent.putExtra("periodFrom", model.periodFrom)
+            intent.putExtra("periodTo", model.periodTo)
+            intent.putExtra("petName", model.petName)
+            intent.putExtra("breed", model.breed)
+            intent.putExtra("age", model.petAge.toString())
+            intent.putExtra("vaccine", model.vaccine.toString())
+            intent.putExtra("description", model.description)
+            intent.putExtra("inventory", model.inventory)
+            intent.putExtra("photo", model.petPhoto)
             startActivity(intent)
         }
         main_pet_list.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)

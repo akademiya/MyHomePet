@@ -63,6 +63,7 @@
                     android:id="@+id/photo_pet"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
+                    android:layout_marginTop="@dimen/parent_margin_edge"
                     android:layout_marginBottom="@dimen/space_24"
                     android:scaleType="centerCrop"
                     tools:src="@drawable/kisa2" />
