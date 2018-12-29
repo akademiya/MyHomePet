@@ -13,7 +13,7 @@ import com.vadym.adv.myhomepet.*
 import com.vadym.adv.myhomepet.service.FirebaseOwnerIDService
 import com.vadym.adv.myhomepet.ui.login.ISignupActivity
 import com.vadym.adv.myhomepet.ui.login.presenter.SignupPresenter
-import com.vadym.adv.myhomepet.ui.main.MainActivity
+import com.vadym.adv.myhomepet.ui.main.view.MainActivity
 import com.vadym.adv.myhomepet.ui.settings.SettingsView.Companion.CITY_KEY
 import com.vadym.adv.myhomepet.ui.settings.SettingsView.Companion.EMAIL_KEY
 import com.vadym.adv.myhomepet.ui.settings.SettingsView.Companion.NAME_KEY

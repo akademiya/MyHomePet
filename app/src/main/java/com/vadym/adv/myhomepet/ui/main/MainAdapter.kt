@@ -10,16 +10,16 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.vadym.adv.myhomepet.FirestoreUtils
 import com.vadym.adv.myhomepet.ImageUtils
 import com.vadym.adv.myhomepet.R
-import com.vadym.adv.myhomepet.R.id.iv_owner_image
 import com.vadym.adv.myhomepet.di.module.GlideApp
 import com.vadym.adv.myhomepet.toAndroidVisibility
 import com.vadym.adv.myhomepet.ui.pet.PetModel
 import com.vadym.adv.myhomepet.ui.settings.SettingsView
 import kotlinx.android.synthetic.main.item_main_card_list.view.*
-import kotlinx.android.synthetic.main.item_my_pet_card_list.view.*
+
 
 class MainAdapter(private val context: Context,
-                  options: FirestoreRecyclerOptions<PetModel>) : FirestoreRecyclerAdapter<PetModel, MainAdapter.VH>(options) {
+                  options: FirestoreRecyclerOptions<PetModel>,
+                  private val onClickItemMoreInformation: (PetModel, Int) -> Unit) : FirestoreRecyclerAdapter<PetModel, MainAdapter.VH>(options) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = VH(
             LayoutInflater.from(parent.context).inflate(R.layout.item_main_card_list, parent, false)
@@ -46,8 +46,7 @@ class MainAdapter(private val context: Context,
                         .circleCrop()
                         .into(itemView.main_img_pet)
             }
-
-//            itemView.button_more.setOnClickListener { onClickEditItem(model, position) }
+            itemView.button_more.setOnClickListener { onClickItemMoreInformation(model, position) }
 
             FirestoreUtils.currentUserDocRef.addSnapshotListener { documentSnapshot, _ ->
                 FirestoreUtils.getCurrentUser { owner ->

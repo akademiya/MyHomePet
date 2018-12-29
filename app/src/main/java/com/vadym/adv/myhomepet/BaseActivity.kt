@@ -9,7 +9,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
-import android.support.v4.content.ContextCompat.startActivity
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
@@ -19,11 +18,10 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.Toast
-import com.vadym.adv.myhomepet.domain.Owner
 import com.vadym.adv.myhomepet.network.InternetConnectionReceiver
 import com.vadym.adv.myhomepet.ui.info.InfoView
 import com.vadym.adv.myhomepet.ui.login.view.LoginActivity
-import com.vadym.adv.myhomepet.ui.main.MainActivity
+import com.vadym.adv.myhomepet.ui.main.view.MainActivity
 import com.vadym.adv.myhomepet.ui.pet.view.EditPetView
 import com.vadym.adv.myhomepet.ui.pet.view.PetView
 import com.vadym.adv.myhomepet.ui.settings.SettingsView
@@ -98,7 +96,7 @@ abstract class BaseActivity : AppCompatActivity(), IView, NavigationView.OnNavig
                 val shareBody = getString(R.string.share_body)
                 sharingIntent.apply {
                     type = "text/plain"
-                    putExtra(android.content.Intent.EXTRA_SUBJECT, "True Father Prayers")
+                    putExtra(android.content.Intent.EXTRA_SUBJECT, "Lovely Home Animals")
                     putExtra(android.content.Intent.EXTRA_TEXT, shareBody)
                 }
                 startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_by)))
@@ -108,7 +106,7 @@ abstract class BaseActivity : AppCompatActivity(), IView, NavigationView.OnNavig
                 val uri = Uri.parse("mailto:vadym.adv@gmail.com")
                 val sendIntent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"))
                 sendIntent.data = uri
-                startActivity(Intent.createChooser(sendIntent, "True Father Prayers"))
+                startActivity(Intent.createChooser(sendIntent, "Lovely Home Animals"))
             }
 
             R.id.nav_info -> startActivity(Intent(this, InfoView::class.java))

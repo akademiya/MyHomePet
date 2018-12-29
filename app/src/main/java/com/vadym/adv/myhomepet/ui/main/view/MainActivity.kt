@@ -1,5 +1,6 @@
-package com.vadym.adv.myhomepet.ui.main
+package com.vadym.adv.myhomepet.ui.main.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
@@ -9,6 +10,8 @@ import com.google.firebase.firestore.Query
 import com.vadym.adv.myhomepet.BaseActivity
 import com.vadym.adv.myhomepet.FirestoreUtils
 import com.vadym.adv.myhomepet.R
+import com.vadym.adv.myhomepet.ui.main.MainAdapter
+import com.vadym.adv.myhomepet.ui.main.presenter.MainPresenter
 import com.vadym.adv.myhomepet.ui.pet.PetModel
 import kotlinx.android.synthetic.main.view_main_card_list.*
 
@@ -27,7 +30,11 @@ class MainActivity : BaseActivity() {
                 .setQuery(sortByTime, PetModel::class.java)
                 .build()
 
-        adapter = MainAdapter(this, options)
+        adapter = MainAdapter(this, options) { model, position ->
+            val intent = Intent(this, CardInfoView::class.java)
+            intent.putExtra("model", model.pid)
+            startActivity(intent)
+        }
         main_pet_list.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
         main_pet_list.setHasFixedSize(true)
         main_pet_list.adapter = adapter

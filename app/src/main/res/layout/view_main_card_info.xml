@@ -98,7 +98,7 @@
                         android:id="@+id/info_action"
                         style="@style/TextStyle_Body2_Primary_Dark"
                         android:layout_marginStart="@dimen/space_12"
-                        android:text="@string/action" />
+                        tools:text="@string/action" />
                 </LinearLayout>
 
                 <!--Период-->
@@ -299,7 +299,6 @@
                         tools:text="@string/furniture" />
                 </LinearLayout>
             </LinearLayout>
-
 
             <!--BUTTON MESSAGE-->
             <LinearLayout

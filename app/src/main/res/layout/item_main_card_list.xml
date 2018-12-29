@@ -71,7 +71,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="from: " />
+                android:text="@string/from" />
 
             <TextView
                 android:id="@+id/main_period_from"
@@ -83,7 +83,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="to: " />
+                android:text="@string/to" />
 
             <TextView
                 android:id="@+id/main_period_to"
@@ -122,14 +122,14 @@
 
                 <TextView
                     android:id="@+id/owner_name"
-                    style="@style/TextStyle_Body2_Primary_Dark"
+                    style="@style/TextStyle_Body1_Primary_Dark"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="vasya" />
 
                 <TextView
                     android:id="@+id/owner_email"
-                    style="@style/TextStyle_Body2_Primary_Dark"
+                    style="@style/TextStyle_Body1_Primary_Dark"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="vasya@gmail.com" />

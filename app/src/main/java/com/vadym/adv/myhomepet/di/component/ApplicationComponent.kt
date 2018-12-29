@@ -9,8 +9,10 @@ import com.vadym.adv.myhomepet.ui.login.view.LoginActivity
 import com.vadym.adv.myhomepet.ui.login.presenter.LoginPresenter
 import com.vadym.adv.myhomepet.ui.login.view.SignupActivity
 import com.vadym.adv.myhomepet.ui.login.presenter.SignupPresenter
-import com.vadym.adv.myhomepet.ui.main.MainActivity
-import com.vadym.adv.myhomepet.ui.main.MainPresenter
+import com.vadym.adv.myhomepet.ui.main.presenter.CardInfoPresenter
+import com.vadym.adv.myhomepet.ui.main.view.CardInfoView
+import com.vadym.adv.myhomepet.ui.main.view.MainActivity
+import com.vadym.adv.myhomepet.ui.main.presenter.MainPresenter
 import com.vadym.adv.myhomepet.ui.pet.presenter.EditPetPresenter
 import com.vadym.adv.myhomepet.ui.pet.presenter.PetPresenter
 import com.vadym.adv.myhomepet.ui.pet.view.EditPetView
@@ -32,6 +34,7 @@ interface ApplicationComponent {
     fun inject(signupActivity: SignupActivity)
     fun inject(loginActivity: LoginActivity)
     fun inject(settingsView: SettingsView)
+    fun inject(cardInfoView: CardInfoView)
 
     // PRESENTER
     fun inject(infoPresenter: InfoPresenter)
@@ -41,5 +44,6 @@ interface ApplicationComponent {
     fun inject(signupPresenter: SignupPresenter)
     fun inject(loginPresenter: LoginPresenter)
     fun inject(settingsPresenter: SettingsPresenter)
+    fun inject(cardInfoPresenter: CardInfoPresenter)
 
 }

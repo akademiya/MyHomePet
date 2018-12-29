@@ -12,7 +12,7 @@ import com.vadym.adv.myhomepet.setFocusableWatcher
 import com.vadym.adv.myhomepet.setSimpleTextWatcher
 import com.vadym.adv.myhomepet.ui.login.ILoginActivity
 import com.vadym.adv.myhomepet.ui.login.presenter.LoginPresenter
-import com.vadym.adv.myhomepet.ui.main.MainActivity
+import com.vadym.adv.myhomepet.ui.main.view.MainActivity
 import kotlinx.android.synthetic.main.view_login.*
 
 class LoginActivity : AppCompatActivity(), ILoginActivity {
