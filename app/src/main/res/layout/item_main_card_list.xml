@@ -8,11 +8,12 @@
     android:foreground="?android:selectableItemBackground">
 
     <ImageView
-        android:id="@+id/img_pet"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_centerVertical="true"
+        android:id="@+id/main_img_pet"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentTop="true"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="@dimen/space_10"
         android:background="@drawable/circle_decorator"
         android:scaleType="center"
         android:src="@drawable/ic_pets" />
@@ -22,11 +23,11 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginStart="16dp"
-        android:layout_toEndOf="@+id/img_pet"
+        android:layout_toEndOf="@+id/main_img_pet"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/category_pet"
+            android:id="@+id/main_category_pet"
             style="@style/TextStyle_SubHeader_Accent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,7 +39,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/action"
+                android:id="@+id/main_action"
                 style="@style/TextStyle_Body2_Primary_Dark"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -46,7 +47,7 @@
                 tools:text="Give pet" />
 
             <TextView
-                android:id="@+id/period"
+                android:id="@+id/main_period"
                 style="@style/TextStyle_Body2_Primary_Dark"
                 android:layout_marginEnd="@dimen/parent_margin_edge"
                 android:visibility="gone"
@@ -54,7 +55,7 @@
                 tools:visibility="visible" />
 
             <ImageView
-                android:id="@+id/iv_take_home"
+                android:id="@+id/main_iv_take_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/parent_margin_edge"
@@ -63,7 +64,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/container_time_period"
+            android:id="@+id/main_container_time_period"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -73,7 +74,7 @@
                 android:text="from: " />
 
             <TextView
-                android:id="@+id/period_from"
+                android:id="@+id/main_period_from"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -85,7 +86,7 @@
                 android:text="to: " />
 
             <TextView
-                android:id="@+id/period_to"
+                android:id="@+id/main_period_to"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/parent_margin_edge"
@@ -93,17 +94,61 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/country"
+            android:id="@+id/owner_country"
             style="@style/TextStyle_Caption_Dark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/space_8"
             tools:text="Kyiv" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/img_owner"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_person" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/space_12"
+                android:layout_toEndOf="@+id/img_owner"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/owner_name"
+                    style="@style/TextStyle_Body2_Primary_Dark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="vasya" />
+
+                <TextView
+                    android:id="@+id/owner_email"
+                    style="@style/TextStyle_Body2_Primary_Dark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="vasya@gmail.com" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/button_more"
+            style="@style/ButtonFillGreen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_12"
+            android:layout_marginBottom="@dimen/space_12"
+            android:text="@string/button_more" />
     </LinearLayout>
 
     <View
         style="@style/AppTheme.HorizontalViewDivider"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="92dp"
+        android:layout_marginStart="112dp"
         android:layout_marginBottom="@dimen/space_8" />
 </RelativeLayout>

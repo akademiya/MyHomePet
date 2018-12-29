@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyHomePet</string>
+    <string name="app_name">LovelyHomeAnimals</string>
 
     <string name="my_pets">My pets</string>
 
@@ -48,6 +48,9 @@
 
     <string name="share_body">Share</string>
     <string name="share_by">Share content</string>
+
+    // MAIN LIST
+    <string name="button_more">more</string>
 
     // EDIT ITEM
     <string name="save">Save</string>

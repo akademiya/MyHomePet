@@ -32,7 +32,7 @@ class PetAdapter(private val context: Context,
             } catch (e: NumberFormatException) { print(e) }
 
             itemView.category_pet.text = model.category
-            itemView.main_action.text = model.action
+            itemView.action.text = model.action
             itemView.iv_take_home.visibility = (!model.isPeriodSelection).toAndroidVisibility()
             itemView.period.visibility = model.isPeriodSelection.toAndroidVisibility()
             itemView.container_time_period.visibility = model.isPeriodSelection.toAndroidVisibility()
@@ -41,11 +41,10 @@ class PetAdapter(private val context: Context,
             itemView.period_to.text = model.periodTo
             if (!model.petPhoto.isNullOrBlank()) {
                 GlideApp.with(context)
-                        .load(ImageUtils.pathToReference(model.petPhoto.toString()))
+                        .load(model.petPhoto?.let { ImageUtils.pathToReference(it) })
                         .circleCrop()
                         .into(itemView.img_pet)
             }
-//            itemView.img_pet.setImageDrawable(context.resources.getDrawable(R.drawable.ic_home))
 
             FirestoreUtils.currentUserDocRef.addSnapshotListener { documentSnapshot, _ ->
                 if (documentSnapshot?.exists()!!) {
