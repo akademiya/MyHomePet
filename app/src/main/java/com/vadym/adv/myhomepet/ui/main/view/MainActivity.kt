@@ -30,7 +30,7 @@ class MainActivity : BaseActivity() {
                 .setQuery(sortByTime, PetModel::class.java)
                 .build()
 
-        adapter = MainAdapter(this, options) { documentSnapshot, model ->
+        adapter = MainAdapter(this, options) { documentSnapshot, model, owner ->
             val petModel = documentSnapshot.toObject(PetModel::class.java)
             val docId = documentSnapshot.id
             val path = documentSnapshot.reference.path
@@ -49,6 +49,7 @@ class MainActivity : BaseActivity() {
             intent.putExtra("description", model.description)
             intent.putExtra("inventory", model.inventory)
             intent.putExtra("photo", model.petPhoto)
+            intent.putExtra("ownerEmail", owner.email)
             startActivity(intent)
         }
         main_pet_list.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)

@@ -15,7 +15,6 @@ import kotlinx.android.synthetic.main.view_main_card_info.*
 class CardInfoView : BaseActivity(), ICardInfoView {
 
     private lateinit var presenter: CardInfoPresenter
-    private var email = "gvd@gmail.com"
 
     override fun init(savedInstanceState: Bundle?) {
         super.setContentView(R.layout.view_main_card_info)
@@ -36,6 +35,7 @@ class CardInfoView : BaseActivity(), ICardInfoView {
         val description = intent.getStringExtra("description")
         val inventory = intent.getStringExtra("inventory")
         val photo = intent.getStringExtra("photo")
+        val email = intent.getStringExtra("ownerEmail")
 
         info_category.text = category
         info_action.text = action
@@ -51,7 +51,7 @@ class CardInfoView : BaseActivity(), ICardInfoView {
         info_inventory.text = inventory
 
         button_back.setOnClickListener { presenter.onBackToParent() }
-        write_message.setOnClickListener { presenter.onWriteMessageClick(email) } // TODO real owner
+        write_message.setOnClickListener { presenter.onWriteMessageClick(email) }
 
         if (!photo.isBlank()) {
             GlideApp.with(this)

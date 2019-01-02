@@ -12,6 +12,7 @@ import com.vadym.adv.myhomepet.FirestoreUtils
 import com.vadym.adv.myhomepet.ImageUtils
 import com.vadym.adv.myhomepet.R
 import com.vadym.adv.myhomepet.di.module.GlideApp
+import com.vadym.adv.myhomepet.domain.Owner
 import com.vadym.adv.myhomepet.toAndroidVisibility
 import com.vadym.adv.myhomepet.ui.pet.PetModel
 import com.vadym.adv.myhomepet.ui.settings.SettingsView
@@ -20,7 +21,9 @@ import kotlinx.android.synthetic.main.item_main_card_list.view.*
 
 class MainAdapter(private val context: Context,
                   options: FirestoreRecyclerOptions<PetModel>,
-                  private val onClickItemMoreInformation: (DocumentSnapshot, PetModel) -> Unit) : FirestoreRecyclerAdapter<PetModel, MainAdapter.VH>(options) {
+                  private val onClickItemMoreInformation: (DocumentSnapshot, PetModel, Owner) -> Unit) : FirestoreRecyclerAdapter<PetModel, MainAdapter.VH>(options) {
+
+    private lateinit var owner: Owner
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = VH(
             LayoutInflater.from(parent.context).inflate(R.layout.item_main_card_list, parent, false)
@@ -47,11 +50,12 @@ class MainAdapter(private val context: Context,
                         .circleCrop()
                         .into(itemView.main_img_pet)
             }
-            itemView.button_more.setOnClickListener { onClickItemMoreInformation(snapshots.getSnapshot(position), model) }
+            itemView.button_more.setOnClickListener { onClickItemMoreInformation(snapshots.getSnapshot(position), model, owner) }
 
             FirestoreUtils.currentUserDocRef.addSnapshotListener { documentSnapshot, _ ->
                 FirestoreUtils.getCurrentUser { owner ->
                     if (documentSnapshot?.exists()!!) {
+                        this@MainAdapter.owner = owner
                         itemView.owner_country.text = documentSnapshot.getString(SettingsView.CITY_KEY)
                         itemView.owner_name.text = documentSnapshot.getString(SettingsView.NAME_KEY)
                         itemView.owner_email.text = documentSnapshot.getString(SettingsView.EMAIL_KEY)
