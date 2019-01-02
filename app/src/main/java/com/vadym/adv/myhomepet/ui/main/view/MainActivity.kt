@@ -25,7 +25,7 @@ class MainActivity : BaseActivity() {
         super.setContentView(R.layout.view_main_card_list)
         presenter = MainPresenter(this, application)
 
-        val sortByTime = petCollection.orderBy("action", Query.Direction.DESCENDING)
+        val sortByTime = petCollection.orderBy("currentDate", Query.Direction.DESCENDING)
         val options = FirestoreRecyclerOptions.Builder<PetModel>()
                 .setQuery(sortByTime, PetModel::class.java)
                 .build()

@@ -18,6 +18,8 @@ import com.vadym.adv.myhomepet.ui.pet.presenter.EditPetPresenter
 import kotlinx.android.synthetic.main.view_my_pet_card_edit.*
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -31,6 +33,7 @@ class EditPetView : BaseActivity(), IEditPetView {
     private lateinit var editPetPhoto: ByteArray
     private var petImagePath: String = ""
     private var isPetPhotoChanged = false
+    private val sdf = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
 
 
     @SuppressLint("RestrictedApi")
@@ -157,6 +160,7 @@ class EditPetView : BaseActivity(), IEditPetView {
                                 inventory: String) {
 
         database.add(PetModel(
+                currentDate = sdf.format(Date()),
                 pid = database.document().id,
                 category = category,
                 action = action,

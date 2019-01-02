@@ -1,6 +1,7 @@
 package com.vadym.adv.myhomepet.ui.pet
 
 class PetModel {
+    var currentDate: String? = null
     var pid: String? = null
     var petPhoto: String? = null
     var petName: String? = null
@@ -16,7 +17,8 @@ class PetModel {
     var description: String? = null
     var inventory: String? = null
 
-    constructor(pid: String?, category: String?, action: String?, isPeriodSelection: Boolean, period: String?, periodFrom: String?, periodTo: String?, petName: String?, breed: String?, petAge: Int, vaccine: Boolean, description: String?, inventory: String?, pet_photo: String) {
+    constructor(currentDate: String, pid: String?, category: String?, action: String?, isPeriodSelection: Boolean, period: String?, periodFrom: String?, periodTo: String?, petName: String?, breed: String?, petAge: Int, vaccine: Boolean, description: String?, inventory: String?, pet_photo: String) {
+        this.currentDate = currentDate
         this.pid = pid
         this.category = category
         this.action = action

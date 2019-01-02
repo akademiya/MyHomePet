@@ -45,7 +45,7 @@ class PetView : BaseActivity(), IPetView {
 
         fab.setOnClickListener { presenter.goToAddNewPosition() }
 
-        val sortByTime = petCollection.orderBy("action", Query.Direction.DESCENDING)
+        val sortByTime = petCollection.orderBy("currentDate", Query.Direction.DESCENDING)
         val options = FirestoreRecyclerOptions.Builder<PetModel>()
                 .setQuery(sortByTime, PetModel::class.java)
                 .build()
