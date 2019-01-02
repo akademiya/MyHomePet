@@ -2,6 +2,7 @@ package com.vadym.adv.myhomepet.ui.main.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import com.vadym.adv.myhomepet.BaseActivity
 import com.vadym.adv.myhomepet.ImageUtils
 import com.vadym.adv.myhomepet.R
@@ -24,7 +25,7 @@ class CardInfoView : BaseActivity(), ICardInfoView {
         val intent = intent
         val category = intent.getStringExtra("petCategory")
         val action = intent.getStringExtra("action")
-        val isSelectedPeriod = true // TODO intent.getStringExtra("isSelectedPeriod")
+        val isSelectedPeriod = intent.getBooleanExtra("isSelectedPeriod", false)
         val period = intent.getStringExtra("period")
         val periodFrom = intent.getStringExtra("periodFrom")
         val periodTo = intent.getStringExtra("periodTo")
@@ -57,7 +58,10 @@ class CardInfoView : BaseActivity(), ICardInfoView {
                     .load(ImageUtils.pathToReference(photo))
                     .centerCrop()
                     .into(photo_pet)
-        }
+        } else photo_pet.visibility = View.GONE
+
+        container_info_description.visibility = (!description.isBlank()).toAndroidVisibility()
+        container_info_inventory.visibility = (!inventory.isBlank()).toAndroidVisibility()
     }
 
     override fun onStartMessageWithOwner(intent: Intent) {

@@ -64,7 +64,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginTop="@dimen/parent_margin_edge"
-                    android:layout_marginBottom="@dimen/space_24"
+                    android:layout_marginBottom="@dimen/space_8"
                     android:scaleType="centerCrop"
                     tools:src="@drawable/kisa2" />
 
@@ -72,6 +72,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/parent_margin_edge"
                     android:layout_marginBottom="@dimen/space_12">
 
                     <TextView
@@ -141,6 +142,7 @@
                                 android:id="@+id/iv_day_from"
                                 style="@style/CalendarButton"
                                 android:layout_below="@+id/from"
+                                android:clickable="false"
                                 android:src="@drawable/ic_day_from" />
 
                             <TextView
@@ -172,6 +174,7 @@
                                 android:id="@+id/iv_day_to"
                                 style="@style/CalendarButton"
                                 android:layout_below="@+id/to"
+                                android:clickable="false"
                                 android:src="@drawable/ic_day_to" />
 
                             <TextView
@@ -268,6 +271,7 @@
 
                 <!--Описание-->
                 <LinearLayout
+                    android:id="@+id/container_info_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/space_12"
@@ -285,6 +289,7 @@
 
                 <!--FURNITURE-->
                 <LinearLayout
+                    android:id="@+id/container_info_inventory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/parent_margin_edge"
