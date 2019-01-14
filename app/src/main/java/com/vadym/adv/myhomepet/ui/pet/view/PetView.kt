@@ -52,7 +52,24 @@ class PetView : BaseActivity(), IPetView {
 
         list_my_pets.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
         list_my_pets.setHasFixedSize(true)
-        adapter = PetAdapter(this, options) //{ presenter.onEditCardItem(petModel = petCollection.id, 0) }
+        adapter = PetAdapter(this, options) { model ->
+            val intent = Intent(this, EditPetView::class.java)
+            intent.putExtra("model", model.pid)
+            intent.putExtra("petCategory", model.category)
+            intent.putExtra("action", model.action)
+            intent.putExtra("isSelectedPeriod", model.isPeriodSelection)
+            intent.putExtra("period", model.period)
+            intent.putExtra("periodFrom", model.periodFrom)
+            intent.putExtra("periodTo", model.periodTo)
+            intent.putExtra("petName", model.petName)
+            intent.putExtra("breed", model.breed)
+            intent.putExtra("age", model.petAge.toString())
+            intent.putExtra("vaccine", model.vaccine.toString())
+            intent.putExtra("description", model.description)
+            intent.putExtra("inventory", model.inventory)
+            intent.putExtra("photo", model.petPhoto)
+            startActivity(intent)
+        }
         list_my_pets.adapter = adapter
 
 //        if (petCollection.isNotEmpty) { FIXME
@@ -63,6 +80,11 @@ class PetView : BaseActivity(), IPetView {
 //        FirestoreUtils.currentPetDocRef.addSnapshotListener { documentSnapshot, _ -> //FIXME: currentPetDocRef
 //            documentSnapshot?.exists()?.let { presenter.onPetListVisibility(it) }
 //        }
+
+//        petCollection.document().addSnapshotListener { documentSnapshot, _ -> FIXME
+//            documentSnapshot?.exists()?.let { presenter.onPetListVisibility(!it) }
+//        }
+
 
         val swipeHandler = object : SwipeToDeleteCallback(this) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder?, direction: Int) {

@@ -14,7 +14,6 @@ import com.karumi.dexter.listener.single.PermissionListener
 import com.vadym.adv.myhomepet.AndroidApplication
 import com.vadym.adv.myhomepet.BasePresenter
 import com.vadym.adv.myhomepet.FlowActivity
-import com.vadym.adv.myhomepet.ui.pet.PetModel
 import com.vadym.adv.myhomepet.ui.pet.view.EditPetView
 import com.vadym.adv.myhomepet.ui.pet.view.IEditPetView
 
@@ -38,10 +37,7 @@ class EditPetPresenter(editPetView: EditPetView, application: Application) : Bas
     private var actionPosition = 0
     private var isValidateSuccess = true
 
-    override fun onBindView() {
-        view?.setCreateOrEditTitle(false) // TODO param?.id != null
-//        view?.onDeleteItem(param?.id) TODO
-    }
+    override fun onBindView() {}
 
     override fun onUnbindView() {
         isPeriodSelection = false
@@ -95,8 +91,8 @@ class EditPetPresenter(editPetView: EditPetView, application: Application) : Bas
         this.actionPosition = position
         this.action = action
         when(position) {
-            0 -> view?.setPositionContainerVisibility(false)
-            1 -> view?.setPositionContainerVisibility(true).also { isPeriodSelection = true }
+            0 -> view?.setPeriodContainerVisibility(false)
+            1 -> view?.setPeriodContainerVisibility(true).also { isPeriodSelection = true }
         }
     }
     fun updatePeriod(period: String?) { this.period = period ?: "" }

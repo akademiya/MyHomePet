@@ -15,10 +15,10 @@ import com.vadym.adv.myhomepet.toAndroidVisibility
 import com.vadym.adv.myhomepet.ui.settings.SettingsView.Companion.CITY_KEY
 import kotlinx.android.synthetic.main.item_my_pet_card_list.view.*
 
-//private val onClickEditItem: (PetModel, Int) -> Unit
 
 class PetAdapter(private val context: Context,
-                 options: FirestoreRecyclerOptions<PetModel>) : FirestoreRecyclerAdapter<PetModel, PetAdapter.VH>(options) {
+                 options: FirestoreRecyclerOptions<PetModel>,
+                 private val onClickEditItem: (PetModel) -> Unit) : FirestoreRecyclerAdapter<PetModel, PetAdapter.VH>(options) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = VH (
             LayoutInflater.from(parent.context).inflate(R.layout.item_my_pet_card_list, parent, false)
@@ -52,7 +52,7 @@ class PetAdapter(private val context: Context,
                 }
             }
 
-//            itemView.setOnClickListener { onClickEditItem(model, position) }
+            itemView.setOnClickListener { onClickEditItem(model) }
         }
     }
 

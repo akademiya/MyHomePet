@@ -15,7 +15,7 @@ interface IEditPetView {
     fun showInvalidValue(error: InvalidData)
     fun setCreateOrEditTitle(isEdit: Boolean)
     fun setButtonSaveEnabled(enable: Boolean)
-    fun setPositionContainerVisibility(isVisible: Boolean)
+    fun setPeriodContainerVisibility(isVisible: Boolean)
     fun onSuccessValid(category: String,
                        action: String,
                        isPeriodSelection: Boolean,

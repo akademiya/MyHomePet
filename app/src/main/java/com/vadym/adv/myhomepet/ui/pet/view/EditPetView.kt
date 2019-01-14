@@ -19,7 +19,6 @@ import kotlinx.android.synthetic.main.view_my_pet_card_edit.*
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -42,9 +41,15 @@ class EditPetView : BaseActivity(), IEditPetView {
         presenter = EditPetPresenter(this, application)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        val intent = intent
+        val pid = intent.getStringExtra("model")
 
+        if (!pid.isNullOrBlank()) {
+            bindDataToEditItem(intent)
+        }
+
+        setCreateOrEditTitle(!pid.isNullOrBlank())
         button_back.setOnClickListener { presenter.onBackToParent() }
-
         btn_choose_photo.setOnClickListener { presenter.onSelectImageChecked() }
         btn_take_photo.setOnClickListener { presenter.onTakePhotoChecked(this@EditPetView) } // FIXME: applicationContext.startCaptureCameraImageIntent();
         btn_remove_photo.setOnClickListener { updateImageRepresentation("") }
@@ -100,12 +105,12 @@ class EditPetView : BaseActivity(), IEditPetView {
             presenter.onResetError()
             presenter.updateBreed(it)
         }
-
         pet_age.setSimpleTextWatcher {
             presenter.onResetError()
             presenter.updateAge(it)
         }
         rg_vaccine.setOnCheckedChangeListener { _, checkedId ->
+            if (noFires) return@setOnCheckedChangeListener
             when(checkedId) {
                 R.id.rb_vaccine_no -> presenter.onVaccineChange(false)
                 R.id.rb_vaccine_yes -> presenter.onVaccineChange(true)
@@ -139,6 +144,46 @@ class EditPetView : BaseActivity(), IEditPetView {
         noFires = true
         block()
         noFires = false
+    }
+
+    private fun bindDataToEditItem(intent: Intent) {
+        val category = intent.getStringExtra("petCategory")
+        val action = intent.getStringExtra("action")
+        val isSelectedPeriod = intent.getBooleanExtra("isSelectedPeriod", false)
+        val period = intent.getStringExtra("period")
+        val periodFrom = intent.getStringExtra("periodFrom")
+        val periodTo = intent.getStringExtra("periodTo")
+        val name = intent.getStringExtra("petName")
+        val breed = intent.getStringExtra("breed")
+        val age = intent.getStringExtra("age")
+        val vaccine = intent.getStringExtra("vaccine")
+        val textDescription = intent.getStringExtra("description")
+        val textInventory = intent.getStringExtra("inventory")
+        val photo = intent.getStringExtra("photo")
+
+        spinner_categories.setSelection(getIndex(spinner_categories, category)) // FIXME
+        spinner_action.setSelection(getIndex(spinner_action, action)) // FIXME
+        presenter.onSpinnerActionSelected(spinner_action.selectedItemPosition, action) // FIXME
+        action_period.setText(period)
+        tv_day_from.text = periodFrom
+        tv_day_to.text = periodTo
+        pet_name.setText(name)
+        pet_breed.setText(breed)
+        pet_age.setText(age)
+        description.setText(textDescription)
+        furniture.setText(textInventory)
+        if (vaccine == "true") { // FIXME
+            rb_vaccine_yes.isChecked
+        } else
+            rb_vaccine_no.isChecked
+
+        photo_pet.visibility = (photo.isNotBlank()).toAndroidVisibility()
+        if (photo.isNotBlank()) {
+            GlideApp.with(this)
+                    .load(ImageUtils.pathToReference(photo))
+                    .centerCrop()
+                    .into(photo_pet)
+        }
     }
 
     override fun setCreateOrEditTitle(isEdit: Boolean) {
@@ -211,7 +256,7 @@ class EditPetView : BaseActivity(), IEditPetView {
         button_save.isEnabled = enable
     }
 
-    override fun setPositionContainerVisibility(isVisible: Boolean) {
+    override fun setPeriodContainerVisibility(isVisible: Boolean) {
         container_period.visibility = isVisible.toAndroidVisibility()
     }
 
