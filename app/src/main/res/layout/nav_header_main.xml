@@ -23,7 +23,7 @@
 
         <TextView
             style="@style/TextStyle_Drawer_Header"
-            android:text="@string/login_slang"
+            android:text="@string/login_slang_drawer"
             android:textAllCaps="true"
             android:textSize="@dimen/drawer_app_name_size" />
     </LinearLayout>

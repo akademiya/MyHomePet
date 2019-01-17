@@ -54,7 +54,6 @@
         <item name="android:layout_marginStart">@dimen/parent_margin_edge</item>
         <item name="android:layout_marginEnd">@dimen/parent_margin_edge</item>
         <item name="android:ellipsize">end</item>
-        <item name="android:singleLine">true</item>
     </style>
 
     <style name="TextStyle_Caption_Dark" parent="AppTheme">
