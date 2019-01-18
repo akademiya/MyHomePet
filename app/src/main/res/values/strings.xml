@@ -70,8 +70,8 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="description">Description</string>
-    <string name="furniture">Furniture</string>
-    <string name="furniture_description">Furniture description</string>
+    <string name="furniture">Inventory</string>
+    <string name="furniture_description">Inventory description</string>
     <string name="owner">Owner</string>
     <string name="message">Write message</string>
     <string name="edit_item">Edit item</string>

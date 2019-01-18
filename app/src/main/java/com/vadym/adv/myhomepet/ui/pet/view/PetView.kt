@@ -111,11 +111,6 @@ class PetView : BaseActivity(), IPetView {
         super.onDetachedFromWindow()
     }
 
-    override fun onEditCardPet(param: Int?) {
-        val intent = Intent(this, EditPetView::class.java)
-        startActivity(intent.putExtra(EditPetView.ID_CARD, param))
-    }
-
     override fun showListPets(isVisible: Boolean) {
         list_my_pets.visibility = isVisible.toAndroidVisibility()
     }

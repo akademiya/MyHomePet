@@ -54,6 +54,7 @@ class EditPetView : BaseActivity(), IEditPetView {
         btn_choose_photo.setOnClickListener { presenter.onSelectImageChecked() }
         btn_take_photo.setOnClickListener { presenter.onTakePhotoChecked(this@EditPetView) } // FIXME: applicationContext.startCaptureCameraImageIntent();
         btn_remove_photo.setOnClickListener { updateImageRepresentation("") }
+        btn_remove_photo.visibility = (isPetPhotoChanged).toAndroidVisibility()
 
         val spinnerCategoryAdapter = ArrayAdapter.createFromResource(
                 this,
@@ -178,12 +179,12 @@ class EditPetView : BaseActivity(), IEditPetView {
         } else
             rb_vaccine_no.isChecked
 
-        photo_pet.visibility = (photo.isNotBlank()).toAndroidVisibility()
         if (photo.isNotBlank()) {
+            isPetPhotoChanged = true
             GlideApp.with(this)
                     .load(ImageUtils.pathToReference(photo))
                     .centerCrop()
-                    .into(photo_pet)
+                    .into(iv_pet_image)
         }
     }
 
@@ -263,7 +264,7 @@ class EditPetView : BaseActivity(), IEditPetView {
 
     /** START SET IMAGE */
     private fun updateImageRepresentation(src: String) {
-        photo_pet.visibility = View.GONE
+        btn_remove_photo.visibility = View.GONE
             GlideApp.with(baseContext)
                     .load(src)
                     .fallback(resources.getDrawable(R.drawable.ic_nophoto))
@@ -298,7 +299,7 @@ class EditPetView : BaseActivity(), IEditPetView {
                 GlideApp.with(this)
                         .load(editPetPhoto)
                         .centerCrop()
-                        .into(photo_pet)
+                        .into(iv_pet_image)
                 iv_pet_image.setImageBitmap(bitmap)
                 isPetPhotoChanged = true
             } catch (e: IOException) {
@@ -306,7 +307,6 @@ class EditPetView : BaseActivity(), IEditPetView {
                 Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
             }
         } else if (requestCode == CAMERA && resultCode == Activity.RESULT_OK && data != null) {
-            photo_pet.visibility = View.VISIBLE
             val thumbnail = data.extras!!.get("data") as Bitmap
             val bytes = ByteArrayOutputStream()
             thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes)
@@ -314,30 +314,20 @@ class EditPetView : BaseActivity(), IEditPetView {
             GlideApp.with(this)
                     .load(editPetPhoto)
                     .centerCrop()
-                    .into(photo_pet)
+                    .into(iv_pet_image)
             iv_pet_image.setImageBitmap(thumbnail)
+            isPetPhotoChanged = true
         }
-        photo_pet.visibility = View.VISIBLE
         initPetPhoto()
     }
 
     private fun initPetPhoto() {
         if (::editPetPhoto.isInitialized) {
+            btn_remove_photo.visibility = View.VISIBLE
             ImageUtils.uploadPetPhoto(editPetPhoto) { imagePath ->
                 petImagePath = imagePath
             }
         }
     }
 
-
-//    TODO: photo remove button
-//    private fun onRemovePhotoVisibility(visibility: Boolean) {
-//        btn_remove_photo.visibility = visibility.toAndroidVisibility()
-//        if (visibility) btn_remove_photo.clearColorFilter()
-//        else return
-//    }
-
-    companion object {
-        const val ID_CARD = "id_card"
-    }
 }

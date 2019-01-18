@@ -56,7 +56,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!--PET-->
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -73,13 +72,11 @@
 
                     <!--Add photo-->
                     <LinearLayout
-                        android:id="@+id/represent_as_image_container"
+                        android:id="@+id/container_set_image"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/parent_margin_edge"
-                        android:layout_marginBottom="@dimen/parent_margin_edge"
-                        tools:visibility="visible"
-                        android:orientation="horizontal">
+                        android:layout_marginBottom="@dimen/space_24">
 
                         <FrameLayout
                             android:layout_width="wrap_content"
@@ -87,8 +84,8 @@
 
                             <ImageView
                                 android:id="@+id/iv_pet_image"
-                                android:layout_width="140dp"
-                                android:layout_height="140dp"
+                                android:layout_width="105dp"
+                                android:layout_height="105dp"
                                 android:src="@drawable/ic_nophoto" />
 
                             <ImageButton
@@ -96,8 +93,8 @@
                                 style="@style/ButtonCircleWhite"
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
-                                android:layout_marginStart="@dimen/space_4"
-                                android:layout_marginTop="@dimen/space_4"
+                                android:layout_marginStart="-4dp"
+                                android:layout_marginTop="-4dp"
                                 android:saveEnabled="false"
                                 android:src="@drawable/ic_close"
                                 android:tint="@color/ic_normal_dark" />
@@ -128,16 +125,6 @@
                                 android:text="@string/take_photo" />
                         </LinearLayout>
                     </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/photo_pet"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:layout_marginBottom="@dimen/space_24"
-                        android:scaleType="centerCrop"
-                        android:visibility="gone"
-                        tools:src="@drawable/kisa2"
-                        tools:visibility="gone" />
 
                     <!--Категория-->
                     <LinearLayout
@@ -336,7 +323,6 @@
                             android:singleLine="true" />
                     </android.support.design.widget.TextInputLayout>
 
-
                     <!--Порода питомца-->
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/til_pet_breed"
@@ -361,7 +347,6 @@
                             android:paddingBottom="@dimen/space_12"
                             android:singleLine="true" />
                     </android.support.design.widget.TextInputLayout>
-
 
                     <!--Возраст питомца-->
                     <android.support.design.widget.TextInputLayout
@@ -394,7 +379,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/space_24"
                         android:text="@string/age_hint" />
-
 
                     <!--Наличие прививок-->
                     <LinearLayout
@@ -502,34 +486,6 @@
                             android:paddingTop="@dimen/space_8"
                             android:paddingBottom="@dimen/space_12" />
                     </android.support.design.widget.TextInputLayout>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <!--BUTTON MESSAGE-->
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/parent_margin_edge"
-                app:cardElevation="2dp">
-
-                <LinearLayout
-                    android:id="@+id/button_write_message"
-                    style="@style/ButtonFillGreen"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:gravity="center"
-                    android:visibility="gone"
-                    tools:visibility="visible">
-
-                    <Button
-                        android:id="@+id/write_message"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:text="@string/message"
-                        android:textColor="@color/white" />
-
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
