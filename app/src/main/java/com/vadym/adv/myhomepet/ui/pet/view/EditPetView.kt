@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 import com.karumi.dexter.PermissionToken
 import com.vadym.adv.myhomepet.*
 import com.vadym.adv.myhomepet.di.module.GlideApp
@@ -25,7 +26,7 @@ import java.util.*
 class EditPetView : BaseActivity(), IEditPetView {
 
     private lateinit var presenter: EditPetPresenter
-    private var database = FirestoreUtils.currentUserDocRef.collection("PetCollection")
+    private var database = FirestoreUtils.allPetDocRef
     private var noFires = false
     private val CAMERA = 0
     private val GALLERY = 1
@@ -206,7 +207,7 @@ class EditPetView : BaseActivity(), IEditPetView {
 
         database.add(PetModel(
                 currentDate = sdf.format(Date()),
-                pid = database.document().id,
+                pid = FirebaseAuth.getInstance().currentUser?.uid,
                 category = category,
                 action = action,
                 isPeriodSelection = isPeriodSelection,

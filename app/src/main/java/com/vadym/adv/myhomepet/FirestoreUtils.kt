@@ -3,10 +3,8 @@ package com.vadym.adv.myhomepet
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.vadym.adv.myhomepet.domain.Owner
-import com.vadym.adv.myhomepet.ui.pet.PetModel
 import com.vadym.adv.myhomepet.ui.settings.SettingsView.Companion.CITY_KEY
 import com.vadym.adv.myhomepet.ui.settings.SettingsView.Companion.NAME_KEY
 import com.vadym.adv.myhomepet.ui.settings.SettingsView.Companion.PHONE_KEY
@@ -18,43 +16,16 @@ object FirestoreUtils {
         get() = firestoreInstance.document("Owners/${FirebaseAuth.getInstance().uid
                 ?: throw NullPointerException("UID Owner is null")}")
 
+    val allUsersDocReference: DocumentReference
+        get() = firestoreInstance.document("Owners")
+
     val path = currentUserDocRef.collection("PetCollection").document().get()
-//    val path2 = firestoreInstance.document(path)
+
+    val allPetDocRef: CollectionReference
+        get() = firestoreInstance.collection("Pets")
 
     val currentPetDocRef: DocumentReference
-        get() = currentUserDocRef.collection("PetCollection").document(path.toString())
-//                .collection("PetCollection").document().get().addOnCompleteListener(object : OnCompleteListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            DocumentSnapshot document = task.getResult();
-//                            if (document != null) {
-//                                Log.d(TAG, "DocumentSnapshot data: " + task.getResult().getData());
-//                            } else { }
-//                        } else { }
-//                    }
-//                })
-
-
-    //firestoreInstance.document(path)
-
-//        get() = currentUserDocRef
-//                .collection("PetCollection")
-//                .document()
-
-
-    var yourCollRef: CollectionReference = firestoreInstance.collection("PetCollection")
-    var query = yourCollRef.whereEqualTo("PetCollection", "uid").apply {
-        get().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                for (document: DocumentSnapshot in task.result!!) {
-                    document.id
-                    document.data
-                }
-            }
-        }
-    }
-
+        get() = firestoreInstance.document("Pets/${path}")
 
 
     fun initCurrentUserIfFirstTime(onComplete: () -> Unit) {
@@ -73,11 +44,17 @@ object FirestoreUtils {
         }
     }
 
-    fun getCurrentPet(onComplate: (PetModel) -> Unit) {
-        currentPetDocRef.get().addOnSuccessListener {
-            onComplate(it.toObject(PetModel::class.java)!!)
+    fun getAllUsers(onComplate: (Owner) -> Unit) {
+        allUsersDocReference.get().addOnSuccessListener {
+            onComplate(it.toObject(Owner::class.java)!!)
         }
     }
+
+//    fun getCurrentPet(onComplate: (PetModel) -> Unit) {
+//        allPetDocRef.get().addOnSuccessListener {
+//            onComplate(it.toObject(PetModel::class.java)!!)
+//        }
+//    }
 
     fun updateCurrentUser(name: String = "",
                           pin: String = "",

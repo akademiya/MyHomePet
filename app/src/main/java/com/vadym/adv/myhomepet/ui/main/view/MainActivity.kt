@@ -19,7 +19,7 @@ class MainActivity : BaseActivity() {
 
     private lateinit var presenter: MainPresenter
     private lateinit var adapter: MainAdapter
-    private val petCollection = FirestoreUtils.currentUserDocRef.collection("PetCollection")
+    private val petCollection = FirestoreUtils.allPetDocRef
 
     override fun init(savedInstanceState: Bundle?) {
         super.setContentView(R.layout.view_main_card_list)
@@ -30,10 +30,7 @@ class MainActivity : BaseActivity() {
                 .setQuery(sortByTime, PetModel::class.java)
                 .build()
 
-        adapter = MainAdapter(this, options) { documentSnapshot, model, owner ->
-            val petModel = documentSnapshot.toObject(PetModel::class.java)
-            val docId = documentSnapshot.id
-            val path = documentSnapshot.reference.path
+        adapter = MainAdapter(this, options) { model, owner ->
             val intent = Intent(this, CardInfoView::class.java)
             intent.putExtra("model", model.pid)
             intent.putExtra("petCategory", model.category)

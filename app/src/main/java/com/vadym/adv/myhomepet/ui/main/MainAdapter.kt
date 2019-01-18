@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
-import com.google.firebase.firestore.DocumentSnapshot
 import com.vadym.adv.myhomepet.FirestoreUtils
 import com.vadym.adv.myhomepet.ImageUtils
 import com.vadym.adv.myhomepet.R
@@ -21,7 +20,7 @@ import kotlinx.android.synthetic.main.item_main_card_list.view.*
 
 class MainAdapter(private val context: Context,
                   options: FirestoreRecyclerOptions<PetModel>,
-                  private val onClickItemMoreInformation: (DocumentSnapshot, PetModel, Owner) -> Unit) : FirestoreRecyclerAdapter<PetModel, MainAdapter.VH>(options) {
+                  private val onClickItemMoreInformation: (PetModel, Owner) -> Unit) : FirestoreRecyclerAdapter<PetModel, MainAdapter.VH>(options) {
 
     private lateinit var owner: Owner
 
@@ -50,7 +49,7 @@ class MainAdapter(private val context: Context,
                         .circleCrop()
                         .into(itemView.main_img_pet)
             }
-            itemView.button_more.setOnClickListener { onClickItemMoreInformation(snapshots.getSnapshot(position), model, owner) }
+            itemView.button_more.setOnClickListener { onClickItemMoreInformation(model, owner) }
 
             FirestoreUtils.currentUserDocRef.addSnapshotListener { documentSnapshot, _ ->
                 FirestoreUtils.getCurrentUser { owner ->

@@ -8,6 +8,7 @@ import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.View
 import android.widget.LinearLayout
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.Query
 import com.vadym.adv.myhomepet.BaseActivity
 import com.vadym.adv.myhomepet.FirestoreUtils
@@ -23,7 +24,7 @@ class PetView : BaseActivity(), IPetView {
 
     private lateinit var presenter: PetPresenter
     private lateinit var adapter: PetAdapter
-    private val petCollection = FirestoreUtils.currentUserDocRef.collection("PetCollection")
+    private val petCollection = FirestoreUtils.allPetDocRef
 
     override fun init(savedInstanceState: Bundle?) {
         super.setContentView(R.layout.view_my_pet_card_list)
@@ -45,7 +46,13 @@ class PetView : BaseActivity(), IPetView {
 
         fab.setOnClickListener { presenter.goToAddNewPosition() }
 
-        val sortByTime = petCollection.orderBy("currentDate", Query.Direction.DESCENDING)
+        val sortByTime = petCollection
+                .orderBy("currentDate", Query.Direction.DESCENDING)
+                .whereEqualTo("pid",
+                        if ("${FirebaseAuth.getInstance().uid}" == FirebaseAuth.getInstance().currentUser?.uid) {
+                            FirebaseAuth.getInstance().uid
+                        } else null
+                )
         val options = FirestoreRecyclerOptions.Builder<PetModel>()
                 .setQuery(sortByTime, PetModel::class.java)
                 .build()
@@ -77,7 +84,7 @@ class PetView : BaseActivity(), IPetView {
 //            list_my_pets.adapter = adapter
 //        }
 
-//        FirestoreUtils.currentPetDocRef.addSnapshotListener { documentSnapshot, _ -> //FIXME: currentPetDocRef
+//        FirestoreUtils.allPetDocRef.addSnapshotListener { documentSnapshot, _ -> //FIXME: allPetDocRef
 //            documentSnapshot?.exists()?.let { presenter.onPetListVisibility(it) }
 //        }
 
