@@ -10,12 +10,14 @@ import com.google.firebase.firestore.Query
 import com.vadym.adv.myhomepet.BaseActivity
 import com.vadym.adv.myhomepet.FirestoreUtils
 import com.vadym.adv.myhomepet.R
+import com.vadym.adv.myhomepet.toAndroidVisibility
+import com.vadym.adv.myhomepet.ui.main.IMainActivity
 import com.vadym.adv.myhomepet.ui.main.MainAdapter
 import com.vadym.adv.myhomepet.ui.main.presenter.MainPresenter
 import com.vadym.adv.myhomepet.ui.pet.PetModel
 import kotlinx.android.synthetic.main.view_main_card_list.*
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), IMainActivity {
 
     private lateinit var presenter: MainPresenter
     private lateinit var adapter: MainAdapter
@@ -24,6 +26,8 @@ class MainActivity : BaseActivity() {
     override fun init(savedInstanceState: Bundle?) {
         super.setContentView(R.layout.view_main_card_list)
         presenter = MainPresenter(this, application)
+
+        searchQuery.setOnQueryTextFocusChangeListener { _, hasFocus -> presenter.hideTextTitle(hasFocus) }
 
         val sortByTime = petCollection.orderBy("currentDate", Query.Direction.DESCENDING)
         val options = FirestoreRecyclerOptions.Builder<PetModel>()
@@ -54,6 +58,10 @@ class MainActivity : BaseActivity() {
         main_pet_list.adapter = adapter
         list_empty.visibility = View.GONE
 
+    }
+
+    override fun setTitleVisibility(isVisible: Boolean) {
+        title_list_pets.visibility = isVisible.toAndroidVisibility()
     }
 
     override fun onAttachedToWindow() {

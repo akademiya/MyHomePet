@@ -30,8 +30,6 @@ class PetView : BaseActivity(), IPetView {
         super.setContentView(R.layout.view_my_pet_card_list)
         presenter = PetPresenter(this, application)
 
-        searchQuery.setOnQueryTextFocusChangeListener { _, hasFocus -> presenter.hideTextTitle(hasFocus) }
-
         /** Show or hide FAB */
         list_my_pets.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
@@ -116,10 +114,6 @@ class PetView : BaseActivity(), IPetView {
     override fun onEditCardPet(param: Int?) {
         val intent = Intent(this, EditPetView::class.java)
         startActivity(intent.putExtra(EditPetView.ID_CARD, param))
-    }
-
-    override fun setTitleVisibility(isVisible: Boolean) {
-        title_list_pets.visibility = isVisible.toAndroidVisibility()
     }
 
     override fun showListPets(isVisible: Boolean) {

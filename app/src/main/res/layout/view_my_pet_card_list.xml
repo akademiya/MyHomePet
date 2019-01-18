@@ -9,32 +9,12 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         style="@style/Toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        android:padding="0dp"
         app:contentInsetEnd="0dp"
         app:contentInsetStart="0dp">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/title_list_pets"
-                style="@style/Toolbar.TitleText"
-                android:text="@string/my_pets" />
-
-            <android.support.v7.widget.SearchView
-                android:id="@+id/searchQuery"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                app:closeIcon="@drawable/ic_close"
-                app:queryHint="Search"
-                app:searchIcon="@drawable/ic_search_white" />
-        </RelativeLayout>
-
+        <TextView
+            style="@style/Toolbar.TitleText"
+            android:text="@string/my_pets" />
     </android.support.v7.widget.Toolbar>
 
     <FrameLayout

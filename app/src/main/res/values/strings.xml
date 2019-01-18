@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">LovelyHomeAnimals</string>
-
+    <string name="app_name">Lovely Home Animals</string>
     <string name="my_pets">My pets</string>
 
     // LOGIN vs REGISTRATION

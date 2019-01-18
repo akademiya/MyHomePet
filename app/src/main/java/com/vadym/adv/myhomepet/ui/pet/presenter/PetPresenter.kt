@@ -15,9 +15,7 @@ class PetPresenter(petView: PetView, applicationComponent: Application) : BasePr
 
     override fun onUnbindView() {}
 
-    fun hideTextTitle(hasFocus: Boolean) {
-        view?.setTitleVisibility(!hasFocus)
-    }
+
 
     fun goToAddNewPosition() { view?.onCreateCardPet() }
 

@@ -12,7 +12,9 @@ class MainPresenter(mainView: MainActivity, applicationComponent: Application): 
 
     }
 
-    override fun onUnbindView() {
+    override fun onUnbindView() {}
 
+    fun hideTextTitle(hasFocus: Boolean) {
+        view?.setTitleVisibility(!hasFocus)
     }
 }
