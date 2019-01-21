@@ -20,6 +20,7 @@ import com.vadym.adv.myhomepet.ui.pet.SwipeToDeleteCallback
 import com.vadym.adv.myhomepet.ui.pet.presenter.PetPresenter
 import kotlinx.android.synthetic.main.view_my_pet_card_list.*
 
+
 class PetView : BaseActivity(), IPetView {
 
     private lateinit var presenter: PetPresenter
@@ -77,23 +78,17 @@ class PetView : BaseActivity(), IPetView {
         }
         list_my_pets.adapter = adapter
 
-//        if (petCollection.isNotEmpty) { FIXME
-//            adapter = PetAdapter(this, owner, options)
-//            list_my_pets.adapter = adapter
-//        }
-
-//        FirestoreUtils.allPetDocRef.addSnapshotListener { documentSnapshot, _ -> //FIXME: allPetDocRef
-//            documentSnapshot?.exists()?.let { presenter.onPetListVisibility(it) }
-//        }
-
-//        petCollection.document().addSnapshotListener { documentSnapshot, _ -> FIXME
-//            documentSnapshot?.exists()?.let { presenter.onPetListVisibility(!it) }
-//        }
+        /** Empty list */
+        petCollection.whereEqualTo("pid", FirebaseAuth.getInstance().uid).get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                presenter.onPetListVisibility(task.result!!.size() > 0)
+            }
+        }
 
 
         val swipeHandler = object : SwipeToDeleteCallback(this) {
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder?, direction: Int) {
-                viewHolder?.adapterPosition?.let { adapter.removeItem(it) }
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                adapter.removeItem(viewHolder.adapterPosition)
             }
         }
 

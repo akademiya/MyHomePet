@@ -52,7 +52,7 @@ abstract class SwipeToDeleteCallback(context: Context) : ItemTouchHelper.SimpleC
         super.onChildDraw(canvas, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
     }
 
-    private fun clearCanvas(c: Canvas?, left: Float, top: Float, right: Float, bottom: Float) {
-        c?.drawRect(left, top, right, bottom, clearPaint)
+    private fun clearCanvas(canvas: Canvas, left: Float, top: Float, right: Float, bottom: Float) {
+        canvas.drawRect(left, top, right, bottom, clearPaint)
     }
 }

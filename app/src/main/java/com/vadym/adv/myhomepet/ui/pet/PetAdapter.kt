@@ -1,5 +1,6 @@
 package com.vadym.adv.myhomepet.ui.pet
 
+import android.app.Activity
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -58,6 +59,8 @@ class PetAdapter(private val context: Context,
 
     fun removeItem(position: Int) {
         snapshots.getSnapshot(position).reference.delete()
+        (context as Activity).finish()
+        context.startActivity(context.intent)
     }
 
     class VH(view: View?) : RecyclerView.ViewHolder(view)
