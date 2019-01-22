@@ -4,6 +4,7 @@ import android.app.ProgressDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Bundle
@@ -91,6 +92,14 @@ abstract class BaseActivity : AppCompatActivity(), IView, NavigationView.OnNavig
             R.id.nav_main -> startActivity(Intent(this, MainActivity::class.java))
             R.id.nav_my_pet -> startActivity(Intent(this, PetView::class.java))
             R.id.nav_settings -> startActivity(Intent(this, SettingsView::class.java))
+            R.id.nav_facebook -> {
+                val isAppInstalled: Boolean = doesAppInstalled("com.facebook.katana")
+                if (isAppInstalled) {
+                    startActivity(packageManager.getLaunchIntentForPackage("com.facebook.katana"))
+                } else {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/LovelyHomeAnimals")))
+                }
+            }
             R.id.nav_share -> {
                 val sharingIntent = Intent(Intent.ACTION_SEND)
                 val shareBody = getString(R.string.share_body)
@@ -115,6 +124,16 @@ abstract class BaseActivity : AppCompatActivity(), IView, NavigationView.OnNavig
         drawer = findViewById<View>(R.id.drawer_layout) as DrawerLayout
         drawer.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun doesAppInstalled(uri: String) : Boolean {
+        val pm: PackageManager = packageManager
+        return try {
+            pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES)
+            true
+        } catch (e: PackageManager.NameNotFoundException) {
+            false
+        }
     }
 
     fun setNavigationItemClicked(position: Int) {
